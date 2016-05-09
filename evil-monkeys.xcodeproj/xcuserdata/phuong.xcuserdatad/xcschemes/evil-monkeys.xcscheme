@@ -5,6 +5,22 @@
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
+      <BuildActionEntries>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "645630951CE0ECB100CBB607"
+               BuildableName = "evil-monkeys"
+               BlueprintName = "evil-monkeys"
+               ReferencedContainer = "container:evil-monkeys.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+      </BuildActionEntries>
    </BuildAction>
    <TestAction
       buildConfiguration = "Debug"
@@ -13,6 +29,15 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "645630951CE0ECB100CBB607"
+            BuildableName = "evil-monkeys"
+            BlueprintName = "evil-monkeys"
+            ReferencedContainer = "container:evil-monkeys.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -20,12 +45,40 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      launchStyle = "0"
+      launchStyle = "1"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
+      <PreActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "osascript -e &apos;tell application &quot;Terminal&quot;&apos; -e &apos;delay 0.5&apos; -e &quot;set currentTab to do script (\&quot;/Users/phuong/Library/Developer/Xcode/DerivedData/evil-monkeys-atjhnysevxcxzechmmjfgwcolyak/Build/Products/Debug/evil-monkeys --debug-in-terminal\&quot;)&quot; -e &apos;end tell&apos; &amp;">
+            </ActionContent>
+         </ExecutionAction>
+      </PreActions>
+      <PostActions>
+         <ExecutionAction
+            ActionType = "Xcode.IDEStandardExecutionActionsCore.ExecutionActionType.ShellScriptAction">
+            <ActionContent
+               title = "Run Script"
+               scriptText = "osascript -e &apos;activate application &quot;Terminal&quot;&apos; -e &apos;delay 0.5&apos; -e &apos;tell application &quot;System Events&quot;&apos; -e &apos;tell process &quot;Terminal&quot;&apos; -e &apos;keystroke &quot;w&quot; using {command down}&apos; -e &apos;end tell&apos; -e &apos;end tell&apos;">
+            </ActionContent>
+         </ExecutionAction>
+      </PostActions>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "645630951CE0ECB100CBB607"
+            BuildableName = "evil-monkeys"
+            BlueprintName = "evil-monkeys"
+            ReferencedContainer = "container:evil-monkeys.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -35,6 +88,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "645630951CE0ECB100CBB607"
+            BuildableName = "evil-monkeys"
+            BlueprintName = "evil-monkeys"
+            ReferencedContainer = "container:evil-monkeys.xcodeproj">
+         </BuildableReference>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

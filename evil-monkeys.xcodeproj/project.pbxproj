@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6456309A1CE0ECB100CBB607 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630991CE0ECB100CBB607 /* main.cpp */; };
+		645630A11CE0ED0100CBB607 /* libncurses.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 645630A01CE0ED0100CBB607 /* libncurses.tbd */; };
+		645630AC1CE0F0D200CBB607 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630AA1CE0F0D200CBB607 /* game.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +27,9 @@
 /* Begin PBXFileReference section */
 		645630961CE0ECB100CBB607 /* evil-monkeys */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "evil-monkeys"; sourceTree = BUILT_PRODUCTS_DIR; };
 		645630991CE0ECB100CBB607 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		645630A01CE0ED0100CBB607 /* libncurses.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libncurses.tbd; path = usr/lib/libncurses.tbd; sourceTree = SDKROOT; };
+		645630AA1CE0F0D200CBB607 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game.cpp; path = "evil-monkeys/game.cpp"; sourceTree = "<group>"; };
+		645630AB1CE0F0D200CBB607 /* game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = game.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +37,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				645630A11CE0ED0100CBB607 /* libncurses.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +47,7 @@
 		6456308D1CE0ECB100CBB607 = {
 			isa = PBXGroup;
 			children = (
+				645630A01CE0ED0100CBB607 /* libncurses.tbd */,
 				645630981CE0ECB100CBB607 /* evil-monkeys */,
 				645630971CE0ECB100CBB607 /* Products */,
 			);
@@ -57,9 +64,28 @@
 		645630981CE0ECB100CBB607 /* evil-monkeys */ = {
 			isa = PBXGroup;
 			children = (
+				645630A61CE0F03300CBB607 /* header */,
+				645630A51CE0EFD700CBB607 /* source */,
 				645630991CE0ECB100CBB607 /* main.cpp */,
 			);
 			path = "evil-monkeys";
+			sourceTree = "<group>";
+		};
+		645630A51CE0EFD700CBB607 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				645630AA1CE0F0D200CBB607 /* game.cpp */,
+			);
+			name = source;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		645630A61CE0F03300CBB607 /* header */ = {
+			isa = PBXGroup;
+			children = (
+				645630AB1CE0F0D200CBB607 /* game.hpp */,
+			);
+			name = header;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -119,6 +145,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6456309A1CE0ECB100CBB607 /* main.cpp in Sources */,
+				645630AC1CE0F0D200CBB607 /* game.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
