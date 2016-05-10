@@ -12,20 +12,14 @@
 
 DrawEngine::DrawEngine(int screenW, int screenH)
 {
-//    WINDOW* win = initscr();
-    
     screenWidth = screenW;
     screenHeight = screenH;
     cursorVisibility(false);
-
 }
 
 DrawEngine::~DrawEngine()
 {
     cursorVisibility(true);
-    
-//    endwin();
-//    delwin(win);
 }
 
 int DrawEngine::createSprite(int figureIndex, char img)
