@@ -51,15 +51,6 @@ DrawEngine::DrawEngine(int screenW, int screenH)
         draw_borders(score);
     }
     
-//    // draw to our windows
-//    mvwprintw(field, 1, 1, "Field");
-//    mvwprintw(score, 1, 1, "Score");
-//    
-//    // refresh each window
-//    wrefresh(field);
-//    wrefresh(score);
-    
-    
     screenWidth = screenW;
     screenHeight = screenH;
     
@@ -124,7 +115,6 @@ bool DrawEngine::eraseSprite(int xpos, int ypos)
 {
     gotoxy(xpos, ypos);
     waddch(field, ' ');
-//    refresh();
     
     return true;
 }
@@ -133,7 +123,6 @@ bool DrawEngine::drawSprite(int figureIndex, int xpos, int ypos)
 {
     gotoxy(xpos, ypos);
     waddch(field, spriteImages[figureIndex]);
-//    wrefresh(score);
     
     return true;
 }
@@ -141,7 +130,7 @@ bool DrawEngine::drawSprite(int figureIndex, int xpos, int ypos)
 bool DrawEngine::gotoxy(int xpos, int ypos)
 {
     wmove(field, ++ypos, ++xpos);
-//    wrefresh(score);
+
     return true;
 }
 

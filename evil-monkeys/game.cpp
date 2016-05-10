@@ -11,10 +11,7 @@
 #include <sys/time.h>
 #include <ncurses.h>
 
-
 #define GAME_SPEED 50
-
-//void draw_borders(WINDOW *screen);
 
 int kbhit(void);
 bool getKeyInput(char&);
@@ -29,13 +26,7 @@ void Game::run()
     
     nodelay(stdscr, TRUE);
     
-    
-    
-
-    
     while (key != 'q') {
-        
-        
         
         while (!getKeyInput(key)) {
             
@@ -47,51 +38,6 @@ void Game::run()
     }
 
     delete player;
-    
-//    while(1) {
-//        getmaxyx(stdscr, new_y, new_x);
-//        
-//        if (new_y != parent_y || new_x != parent_x) {
-//            parent_x = new_x;
-//            parent_y = new_y;
-//            
-//            wresize(field, new_y - score_size, new_x);
-//            wresize(score, score_size, new_x);
-//            mvwin(score, new_y - score_size, 0);
-//            
-//            wclear(stdscr);
-//            wclear(field);
-//            wclear(score);
-//            
-//            draw_borders(field);
-//            draw_borders(score);
-//        }
-//        
-//        // draw to our windows
-//        mvwprintw(field, 1, 1, "Field");
-//        mvwprintw(score, 1, 1, "Score");
-//        
-//        // refresh each window
-//        wrefresh(field);
-//        wrefresh(score);
-//    }
-
-    
-//    int ch;
-//    nodelay(stdscr, TRUE);
-//    for (;;) {
-//        if ((ch = getch()) == ERR) {
-//            /* user hasn't responded
-//             ...
-//             */
-//        }
-//        else {
-//            /* user has pressed a key ch
-//             ...
-//             */
-//        }
-//    }
-
     
 }
 
