@@ -6,7 +6,7 @@
 //  Copyright © 2016 badila. All rights reserved.
 //
 #include "game.hpp"
-#include "sprite.hpp"
+#include "character.hpp"
 
 #include <sys/time.h>
 #include <ncurses.h>
@@ -14,15 +14,15 @@
 #define GAME_SPEED 50
 
 int kbhit(void);
-bool getKeyInput(char&);
+bool getKeyInput(int&);
 
 void Game::run()
 {
     drawArea.createSprite(0, '*');
-    player = new Sprite(&drawArea, 0);
+    player = new Character(&drawArea, 0);
     
     double lastTime = 0;
-    char key = ' ';
+    int key = ' ';
     
     nodelay(stdscr, TRUE);
     
@@ -35,6 +35,7 @@ void Game::run()
             this->timerUpdate(lastTime);
         }
         // pass the pressed key to the level
+        player->keyPress(key);
     }
 
     delete player;
@@ -54,7 +55,7 @@ void Game::timerUpdate(double & lastTime)
     
     // level update automatically
     
-    player->move(1, 0);
+//    player->move(1, 0);
 //    drawArea.drawSprite(0, ++i, 1);
     
     gettimeofday(tv, 0);
@@ -62,7 +63,7 @@ void Game::timerUpdate(double & lastTime)
 }
 
 
-bool getKeyInput(char & key)
+bool getKeyInput(int & key)
 {
     if (kbhit()) {
         key = getch();

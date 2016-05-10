@@ -14,6 +14,7 @@
 enum
 {
     SPRITE_CLASSID,
+    CHARACTER_CLASSID,
 };
 
 struct vector
@@ -46,8 +47,9 @@ protected:
     int spriteIndex;
     int numLives;
     
-private:
     int classID;
+    
+private:    
     
     vector facingDirection;
     

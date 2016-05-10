@@ -12,6 +12,7 @@
 		645630AC1CE0F0D200CBB607 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630AA1CE0F0D200CBB607 /* game.cpp */; };
 		645630AF1CE0F72700CBB607 /* sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630AD1CE0F72700CBB607 /* sprite.cpp */; };
 		645630B21CE23FAB00CBB607 /* drawEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630B01CE23FAB00CBB607 /* drawEngine.cpp */; };
+		645630B71CE2797C00CBB607 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630B51CE2797C00CBB607 /* character.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -36,6 +37,8 @@
 		645630AE1CE0F72700CBB607 /* sprite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sprite.hpp; sourceTree = "<group>"; };
 		645630B01CE23FAB00CBB607 /* drawEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drawEngine.cpp; path = "evil-monkeys/drawEngine.cpp"; sourceTree = "<group>"; };
 		645630B11CE23FAB00CBB607 /* drawEngine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drawEngine.hpp; sourceTree = "<group>"; };
+		645630B51CE2797C00CBB607 /* character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character.cpp; path = "evil-monkeys/character.cpp"; sourceTree = "<group>"; };
+		645630B61CE2797C00CBB607 /* character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = character.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +83,7 @@
 		645630A51CE0EFD700CBB607 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				645630B51CE2797C00CBB607 /* character.cpp */,
 				645630B01CE23FAB00CBB607 /* drawEngine.cpp */,
 				645630AD1CE0F72700CBB607 /* sprite.cpp */,
 				645630AA1CE0F0D200CBB607 /* game.cpp */,
@@ -92,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				645630B11CE23FAB00CBB607 /* drawEngine.hpp */,
+				645630B61CE2797C00CBB607 /* character.hpp */,
 				645630AB1CE0F0D200CBB607 /* game.hpp */,
 				645630AE1CE0F72700CBB607 /* sprite.hpp */,
 			);
@@ -154,6 +159,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				645630B71CE2797C00CBB607 /* character.cpp in Sources */,
 				6456309A1CE0ECB100CBB607 /* main.cpp in Sources */,
 				645630AC1CE0F0D200CBB607 /* game.cpp in Sources */,
 				645630AF1CE0F72700CBB607 /* sprite.cpp in Sources */,
