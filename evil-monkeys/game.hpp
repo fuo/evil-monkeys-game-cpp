@@ -9,13 +9,13 @@
 #ifndef game_hpp
 #define game_hpp
 
-#include <ncurses.h>
+#include "drawEngine.hpp"
 
 class Game
 {
 public:
-    Game(void);
-    ~Game(void);
+    Game(){}
+    ~Game(){}
     
     void run(void);
     
@@ -23,6 +23,8 @@ protected:
     void timerUpdate(double & lastTime);
     
 private:
+    DrawEngine drawArea;
+//    Level level;
     
 };
 

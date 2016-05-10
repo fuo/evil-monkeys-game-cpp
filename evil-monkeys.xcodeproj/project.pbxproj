@@ -10,6 +10,8 @@
 		6456309A1CE0ECB100CBB607 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630991CE0ECB100CBB607 /* main.cpp */; };
 		645630A11CE0ED0100CBB607 /* libncurses.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 645630A01CE0ED0100CBB607 /* libncurses.tbd */; };
 		645630AC1CE0F0D200CBB607 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630AA1CE0F0D200CBB607 /* game.cpp */; };
+		645630AF1CE0F72700CBB607 /* sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630AD1CE0F72700CBB607 /* sprite.cpp */; };
+		645630B21CE23FAB00CBB607 /* drawEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630B01CE23FAB00CBB607 /* drawEngine.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -30,6 +32,10 @@
 		645630A01CE0ED0100CBB607 /* libncurses.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libncurses.tbd; path = usr/lib/libncurses.tbd; sourceTree = SDKROOT; };
 		645630AA1CE0F0D200CBB607 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game.cpp; path = "evil-monkeys/game.cpp"; sourceTree = "<group>"; };
 		645630AB1CE0F0D200CBB607 /* game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = game.hpp; sourceTree = "<group>"; };
+		645630AD1CE0F72700CBB607 /* sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sprite.cpp; path = "evil-monkeys/sprite.cpp"; sourceTree = "<group>"; };
+		645630AE1CE0F72700CBB607 /* sprite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sprite.hpp; sourceTree = "<group>"; };
+		645630B01CE23FAB00CBB607 /* drawEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drawEngine.cpp; path = "evil-monkeys/drawEngine.cpp"; sourceTree = "<group>"; };
+		645630B11CE23FAB00CBB607 /* drawEngine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drawEngine.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +80,8 @@
 		645630A51CE0EFD700CBB607 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				645630B01CE23FAB00CBB607 /* drawEngine.cpp */,
+				645630AD1CE0F72700CBB607 /* sprite.cpp */,
 				645630AA1CE0F0D200CBB607 /* game.cpp */,
 			);
 			name = source;
@@ -83,7 +91,9 @@
 		645630A61CE0F03300CBB607 /* header */ = {
 			isa = PBXGroup;
 			children = (
+				645630B11CE23FAB00CBB607 /* drawEngine.hpp */,
 				645630AB1CE0F0D200CBB607 /* game.hpp */,
+				645630AE1CE0F72700CBB607 /* sprite.hpp */,
 			);
 			name = header;
 			sourceTree = "<group>";
@@ -146,6 +156,8 @@
 			files = (
 				6456309A1CE0ECB100CBB607 /* main.cpp in Sources */,
 				645630AC1CE0F0D200CBB607 /* game.cpp in Sources */,
+				645630AF1CE0F72700CBB607 /* sprite.cpp in Sources */,
+				645630B21CE23FAB00CBB607 /* drawEngine.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
