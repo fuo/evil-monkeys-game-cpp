@@ -108,15 +108,15 @@ int main(int argc, const char * argv[]) {
 
     isTermAvail = (term != NULL);
     
-    if (isTermAvail){
-        isTermAvail = (initscr() != NULL);
-        cbreak();			/* Line buffering disabled, Pass on
-                             * everty thing to me 		*/
-        keypad(stdscr, TRUE);		/* I need that nifty F1 	*/
-        noecho();
-        scrollok(stdscr, TRUE);
-        
-    }
+//    if (isTermAvail){
+//        isTermAvail = (initscr() != NULL);
+//        cbreak();			/* Line buffering disabled, Pass on
+//                             * everty thing to me 		*/
+//        keypad(stdscr, TRUE);		/* I need that nifty F1 	*/
+//        noecho();
+//        scrollok(stdscr, TRUE);
+//        
+//    }
 
 //=========================================================
     

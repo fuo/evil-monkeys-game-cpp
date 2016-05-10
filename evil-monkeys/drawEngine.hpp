@@ -9,6 +9,8 @@
 #ifndef drawEngine_hpp
 #define drawEngine_hpp
 
+#include <ncurses.h>
+
 class DrawEngine
 {
 public:
@@ -21,6 +23,8 @@ public:
     bool eraseSprite(int xpos, int ypos);
     bool drawSprite(int figureIndex, int xpos, int ypos);
     
+    void setup(void);
+    
 protected:
     int screenWidth, screenHeight;
     
@@ -29,6 +33,10 @@ protected:
 private:
     bool gotoxy(int xpos, int ypos);
     bool cursorVisibility(bool visibility);
+    void draw_borders(WINDOW*);
+    
+    WINDOW *field;
+    WINDOW *score;
     
 };
 
