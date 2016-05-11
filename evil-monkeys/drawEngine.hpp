@@ -14,7 +14,7 @@
 class DrawEngine
 {
 public:
-    DrawEngine(int screenW = 600, int screenH = 400);
+    DrawEngine();
     ~DrawEngine();
     
     int createSprite(int figureIndex, char img);
@@ -23,12 +23,23 @@ public:
     bool eraseSprite(int xpos, int ypos);
     bool drawSprite(int figureIndex, int xpos, int ypos);
     
+    void printScore(int xpos, int ypos, const char*);
+    
+    // to the Level
+    void createBackgroundTile(int tileIndex, char img);
+    void setMap(char** grid, int xSize, int ySize);
+    void drawBackground(void);
+    
     void setup(void);
     
 protected:
-    int screenWidth, screenHeight;
+    
+    char** map;
+    
+    int screenWidth, screenHeight, score_size;
     
     char spriteImages[16];
+    char tileImages[16];
     
 private:
     bool gotoxy(int xpos, int ypos);

@@ -11,10 +11,13 @@
 
 #include "drawEngine.hpp"
 
+class Level;
+
 enum
 {
     SPRITE_CLASSID,
     CHARACTER_CLASSID,
+    ENEMY_CLASSID,
 };
 
 struct vector
@@ -26,7 +29,7 @@ struct vector
 class Sprite
 {
 public:
-    Sprite(DrawEngine* de, int s_index, float xpos = 1, float ypos = 1, int i_lives = 1);
+    Sprite(Level *l, DrawEngine* de, int s_index, float xpos = 1, float ypos = 1, int i_lives = 1);
     ~Sprite();
     
     vector getPosition(void){ return pos; }
@@ -39,22 +42,32 @@ public:
     
     virtual bool move(float xDir, float yDir);
     
-    
+    virtual void idleUpdate(void){ }
     
 protected:
+    
+    Level *level;
     DrawEngine *drawArea;
+    
     vector pos;
     int spriteIndex;
     int numLives;
     
     int classID;
     
-private:    
-    
-    vector facingDirection;
+    bool isValidLevelMove(int xpos, int ypos);
     
     void draw(float xpos, float ypos){ drawArea->drawSprite(spriteIndex, xpos, ypos); }
     void erase(float xpos, float ypos){ drawArea->eraseSprite(xpos, ypos); }
+    
+    vector facingDirection;
+    
+    
+private:    
+    
+    
+    
+    
 };
 
 #endif /* sprite_hpp */

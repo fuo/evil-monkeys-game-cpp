@@ -12,6 +12,7 @@
 #include "drawEngine.hpp"
 
 class Character;
+class Level;
 
 class Game
 {
@@ -27,7 +28,7 @@ protected:
 private:
     DrawEngine drawArea;
     Character* player;
-//    Level level;
+    Level* level;
     
 };
 

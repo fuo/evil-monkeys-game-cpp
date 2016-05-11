@@ -7,10 +7,12 @@
 //
 
 #include "sprite.hpp"
+#include "level.hpp"
 
-Sprite::Sprite(DrawEngine *de, int s_index, float xpos, float ypos, int i_lives)
+Sprite::Sprite(Level *l, DrawEngine *de, int s_index, float xpos, float ypos, int i_lives)
 {
     drawArea = de;
+    level = l;
     
     pos.x = xpos;
     pos.y = ypos;
@@ -23,6 +25,8 @@ Sprite::Sprite(DrawEngine *de, int s_index, float xpos, float ypos, int i_lives)
     facingDirection.y = 0;
     
     classID = SPRITE_CLASSID;
+    
+    draw(pos.x, pos.y);
 }
 
 Sprite::~Sprite()
@@ -44,4 +48,17 @@ bool Sprite::move(float xDir, float yDir)
     draw(pos.x, pos.y);
     
     return true;
+}
+
+bool Sprite::isValidLevelMove(int xpos, int ypos)
+{
+    
+    
+    // check inside level
+    if (level->level[xpos][ypos] != TILE_WALL)
+        return true;
+    
+    
+    return false;
+    
 }

@@ -7,6 +7,7 @@
 //
 #include "game.hpp"
 #include "character.hpp"
+#include "level.hpp"
 
 #include <sys/time.h>
 #include <ncurses.h>
@@ -18,8 +19,13 @@ bool getKeyInput(int&);
 
 void Game::run()
 {
+    level = new Level(&drawArea, 80);
+    
     drawArea.createSprite(0, '*');
-    player = new Character(&drawArea, 0);
+    player = new Character(level, &drawArea, 0, 1, 1);
+    
+    level->addPlayer(player);
+    level->addEnemies(3);
     
     double lastTime = 0;
     int key = ' ';
@@ -35,7 +41,8 @@ void Game::run()
             this->timerUpdate(lastTime);
         }
         // pass the pressed key to the level
-        player->keyPress(key);
+//        player->keyPress(key);
+        level->keyPress(key);
     }
 
     delete player;
@@ -54,6 +61,8 @@ void Game::timerUpdate(double & lastTime)
     }
     
     // level update automatically
+    
+    level->update();
     
 //    player->move(1, 0);
 //    drawArea.drawSprite(0, ++i, 1);

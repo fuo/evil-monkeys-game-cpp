@@ -8,8 +8,8 @@
 
 #include "character.hpp"
 
-Character::Character(DrawEngine* de, int s_index, float xpos, float ypos, int lives,
-                     int up_key, int down_key, int left_key, int right_key) : Sprite(de, s_index, xpos, ypos, lives)
+Character::Character(Level *l, DrawEngine* de, int s_index, float xpos, float ypos, int lives,
+                     int up_key, int down_key, int left_key, int right_key) : Sprite(l, de, s_index, xpos, ypos, lives)
 {
     upKey = up_key;
     downKey = down_key;
