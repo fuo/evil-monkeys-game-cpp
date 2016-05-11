@@ -34,7 +34,7 @@ DrawEngine::DrawEngine()
     
     score = newwin(score_size, screenWidth, screenHeight, 0);
     
-    draw_borders(field);
+//    draw_borders(field);
     draw_borders(score);
     
     
@@ -96,7 +96,7 @@ void DrawEngine::setup()
     // draw to our windows
 //    mvwprintw(field, 1, 1, "Field");
 //    mvwprintw(score, 1, 1, "Score");
-    printScore(1, 1, "sco");
+    printScore(1, 1, "Level 1: ");
     
 
     

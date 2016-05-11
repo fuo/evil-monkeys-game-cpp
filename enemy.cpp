@@ -1,21 +1,19 @@
 //
 //  enemy.cpp
-//  evil-monkeys
+//  3dbuzz
 //
-//  Created by phuong on 5/11/16.
-//  Copyright © 2016 badila. All rights reserved.
+//  Created by phuong on 1/27/16.
+//  Copyright © 2016 phuong. All rights reserved.
 //
-
-#include "enemy.hpp"
 
 #include <stdlib.h>
 #include <math.h>
+#include <list>
 
-#include "level.hpp"
+#include "enemy.hpp"
+#include "character.hpp"
 
-
-Enemy::Enemy(Level *l, DrawEngine *de, int s_index, float x,
-             float y, int i_lives) : Sprite(l, de, s_index, x, y , i_lives)
+Enemy::Enemy(Level *l, DrawEngine *de, int s_index, float x, float y, int i_lives) : Sprite(l, de, s_index, x ,y , i_lives)
 {
     goal = 0;
     
@@ -30,10 +28,10 @@ bool Enemy::move(float x, float y)
     if (isValidLevelMove(xpos, ypos)) {
         
         // make sure we don't run into any other enemies;
-//        list <Sprite *>::iterator Iter;
+        list <Sprite *>::iterator Iter;
         
-        for (level->Iter = level->npc.begin(); level->Iter != level->npc.end(); level->Iter++) {
-            if ((*level->Iter) != this && (int)(*level->Iter)->getX() == xpos && (int)(*level->Iter)->getY() == ypos) {
+        for (Iter = level->npc.begin(); Iter != level->npc.end(); Iter++) {
+            if ((*Iter) != this && (int)(*Iter)->getX() == xpos && (int)(*Iter)->getY() == ypos) {
                 
                 return false;
             }
@@ -60,6 +58,18 @@ bool Enemy::move(float x, float y)
     return false;
 }
 
+void Enemy::idleUpdate()
+{
+    if (goal)
+        simulateAI();
+    
+}
+
+void Enemy::addGoal(Character *g)
+{
+    
+    goal = g;
+}
 
 void Enemy::simulateAI(void)
 {
@@ -72,8 +82,14 @@ void Enemy::simulateAI(void)
     float mag = sqrt(direction.x * direction.x + direction.y * direction.y);
     
     // get the unit vector 1 in length
-    direction.x = direction.x / (mag * 12);
-    direction.y = direction.y / (mag * 12);
+    direction.x = direction.x / (mag * 9);
+    direction.y = direction.y / (mag * 9);
+    
+//    if (!move(direction.x, direction.y)) {
+//        while (!move(float(rand() % 3 - 1), float(rand() % 3 - 1))) {
+//            
+//        }
+//    }
     
     if (level->level[0][(int)direction.y] != TILE_WALL || level->level[(int)direction.x][0] != TILE_WALL){
         if (!move(direction.x, direction.y)) {
@@ -103,5 +119,5 @@ void Enemy::simulateAI(void)
             }
         }
     }
-    
+
 }

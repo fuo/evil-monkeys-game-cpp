@@ -1,23 +1,24 @@
 //
-//  sprite.hpp
-//  evil-monkeys
+//  sprite.h
+//  3dbuzz
 //
-//  Created by phuong on 5/9/16.
-//  Copyright © 2016 badila. All rights reserved.
+//  Created by phuong on 1/27/16.
+//  Copyright © 2016 phuong. All rights reserved.
 //
 
-#ifndef sprite_hpp
-#define sprite_hpp
+#ifndef sprite_h
+#define sprite_h
 
 #include "drawEngine.hpp"
-
-class Level;
+#include "level.hpp"
 
 enum
 {
     SPRITE_CLASSID,
     CHARACTER_CLASSID,
     ENEMY_CLASSID,
+    FIREBALL_CLASSID,
+    MAGE_CLASSID
 };
 
 struct vector
@@ -29,45 +30,38 @@ struct vector
 class Sprite
 {
 public:
-    Sprite(Level *l, DrawEngine* de, int s_index, float xpos = 1, float ypos = 1, int i_lives = 1);
+    Sprite(Level *l, DrawEngine *de, int s_index, float x = 1, float y= 1, int i_lives =1);
     ~Sprite();
     
-    vector getPosition(void){ return pos; }
-    float getX(void){ return pos.x; }
-    float getY(void){ return pos.y; }
+    vector getPosition(void);
+    float getX(void);
+    float getY(void);
     
-    virtual void addLives(int num = 1){ numLives += num; } // allow late-binding call using the same base pointer, if derived class has the same method, otherwise still use the inherit one from base
-    int getLives(void){ return numLives; }
-    bool isAlive(void){ return (numLives > 0); }
+    virtual void addLives(int num = 1);
+    int getLives(void);
+    bool isAlive(void);
     
-    virtual bool move(float xDir, float yDir);
+    virtual void idleUpdate(void);
     
-    virtual void idleUpdate(void){ }
-    
-protected:
-    
-    Level *level;
-    DrawEngine *drawArea;
-    
-    vector pos;
-    int spriteIndex;
-    int numLives;
+    virtual bool move(float x, float y);
     
     int classID;
     
-    bool isValidLevelMove(int xpos, int ypos);
+protected:
+    Level *level;
+    DrawEngine *drawArea;
+    int spriteIndex;
+    vector pos;
+    int numLives;
     
-    void draw(float xpos, float ypos){ drawArea->drawSprite(spriteIndex, xpos, ypos); }
-    void erase(float xpos, float ypos){ drawArea->eraseSprite(xpos, ypos); }
     
     vector facingDirection;
     
+    void draw(float x, float y);
+    void erase(float x, float y);
     
-private:    
-    
-    
-    
+    bool isValidLevelMove(int xpos, int ypos);
     
 };
 
-#endif /* sprite_hpp */
+#endif /* sprite_h */

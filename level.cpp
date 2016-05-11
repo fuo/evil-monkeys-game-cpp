@@ -1,33 +1,21 @@
 //
 //  level.cpp
-//  evil-monkeys
+//  3dbuzz
 //
-//  Created by phuong on 5/11/16.
-//  Copyright © 2016 badila. All rights reserved.
+//  Created by phuong on 1/27/16.
+//  Copyright © 2016 phuong. All rights reserved.
 //
 
-#include "level.hpp"
-
-#include <iostream>
-using namespace std;
-
-#include <sys/time.h>
-
-#include "character.hpp"
-#include "enemy.hpp"
-
+#include <stdio.h>
 #include <stdlib.h>
 
-Level::~Level(){
-    // del memeory for level
-    for (int x; x < width; x++)
-        delete [] level[x];
-    
-    delete [] level;
-    
-    for (Iter = npc.begin(); Iter != npc.end(); Iter++)
-        delete (*Iter);
-}
+#include <iostream>
+
+using namespace std;
+
+#include "level.hpp"
+#include "character.hpp" // work around circular include header
+#include "enemy.hpp"
 
 Level::Level(DrawEngine *de, int w, int h)
 {
@@ -36,34 +24,41 @@ Level::Level(DrawEngine *de, int w, int h)
     width = w;
     height = h;
     
-    player = NULL;
+    //   cout << "width: " << w << " height: " << h << endl;
+    
+    player = 0;
+    numEnemies = 0;
     
     // char ** ; create memory for our level
-    level = new char* [width];
+    level = new char *[width];
+    
     for (int x = 0; x < width; x++)
         level[x] = new char[height];
     
-    create();
-    
-//    mvwprintw(score, 1, 1, "Score");
-    
-    
-//    drawArea->printScore(8, 1, &"" [ width]);
+    // create the level
+    createLevel();
     
     drawArea->setMap(level, width, height);
     
-    drawArea->createBackgroundTile(TILE_EMPTY, ' ');
-    drawArea->createBackgroundTile(TILE_WALL, 219);
-    
-    
-    drawArea->createSprite(SPRITE_ENEMY, '$');
-//    drawArea->createSprite(SPRITE_FIREWALL, '*');
-    
-    draw();
 }
 
-void Level::create()
+Level::~Level(){
+    
+    // del memeory for level
+    for (int x; x < width; x++)
+        delete [] level[x];
+    
+    delete [] level;
+    
+    for (Iter = npc.begin(); Iter != npc.end(); Iter++)
+        delete (*Iter);
+    
+}
+
+void Level::createLevel()
 {
+    
+    
     for (int x = 0; x < width - 2; x++) {
         for (int y = 0; y < height; y++) {
             
@@ -90,48 +85,15 @@ void Level::create()
     }
 }
 
-//void Level::create()
-//{
-//    for (int x = 0; x < width - 2; x++) {
-//        for (int y = 1; y < height - 1; y++) {
-//            
-//            int random = rand() % 100;
-//            
-//            
-//            
-//            if (y == 1 || y == height - 2 || x == 0 || x == width - 3)
-//            {
-//                
-//                level[x][y] = TILE_WALL;
-//            }
-//            else
-//            {
-//                
-//                if (random < 90 || (x < 3 && y < 3)) {
-//                    level[x][y] = TILE_EMPTY;
-//                }else{
-//                    level[x][y] = TILE_WALL;
-//                }
-//            }
-//            
-//        }
-//    }
-//}
-
-
 void Level::draw()
 {
     // draw the background of level
     drawArea->drawBackground();
 }
 
-bool Level::addPlayer(Character *p, int xpos, int ypos)
+void Level::addPlayer(Character *p)
 {
     player = p;
-    // player->move(xpos, ypos);
-    //addEnemies(num_of_enemies);
-    
-    return true;
 }
 
 bool Level::keyPress(int c)
@@ -147,76 +109,59 @@ bool Level::keyPress(int c)
 void Level::update(){
     
     
-    
-    string s = to_string(width);
+    string s = to_string(numEnemies);
     char const * tmp = s.c_str();
     
-    drawArea->printScore(5, 1, tmp);
+    drawArea->printScore(11, 1, tmp);
+    drawArea->printScore(12, 1, " enemies");
     
-    s = to_string(height);
+    s = to_string(player->getLives());
     tmp = s.c_str();
     
-    drawArea->printScore(8, 1, tmp);
+    drawArea->printScore(22, 1, tmp);
+    drawArea->printScore(23, 1, " lives");
+    
     
     // simulate AI
     
     for (Iter = npc.begin(); Iter != npc.end(); Iter++) {
         
-        Sprite* e = *Iter;
-        
         (*Iter)->idleUpdate();
         
-        if (!e->isAlive()) {
+        if ((*Iter)->isAlive() == false) {
             
             Sprite *temp = *Iter;
             
             Iter--;
             
-            npc.remove(temp);
-            
             delete temp;
+            
+            npc.remove(temp);
         }
     }
 }
 
 
-bool Level::addEnemies(int num)
+void Level::addEnemies(int num)
 {
     int i = num;
     
     while (i > 0) {
-        
-        timeval* tv = new timeval();
-        gettimeofday(tv, 0);
-        
-        srand(tv->tv_sec + double(tv->tv_usec));
-        
-        double X = double(int(((double)rand()/(double)RAND_MAX) * 1000000) % 100) / 100;
-        
-        srand((unsigned)time(NULL));
-        double Y = double(int(((double)rand()/(double)RAND_MAX) * 1000000) % 100) / 100;        
-        
-        int xpos = int(X * (width - 2 - 6) + 1);
-        int ypos = int(Y * (height - 2 - 6) + 1);
+        int xpos = int((float(rand() % 100) / 100) * (width - 2) + 1);
+        int ypos = int((float(rand() % 100) / 100) * (height - 2) + 1);
         
         if (level[xpos][ypos] != TILE_WALL) {
             
             // have to clean up those died enemy got killed to free memory somewhere!!!
             Enemy *temp = new Enemy(this, drawArea, SPRITE_ENEMY, (float)xpos, float(ypos));
             
-            nodelay(stdscr, FALSE);
-            
             temp->addGoal(player);
             
-//            temp->draw(xpos, ypos);
-            
             addNPC((Sprite *)temp);
-            
-            --i;
+            numEnemies++;
+            i--;
         }
     }
-    
-    return true;
 }
 
 void Level::addNPC(Sprite *spr)

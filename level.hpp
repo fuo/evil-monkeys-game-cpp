@@ -1,25 +1,25 @@
 //
-//  level.hpp
-//  evil-monkeys
+//  level.h
+//  3dbuzz
 //
-//  Created by phuong on 5/11/16.
-//  Copyright © 2016 badila. All rights reserved.
+//  Created by phuong on 1/27/16.
+//  Copyright © 2016 phuong. All rights reserved.
 //
 
-#ifndef level_hpp
-#define level_hpp
+#ifndef level_h
+#define level_h
 
 #include <list>
-using std::list;
 
-class DrawEngine;
-class Sprite;
-class Character;
+#include "drawEngine.hpp"
+
+using std::list;
 
 enum
 {
     SPRITE_PLAYER,
     SPRITE_ENEMY,
+    SPRITE_FIREWALL
 };
 
 enum
@@ -28,41 +28,43 @@ enum
     TILE_WALL
 };
 
+// notify ahead
+class Character;
+class Sprite;
+
 class Level
 {
 public:
-    Level(DrawEngine *de, int width = 20, int height = 20);
+    Level(DrawEngine *de, int width = 30, int height = 20);
     ~Level();
     
-    bool addPlayer(Character *p, int xpos = 0, int ypos = 0);
+    void addPlayer(Character *p);
     void update(void);
     void draw(void);
-    bool keyPress(int key);
+    bool keyPress(int c);
     
-    bool addEnemies(int num);
+    void addEnemies(int num);
     void addNPC(Sprite *spr);
     
-    friend class Sprite;
     
     list <Sprite *> npc;
     list <Sprite *>::iterator Iter;
     
-    char** level;
+    friend class Sprite;
+    
+    int numEnemies;
+    
+    char **level;
     
 protected:
-    
-    
-
-    void create(void);
+    void createLevel(void);
     
 private:
-
+    int width;
+    int height;
+    
     Character *player;
     DrawEngine *drawArea;
-    
-    
-    
-    int width, height;
 };
 
-#endif /* level_hpp */
+#endif /* level_h */

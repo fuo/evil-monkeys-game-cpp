@@ -21,11 +21,10 @@ public:
     
     virtual bool keyPress(int key);
     
+    virtual void addLives(int num = 1);
+    
 protected:
     int upKey, downKey, rightKey, leftKey;
-    
-private:
-    Level *level;
     
 };
 

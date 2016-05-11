@@ -45,3 +45,14 @@ bool Character::keyPress(int key)
     
     return false;
 }
+
+void Character::addLives(int num)
+{
+    Sprite::addLives(num);
+    
+    if (Sprite::isAlive()) {
+        pos.x = 1;
+        pos.y = 1;
+        move(0,0);
+    }
+}

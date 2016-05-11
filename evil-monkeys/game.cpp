@@ -6,7 +6,7 @@
 //  Copyright © 2016 badila. All rights reserved.
 //
 #include "game.hpp"
-#include "character.hpp"
+#include "mage.hpp"
 #include "level.hpp"
 
 #include <sys/time.h>
@@ -21,8 +21,19 @@ void Game::run()
 {
     level = new Level(&drawArea, 80);
     
-    drawArea.createSprite(0, '*');
-    player = new Character(level, &drawArea, 0, 1, 1);
+    
+    drawArea.createBackgroundTile(TILE_EMPTY, ' ');
+    drawArea.createBackgroundTile(TILE_WALL, 219);
+    
+    drawArea.createSprite(SPRITE_PLAYER, 'o');
+    drawArea.createSprite(SPRITE_ENEMY, '$');
+    drawArea.createSprite(SPRITE_FIREWALL, '*');
+    
+    
+    
+    player = new Mage(level, &drawArea, SPRITE_PLAYER);
+    
+    level->draw();
     
     level->addPlayer(player);
     level->addEnemies(3);
