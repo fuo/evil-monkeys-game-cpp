@@ -17,17 +17,18 @@ class Character;
 class Enemy : public Sprite
 {
 public:
-    Enemy(Level *l, DrawEngine *de, int s_index, float x = 1, float y = 1, int i_lives = 1);
+    Enemy(Level *l, DrawEngine *de, int sprite_index, float xpos, float ypos, int i_lives = 1);
     
-    void addGoal(Character *g);
-    bool move(float x, float y);
+    void addGoal(Character* g){ goal = g; }
+    
+private:
+    
+    bool move(float xDir, float yDir);
     
     void idleUpdate(void);
-    
-protected:
     void simulateAI(void);
-    Character *goal;
     
+    Character* goal = NULL;
 };
 
 #endif /* enemy_h */

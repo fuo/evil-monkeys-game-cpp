@@ -18,7 +18,6 @@ DrawEngine::DrawEngine()
     keypad(stdscr, TRUE);		/* I need that nifty F1 	*/
     noecho();
     scrollok(stdscr, TRUE);
-
     
     int parent_x, parent_y, new_x, new_y;
     
@@ -56,9 +55,8 @@ DrawEngine::DrawEngine()
         draw_borders(score);
     }
     
-    
-    
     cursorVisibility(false);
+    
 }
 
 DrawEngine::~DrawEngine()
@@ -80,8 +78,6 @@ void DrawEngine::setMap(char** grid, int xSize, int ySize)
     
 //    draw_borders(field);
     draw_borders(score);
-
-    
 }
 
 void DrawEngine::printScore(int xpos, int ypos, const char* text)
@@ -92,18 +88,13 @@ void DrawEngine::printScore(int xpos, int ypos, const char* text)
 
 void DrawEngine::setup()
 {
-    
     // draw to our windows
 //    mvwprintw(field, 1, 1, "Field");
 //    mvwprintw(score, 1, 1, "Score");
     
-    
-
-    
     // refresh each window
     wrefresh(field);
     wrefresh(score);
-    
 }
 
 void DrawEngine::draw_borders(WINDOW *screen) {
@@ -132,7 +123,8 @@ void DrawEngine::draw_borders(WINDOW *screen) {
 
 int DrawEngine::createSprite(int figureIndex, char img)
 {
-    if (figureIndex >= 0 && figureIndex < 16) {
+    if (figureIndex >= 0 && figureIndex < 16)
+    {
         spriteImages[figureIndex] = img;
         return figureIndex;
     }
@@ -143,7 +135,6 @@ bool DrawEngine::eraseSprite(int xpos, int ypos)
 {
     gotoxy(xpos, ypos);
     waddch(field, ' ');
-    
     return true;
 }
 
@@ -151,14 +142,12 @@ bool DrawEngine::drawSprite(int figureIndex, int xpos, int ypos)
 {
     gotoxy(xpos, ypos);
     waddch(field, spriteImages[figureIndex]);
-    
     return true;
 }
 
 bool DrawEngine::gotoxy(int xpos, int ypos)
 {
     wmove(field, ++ypos, ++xpos);
-
     return true;
 }
 
@@ -172,36 +161,29 @@ bool DrawEngine::cursorVisibility(bool visibility)
 // to the Level
 void DrawEngine::createBackgroundTile(int tileIndex, char img)
 {
-    if (tileIndex >= 0 && tileIndex < 16) {
+    if (tileIndex >= 0 && tileIndex < 16)
+    {
         tileImages[tileIndex] = img;
     }
 }
 
 void DrawEngine::drawBackground()
 {
-    if (map) {
-        
-        //        cout << screenHeight << screenWidth << endl;
-        //        return;
-        
-        for (int y=0; y < screenHeight; y++) {
-            
-            
+    if (map)
+    {
+        for (int y=0; y < screenHeight; y++)
+        {
             gotoxy(0, y);
             
-            
-            
-            for (int x = 0; x < screenWidth; x++) {
-                
-                
-//                wechochar(win, tileImage[map[x][y]]);
+            for (int x = 0; x < screenWidth; x++)
+            {
                 waddch(field, tileImages[map[x][y]]);
-                
-                
             }
             
         }
         cursorVisibility(0);
+        
     }
+    
 }
 

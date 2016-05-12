@@ -23,7 +23,7 @@ public:
     bool eraseSprite(int xpos, int ypos);
     bool drawSprite(int figureIndex, int xpos, int ypos);
     
-    void printScore(int xpos, int ypos, const char*);
+    void printScore(int xpos, int ypos, const char* text);
     
     // to the Level
     void createBackgroundTile(int tileIndex, char img);
@@ -32,7 +32,9 @@ public:
     
     void setup(void);
     
-protected:
+private:
+    WINDOW *field;
+    WINDOW *score;
     
     char** map;
     
@@ -41,14 +43,9 @@ protected:
     char spriteImages[16];
     char tileImages[16];
     
-private:
     bool gotoxy(int xpos, int ypos);
     bool cursorVisibility(bool visibility);
     void draw_borders(WINDOW*);
-    
-    WINDOW *field;
-    WINDOW *score;
-    
 };
 
 #endif /* drawEngine_hpp */

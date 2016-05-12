@@ -13,8 +13,8 @@ using namespace std;
 
 #include "level.hpp"
 
-Fireball::Fireball(Level *lev, DrawEngine *de, int s_index, float x, float y,
-                   float xDir, float yDir, int i_lives) : Sprite(lev, de, s_index, x, y, i_lives)
+Fireball::Fireball(Level *lvl, DrawEngine *de, int sprite_index, float xpos, float ypos,
+                   float xDir, float yDir, int i_lives) : Sprite(lvl, de, sprite_index, xpos, ypos, i_lives)
 {
     facingDirection.x = xDir;
     facingDirection.y = yDir;
@@ -24,27 +24,27 @@ Fireball::Fireball(Level *lev, DrawEngine *de, int s_index, float x, float y,
 
 void Fireball::idleUpdate()
 {
-    if (Sprite::move(facingDirection.x, facingDirection.y)) {
-        list <Sprite *>::iterator Iter;
-        
-        for (Iter = level->npc.begin(); Iter != level->npc.end(); Iter++) {
+    if (Sprite::move(facingDirection.x, facingDirection.y))
+    {
+        for (list <Sprite *>::iterator Iter = level->npc.begin(); Iter != level->npc.end(); Iter++)
+        {
             if (
-                 (*Iter)->getClassID() != getClassID() &&
-                 (int)(*Iter)->getX() == getX() &&
-                 (int)(*Iter)->getY() == getY()
+                 (*Iter)->getClassID() != this->getClassID() &&
+                 (int)(*Iter)->getX() == this->getX() &&
+                 (int)(*Iter)->getY() == this->getY()
                )
-            {
-                
+            {                
                 // kill the enemy got hit
                 (*Iter)->addLives(-1);
-                --level->numEnemies;
+                --(level->numEnemies);
                 
                 // kill that fireball itself
                 addLives(-1);
             }
         }
     }
-    else{
+    else
+    {
         // hit the wall border
         addLives(-1);
     }

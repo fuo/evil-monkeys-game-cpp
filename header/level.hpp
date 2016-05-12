@@ -12,6 +12,8 @@
 #include <list>
 using std::list;
 
+#include "drawEngine.hpp"
+
 enum
 {
     SPRITE_PLAYER,
@@ -26,7 +28,6 @@ enum
 };
 
 // notify ahead
-class DrawEngine;
 class Character;
 class Sprite;
 
@@ -36,27 +37,34 @@ public:
     Level(DrawEngine *de, int width = 30, int height = 20);
     ~Level();
     
-    void addPlayer(Character *p);
+    void addPlayer(Character *p){ player = p; }
+    
     void update(void);
-    void draw(void);
-    bool keyPress(int c);
+    
+    bool keyPress(int key);
     
     void addEnemies(int num);
-    void addNPC(Sprite *spr);
+    
+    void addNPC(Sprite *spr){ npc.push_back(spr); }
+    
+    void draw(void){ drawArea->drawBackground(); }
     
     list <Sprite *> npc;
-    list <Sprite *>::iterator Iter;
+
     
     int numEnemies;
     
-    char **level;
-    
-protected:
-    void createLevel(void);
+    char** const createLevel(void);
     
 private:
     int width;
     int height;
+    
+    list <Sprite *>::iterator Iter;
+    
+    char **level = NULL;
+    
+    
     
     // the first sprite that has keypress method (the human control sprite index)
     Character *player;

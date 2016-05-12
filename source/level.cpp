@@ -8,7 +8,6 @@
 
 #include "level.hpp"
 
-#include "drawEngine.hpp"
 #include "character.hpp" // work around circular include header
 #include "enemy.hpp"
 
@@ -23,26 +22,14 @@ Level::Level(DrawEngine *de, int w, int h)
     width = w;
     height = h;
     
-    //   cout << "width: " << w << " height: " << h << endl;
-    
     player = 0;
     numEnemies = 0;
     
-    // char ** ; create memory for our level
-    level = new char *[width];
-    
-    for (int x = 0; x < width; x++)
-        level[x] = new char[height];
-    
-    // create the level
-    createLevel();
-    
-    drawArea->setMap(level, width, height);
-    
+    drawArea->setMap(createLevel(), width, height);
 }
 
-Level::~Level(){
-    
+Level::~Level()
+{
     delete player;
     
     // del memeory for level
@@ -53,62 +40,54 @@ Level::~Level(){
     
     for (Iter = npc.begin(); Iter != npc.end(); Iter++)
         delete (*Iter);
-    
 }
 
-void Level::createLevel()
+char** const Level::createLevel()
 {
+    if (level != NULL)
+        return level;
     
+    // char ** ; create memory for our level
+    level = new char *[width];
     
-    for (int x = 0; x < width - 2; x++) {
-        for (int y = 0; y < height; y++) {
-            
+    for (int x = 0; x < width; x++)
+        level[x] = new char[height];
+    
+    for (int x = 0; x < width - 2; x++)
+    {
+        for (int y = 0; y < height; y++)
+        {
             int random = rand() % 100;
-            
-            
             
             if (y == 0 || y == height - 2 || x == 0 || x == width - 3)
             {
-                
                 level[x][y] = TILE_WALL;
             }
             else
             {
-                
-                if (random < 90 || (x < 3 && y < 3)) {
+                if (random < 90 || (x < 3 && y < 3))
                     level[x][y] = TILE_EMPTY;
-                }else{
+                else
                     level[x][y] = TILE_WALL;
-                }
             }
             
         }
     }
-}
-
-void Level::draw()
-{
-    // draw the background of level
-    drawArea->drawBackground();
-}
-
-void Level::addPlayer(Character *p)
-{
-    player = p;
-}
-
-bool Level::keyPress(int c)
-{
-    if (player)
-        if (player->keyPress(c))
-            return true;
     
+    return level;
+}
+
+bool Level::keyPress(int key)
+{
+    if (player->getLives() > 0)
+        if (player->keyPress(key))
+            return true;
     
     return false;
 }
 
-void Level::update(){
-    
+void Level::update()
+{
     drawArea->printScore(1, 1, "Level 1: ");
     
     string s = to_string(numEnemies);
@@ -125,7 +104,6 @@ void Level::update(){
     
     
     // simulate AI
-    
     for (Iter = npc.begin(); Iter != npc.end(); Iter++) {
         
         (*Iter)->idleUpdate();
@@ -164,10 +142,4 @@ void Level::addEnemies(int num)
             i--;
         }
     }
-}
-
-void Level::addNPC(Sprite *spr)
-{
-    npc.push_back(spr);
-    
 }
