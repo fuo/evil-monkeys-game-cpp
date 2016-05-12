@@ -7,16 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6456309A1CE0ECB100CBB607 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630991CE0ECB100CBB607 /* main.cpp */; };
 		645630A11CE0ED0100CBB607 /* libncurses.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 645630A01CE0ED0100CBB607 /* libncurses.tbd */; };
-		645630AC1CE0F0D200CBB607 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630AA1CE0F0D200CBB607 /* game.cpp */; };
-		645630AF1CE0F72700CBB607 /* sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630AD1CE0F72700CBB607 /* sprite.cpp */; };
-		645630B21CE23FAB00CBB607 /* drawEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630B01CE23FAB00CBB607 /* drawEngine.cpp */; };
-		645630B71CE2797C00CBB607 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630B51CE2797C00CBB607 /* character.cpp */; };
-		645630BA1CE2804500CBB607 /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630B81CE2804500CBB607 /* level.cpp */; };
-		645630BD1CE2F8F100CBB607 /* enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 645630BB1CE2F8F100CBB607 /* enemy.cpp */; };
-		64DDAC491CE3A9FA00412F48 /* mage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC471CE3A9FA00412F48 /* mage.cpp */; };
-		64DDAC4C1CE3AA2A00412F48 /* fireball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC4A1CE3AA2A00412F48 /* fireball.cpp */; };
+		64DDAC5E1CE46ECC00412F48 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC581CE46ECC00412F48 /* main.cpp */; };
+		64DDAC701CE4706400412F48 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC681CE4706400412F48 /* character.cpp */; };
+		64DDAC711CE4706400412F48 /* drawEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC691CE4706400412F48 /* drawEngine.cpp */; };
+		64DDAC721CE4706400412F48 /* enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6A1CE4706400412F48 /* enemy.cpp */; };
+		64DDAC731CE4706400412F48 /* fireball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6B1CE4706400412F48 /* fireball.cpp */; };
+		64DDAC741CE4706400412F48 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6C1CE4706400412F48 /* game.cpp */; };
+		64DDAC751CE4706400412F48 /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6D1CE4706400412F48 /* level.cpp */; };
+		64DDAC761CE4706400412F48 /* mage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6E1CE4706400412F48 /* mage.cpp */; };
+		64DDAC771CE4706400412F48 /* sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6F1CE4706400412F48 /* sprite.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -33,24 +33,24 @@
 
 /* Begin PBXFileReference section */
 		645630961CE0ECB100CBB607 /* evil-monkeys */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "evil-monkeys"; sourceTree = BUILT_PRODUCTS_DIR; };
-		645630991CE0ECB100CBB607 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		645630A01CE0ED0100CBB607 /* libncurses.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libncurses.tbd; path = usr/lib/libncurses.tbd; sourceTree = SDKROOT; };
-		645630AA1CE0F0D200CBB607 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game.cpp; path = "evil-monkeys/game.cpp"; sourceTree = "<group>"; };
-		645630AB1CE0F0D200CBB607 /* game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = game.hpp; sourceTree = "<group>"; };
-		645630AD1CE0F72700CBB607 /* sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sprite.cpp; path = "evil-monkeys/sprite.cpp"; sourceTree = "<group>"; };
-		645630AE1CE0F72700CBB607 /* sprite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = sprite.hpp; sourceTree = "<group>"; };
-		645630B01CE23FAB00CBB607 /* drawEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drawEngine.cpp; path = "evil-monkeys/drawEngine.cpp"; sourceTree = "<group>"; };
-		645630B11CE23FAB00CBB607 /* drawEngine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = drawEngine.hpp; sourceTree = "<group>"; };
-		645630B51CE2797C00CBB607 /* character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character.cpp; path = "evil-monkeys/character.cpp"; sourceTree = "<group>"; };
-		645630B61CE2797C00CBB607 /* character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = character.hpp; sourceTree = "<group>"; };
-		645630B81CE2804500CBB607 /* level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = level.cpp; sourceTree = "<group>"; };
-		645630B91CE2804500CBB607 /* level.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = level.hpp; path = ../level.hpp; sourceTree = "<group>"; };
-		645630BB1CE2F8F100CBB607 /* enemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = enemy.cpp; sourceTree = "<group>"; };
-		645630BC1CE2F8F100CBB607 /* enemy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = enemy.hpp; path = ../enemy.hpp; sourceTree = "<group>"; };
-		64DDAC471CE3A9FA00412F48 /* mage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mage.cpp; path = "evil-monkeys/mage.cpp"; sourceTree = "<group>"; };
-		64DDAC481CE3A9FA00412F48 /* mage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mage.hpp; sourceTree = "<group>"; };
-		64DDAC4A1CE3AA2A00412F48 /* fireball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = fireball.cpp; sourceTree = "<group>"; };
-		64DDAC4B1CE3AA2A00412F48 /* fireball.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = fireball.hpp; path = ../fireball.hpp; sourceTree = "<group>"; };
+		64DDAC581CE46ECC00412F48 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../main.cpp; sourceTree = "<group>"; };
+		64DDAC601CE4705900412F48 /* character.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = character.hpp; path = header/character.hpp; sourceTree = SOURCE_ROOT; };
+		64DDAC611CE4705900412F48 /* drawEngine.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = drawEngine.hpp; path = header/drawEngine.hpp; sourceTree = SOURCE_ROOT; };
+		64DDAC621CE4705900412F48 /* enemy.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = enemy.hpp; path = header/enemy.hpp; sourceTree = SOURCE_ROOT; };
+		64DDAC631CE4705900412F48 /* fireball.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = fireball.hpp; path = header/fireball.hpp; sourceTree = SOURCE_ROOT; };
+		64DDAC641CE4705900412F48 /* game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = game.hpp; path = header/game.hpp; sourceTree = SOURCE_ROOT; };
+		64DDAC651CE4705900412F48 /* level.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = level.hpp; path = header/level.hpp; sourceTree = SOURCE_ROOT; };
+		64DDAC661CE4705900412F48 /* mage.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = mage.hpp; path = header/mage.hpp; sourceTree = SOURCE_ROOT; };
+		64DDAC671CE4705900412F48 /* sprite.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = sprite.hpp; path = header/sprite.hpp; sourceTree = SOURCE_ROOT; };
+		64DDAC681CE4706400412F48 /* character.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = character.cpp; path = source/character.cpp; sourceTree = "<group>"; };
+		64DDAC691CE4706400412F48 /* drawEngine.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = drawEngine.cpp; path = source/drawEngine.cpp; sourceTree = "<group>"; };
+		64DDAC6A1CE4706400412F48 /* enemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = enemy.cpp; path = source/enemy.cpp; sourceTree = "<group>"; };
+		64DDAC6B1CE4706400412F48 /* fireball.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = fireball.cpp; path = source/fireball.cpp; sourceTree = "<group>"; };
+		64DDAC6C1CE4706400412F48 /* game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = game.cpp; path = source/game.cpp; sourceTree = "<group>"; };
+		64DDAC6D1CE4706400412F48 /* level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = level.cpp; path = source/level.cpp; sourceTree = "<group>"; };
+		64DDAC6E1CE4706400412F48 /* mage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mage.cpp; path = source/mage.cpp; sourceTree = "<group>"; };
+		64DDAC6F1CE4706400412F48 /* sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sprite.cpp; path = source/sprite.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,9 +85,9 @@
 		645630981CE0ECB100CBB607 /* evil-monkeys */ = {
 			isa = PBXGroup;
 			children = (
+				64DDAC581CE46ECC00412F48 /* main.cpp */,
 				645630A61CE0F03300CBB607 /* header */,
 				645630A51CE0EFD700CBB607 /* source */,
-				645630991CE0ECB100CBB607 /* main.cpp */,
 			);
 			path = "evil-monkeys";
 			sourceTree = "<group>";
@@ -95,14 +95,14 @@
 		645630A51CE0EFD700CBB607 /* source */ = {
 			isa = PBXGroup;
 			children = (
-				64DDAC4A1CE3AA2A00412F48 /* fireball.cpp */,
-				64DDAC471CE3A9FA00412F48 /* mage.cpp */,
-				645630B51CE2797C00CBB607 /* character.cpp */,
-				645630B01CE23FAB00CBB607 /* drawEngine.cpp */,
-				645630AD1CE0F72700CBB607 /* sprite.cpp */,
-				645630AA1CE0F0D200CBB607 /* game.cpp */,
-				645630BB1CE2F8F100CBB607 /* enemy.cpp */,
-				645630B81CE2804500CBB607 /* level.cpp */,
+				64DDAC681CE4706400412F48 /* character.cpp */,
+				64DDAC691CE4706400412F48 /* drawEngine.cpp */,
+				64DDAC6A1CE4706400412F48 /* enemy.cpp */,
+				64DDAC6B1CE4706400412F48 /* fireball.cpp */,
+				64DDAC6C1CE4706400412F48 /* game.cpp */,
+				64DDAC6D1CE4706400412F48 /* level.cpp */,
+				64DDAC6E1CE4706400412F48 /* mage.cpp */,
+				64DDAC6F1CE4706400412F48 /* sprite.cpp */,
 			);
 			name = source;
 			path = ..;
@@ -111,14 +111,14 @@
 		645630A61CE0F03300CBB607 /* header */ = {
 			isa = PBXGroup;
 			children = (
-				64DDAC4B1CE3AA2A00412F48 /* fireball.hpp */,
-				645630B11CE23FAB00CBB607 /* drawEngine.hpp */,
-				64DDAC481CE3A9FA00412F48 /* mage.hpp */,
-				645630B61CE2797C00CBB607 /* character.hpp */,
-				645630AB1CE0F0D200CBB607 /* game.hpp */,
-				645630B91CE2804500CBB607 /* level.hpp */,
-				645630AE1CE0F72700CBB607 /* sprite.hpp */,
-				645630BC1CE2F8F100CBB607 /* enemy.hpp */,
+				64DDAC601CE4705900412F48 /* character.hpp */,
+				64DDAC611CE4705900412F48 /* drawEngine.hpp */,
+				64DDAC621CE4705900412F48 /* enemy.hpp */,
+				64DDAC631CE4705900412F48 /* fireball.hpp */,
+				64DDAC641CE4705900412F48 /* game.hpp */,
+				64DDAC651CE4705900412F48 /* level.hpp */,
+				64DDAC661CE4705900412F48 /* mage.hpp */,
+				64DDAC671CE4705900412F48 /* sprite.hpp */,
 			);
 			name = header;
 			sourceTree = "<group>";
@@ -179,15 +179,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				645630B71CE2797C00CBB607 /* character.cpp in Sources */,
-				6456309A1CE0ECB100CBB607 /* main.cpp in Sources */,
-				645630BA1CE2804500CBB607 /* level.cpp in Sources */,
-				64DDAC491CE3A9FA00412F48 /* mage.cpp in Sources */,
-				64DDAC4C1CE3AA2A00412F48 /* fireball.cpp in Sources */,
-				645630AC1CE0F0D200CBB607 /* game.cpp in Sources */,
-				645630AF1CE0F72700CBB607 /* sprite.cpp in Sources */,
-				645630B21CE23FAB00CBB607 /* drawEngine.cpp in Sources */,
-				645630BD1CE2F8F100CBB607 /* enemy.cpp in Sources */,
+				64DDAC751CE4706400412F48 /* level.cpp in Sources */,
+				64DDAC721CE4706400412F48 /* enemy.cpp in Sources */,
+				64DDAC5E1CE46ECC00412F48 /* main.cpp in Sources */,
+				64DDAC761CE4706400412F48 /* mage.cpp in Sources */,
+				64DDAC701CE4706400412F48 /* character.cpp in Sources */,
+				64DDAC711CE4706400412F48 /* drawEngine.cpp in Sources */,
+				64DDAC731CE4706400412F48 /* fireball.cpp in Sources */,
+				64DDAC741CE4706400412F48 /* game.cpp in Sources */,
+				64DDAC771CE4706400412F48 /* sprite.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -235,6 +235,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "/Users/phuong/Desktop/test/evil-monkeys";
 			};
 			name = Debug;
 		};
@@ -272,6 +273,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				USER_HEADER_SEARCH_PATHS = "/Users/phuong/Desktop/test/evil-monkeys";
 			};
 			name = Release;
 		};
