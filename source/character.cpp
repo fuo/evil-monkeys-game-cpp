@@ -16,7 +16,7 @@ Character::Character(Level *l, DrawEngine* de, int s_index, float xpos, float yp
     leftKey = left_key;
     rightKey = right_key;
     
-    classID = CHARACTER_CLASSID;
+    setClassID(CHARACTER_CLASSID);
     
 }
 
@@ -50,9 +50,9 @@ void Character::addLives(int num)
 {
     Sprite::addLives(num);
     
-    if (Sprite::isAlive()) {
-        pos.x = 1;
-        pos.y = 1;
-        move(0,0);
+    if (getLives() > 0) {
+        // reset / re-spawn the position
+        setPosition(1, 1);
+        draw(getX(), getY());
     }
 }

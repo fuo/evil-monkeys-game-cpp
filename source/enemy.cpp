@@ -6,24 +6,28 @@
 //  Copyright © 2016 phuong. All rights reserved.
 //
 
+#include "enemy.hpp"
+
+#include "character.hpp"
+#include "level.hpp"
+
 #include <stdlib.h>
 #include <math.h>
 #include <list>
+using namespace std;
 
-#include "enemy.hpp"
-#include "character.hpp"
 
 Enemy::Enemy(Level *l, DrawEngine *de, int s_index, float x, float y, int i_lives) : Sprite(l, de, s_index, x ,y , i_lives)
 {
     goal = 0;
     
-    classID = ENEMY_CLASSID;
+    setClassID(ENEMY_CLASSID);
 }
 
 bool Enemy::move(float x, float y)
 {
-    int xpos = (int)(pos.x + x);
-    int ypos = (int)(pos.y + y);
+    int xpos = (int)(getX() + x);
+    int ypos = (int)(getY() + y);
     
     if (isValidLevelMove(xpos, ypos)) {
         
@@ -38,15 +42,14 @@ bool Enemy::move(float x, float y)
         }
         
         
-        erase(pos.x, pos.y);
+        erase(getX(), getY());
         
-        pos.x += x;
-        pos.y += y;
+        setPosition(getX() + x, getY() + y);
         
         facingDirection.x = x;
         facingDirection.y = y;
         
-        draw(pos.x, pos.y);
+        draw(getX(), getY());
         
         if ((int)goal->getX() == xpos && (int)goal->getY() == ypos) {
             goal->addLives(-1);
@@ -76,8 +79,8 @@ void Enemy::simulateAI(void)
     vector goal_pos = goal->getPosition();
     vector direction;
     
-    direction.x = goal_pos.x - pos.x;
-    direction.y = goal_pos.y - pos.y;
+    direction.x = goal_pos.x - getX();
+    direction.y = goal_pos.y - getY();
     
     float mag = sqrt(direction.x * direction.x + direction.y * direction.y);
     
@@ -91,7 +94,7 @@ void Enemy::simulateAI(void)
 //        }
 //    }
     
-    if (level->level[0][(int)direction.y] != TILE_WALL || level->level[(int)direction.x][0] != TILE_WALL){
+    if (level->level[0][lround(direction.y)] != TILE_WALL || level->level[lround(direction.x)][0] != TILE_WALL){
         if (!move(direction.x, direction.y)) {
             //            while (!move(float(rand() % 3 - 1), float(rand() % 3 - 1))) {
             //

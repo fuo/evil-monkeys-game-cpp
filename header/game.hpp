@@ -11,23 +11,18 @@
 
 #include "drawEngine.hpp"
 
-class Character;
 class Level;
 
 class Game
 {
 public:
-    Game(){}
-    ~Game(){}
-    
     void run(void);
     
 protected:
-    void timerUpdate(double & lastTime);
+    void timerUpdate(double& lastTime);
     
 private:
     DrawEngine drawArea;
-    Character* player;
     Level* level;
     
 };

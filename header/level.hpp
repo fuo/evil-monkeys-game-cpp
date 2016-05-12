@@ -10,16 +10,13 @@
 #define level_h
 
 #include <list>
-
-#include "drawEngine.hpp"
-
 using std::list;
 
 enum
 {
     SPRITE_PLAYER,
     SPRITE_ENEMY,
-    SPRITE_FIREWALL
+    SPRITE_FIREBALL
 };
 
 enum
@@ -29,6 +26,7 @@ enum
 };
 
 // notify ahead
+class DrawEngine;
 class Character;
 class Sprite;
 
@@ -46,11 +44,8 @@ public:
     void addEnemies(int num);
     void addNPC(Sprite *spr);
     
-    
     list <Sprite *> npc;
     list <Sprite *>::iterator Iter;
-    
-    friend class Sprite;
     
     int numEnemies;
     
@@ -63,7 +58,9 @@ private:
     int width;
     int height;
     
+    // the first sprite that has keypress method (the human control sprite index)
     Character *player;
+    
     DrawEngine *drawArea;
 };
 

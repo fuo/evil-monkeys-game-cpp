@@ -9,6 +9,7 @@
 #include <iostream>
 #include <ncurses.h>
 using namespace std;
+
 #include "game.hpp"
 
 bool isTermAvail = true; // check this global variable before ncurses calls
@@ -16,8 +17,8 @@ bool isTermAvail = true; // check this global variable before ncurses calls
 string leftPad(string, long, char padChar = ' ');
 string rightPad(string, long, char padChar = ' ');
 
-int main(int argc, const char * argv[]) {
-    
+int main(int argc, const char * argv[])
+{
     for (int argi = 1; argi < argc; argi++)
     {
         if (isTermAvail && strcmp(argv[argi], "--debug-in-terminal") == 0)
@@ -28,10 +29,7 @@ int main(int argc, const char * argv[]) {
         }
     }
 
-    char *term = getenv("TERM");
-
-    isTermAvail = (term != NULL);
-    
+    isTermAvail = (getenv("TERM") != NULL);
     
     
     Game game;
@@ -65,15 +63,18 @@ string leftPad(string str, long len, char padChar)
     
     len -= strlen;
     
-    while (++i < newlen) {
+    while (++i < newlen)
+    {
         if (i < len)
             leftPaddedStr[i] = padChar;
         else
             leftPaddedStr[i] = str[i - len];
     }
+    
     leftPaddedStr[i] = '\0';
     
     str = leftPaddedStr;
+    
     delete [] leftPaddedStr;
     
     return str;
@@ -92,15 +93,18 @@ string rightPad(string str, long len, char padChar)
     
     len -= strlen;
     
-    while (++i < newlen) {
+    while (++i < newlen)
+    {
         if (i < strlen)
             rightPaddedStr[i] = str[i];
         else
             rightPaddedStr[i] = padChar;
     }
+    
     rightPaddedStr[i] = '\0';
     
     str = rightPaddedStr;
+    
     delete [] rightPaddedStr;
     
     return str;

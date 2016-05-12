@@ -10,7 +10,6 @@
 #define sprite_h
 
 #include "drawEngine.hpp"
-#include "level.hpp"
 
 enum
 {
@@ -27,41 +26,59 @@ struct vector
     float y;
 };
 
+class Level;
+
 class Sprite
 {
 public:
-    Sprite(Level *l, DrawEngine *de, int s_index, float x = 1, float y= 1, int i_lives =1);
-    ~Sprite();
+    Sprite(Level* l, DrawEngine* de, int sprite_index, float xpos = 1, float ypos= 1, int i_lives = 1);
     
-    vector getPosition(void);
-    float getX(void);
-    float getY(void);
+    ~Sprite()
+    {
+        // erase the dying sprites
+        erase(pos.x, pos.y);
+    }
     
-    virtual void addLives(int num = 1);
-    int getLives(void);
-    bool isAlive(void);
+    vector getPosition(void){ return pos; }
+    float getX(void){ return pos.x; }
+    float getY(void){ return pos.y; }
+    void setPosition(float x, float y) { pos.x = x; pos.y = y; }
     
-    virtual void idleUpdate(void);
+    int getLives(void){ return numLives; }
     
-    virtual bool move(float x, float y);
+    virtual void addLives(int num = 1){ numLives += num; }
     
-    int classID;
+    virtual void idleUpdate(void)
+    {
+        // this is only for the inhereited classes not for myself
+    }
+    virtual bool move(float xDir, float yDir);
+    
+    int getClassID(void){ return classID; }
+    void setClassID(int id){ classID = id; }
     
 protected:
-    Level *level;
-    DrawEngine *drawArea;
-    int spriteIndex;
-    vector pos;
-    int numLives;
-    
-    
     vector facingDirection;
     
-    void draw(float x, float y);
-    void erase(float x, float y);
+    DrawEngine* drawArea;
     
+    void draw(float x, float y)
+    {
+        drawArea->drawSprite(spriteIndex, (int)x, (int)y);
+    }
+    
+    void erase(float x, float y)
+    {
+        drawArea->eraseSprite((int)x, (int)y);
+    }
+    
+    Level* level;
+    // aware of level map
     bool isValidLevelMove(int xpos, int ypos);
     
+private:
+    int classID, spriteIndex, numLives;
+    vector pos;
 };
 
 #endif /* sprite_h */

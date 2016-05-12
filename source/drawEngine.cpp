@@ -96,7 +96,7 @@ void DrawEngine::setup()
     // draw to our windows
 //    mvwprintw(field, 1, 1, "Field");
 //    mvwprintw(score, 1, 1, "Score");
-    printScore(1, 1, "Level 1: ");
+    
     
 
     

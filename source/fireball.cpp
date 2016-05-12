@@ -6,9 +6,12 @@
 //  Copyright © 2016 phuong. All rights reserved.
 //
 
-#include <list>
-
 #include "fireball.hpp"
+
+#include <list>
+using namespace std;
+
+#include "level.hpp"
 
 Fireball::Fireball(Level *lev, DrawEngine *de, int s_index, float x, float y,
                    float xDir, float yDir, int i_lives) : Sprite(lev, de, s_index, x, y, i_lives)
@@ -16,7 +19,7 @@ Fireball::Fireball(Level *lev, DrawEngine *de, int s_index, float x, float y,
     facingDirection.x = xDir;
     facingDirection.y = yDir;
     
-    classID = FIREBALL_CLASSID;
+    setClassID(FIREBALL_CLASSID);
 }
 
 void Fireball::idleUpdate()
@@ -25,13 +28,18 @@ void Fireball::idleUpdate()
         list <Sprite *>::iterator Iter;
         
         for (Iter = level->npc.begin(); Iter != level->npc.end(); Iter++) {
-            if ((*Iter)->classID != classID && (int)(*Iter)->getX() == pos.x & (int)(*Iter)->getY() == pos.y) {
+            if (
+                 (*Iter)->getClassID() != getClassID() &&
+                 (int)(*Iter)->getX() == getX() &&
+                 (int)(*Iter)->getY() == getY()
+               )
+            {
                 
                 // kill the enemy got hit
                 (*Iter)->addLives(-1);
                 --level->numEnemies;
                 
-                // kill that firewall itself
+                // kill that fireball itself
                 addLives(-1);
             }
         }

@@ -10,7 +10,6 @@
 #define enemy_h
 
 #include "sprite.hpp"
-#include "drawEngine.hpp"
 
 class Level;
 class Character;

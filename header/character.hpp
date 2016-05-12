@@ -10,6 +10,7 @@
 #define character_hpp
 
 #include "sprite.hpp"
+#include <ncurses.h>
 
 class Character : public Sprite
 {

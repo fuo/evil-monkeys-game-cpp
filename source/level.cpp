@@ -6,16 +6,15 @@
 //  Copyright © 2016 phuong. All rights reserved.
 //
 
-#include <stdio.h>
-#include <stdlib.h>
-
-#include <iostream>
-
-using namespace std;
-
 #include "level.hpp"
+
+#include "drawEngine.hpp"
 #include "character.hpp" // work around circular include header
 #include "enemy.hpp"
+
+#include <stdlib.h>
+#include <iostream>
+using namespace std;
 
 Level::Level(DrawEngine *de, int w, int h)
 {
@@ -43,6 +42,8 @@ Level::Level(DrawEngine *de, int w, int h)
 }
 
 Level::~Level(){
+    
+    delete player;
     
     // del memeory for level
     for (int x; x < width; x++)
@@ -108,6 +109,7 @@ bool Level::keyPress(int c)
 
 void Level::update(){
     
+    drawArea->printScore(1, 1, "Level 1: ");
     
     string s = to_string(numEnemies);
     char const * tmp = s.c_str();
@@ -128,7 +130,7 @@ void Level::update(){
         
         (*Iter)->idleUpdate();
         
-        if ((*Iter)->isAlive() == false) {
+        if ((*Iter)->getLives() < 1) {
             
             Sprite *temp = *Iter;
             

@@ -6,20 +6,18 @@
 //  Copyright © 2016 phuong. All rights reserved.
 //
 
-#include <iostream>
-
 #include "sprite.hpp"
 
+#include "level.hpp"
 
-using namespace::std;
-
-Sprite::Sprite(Level *l, DrawEngine *de, int s_index, float x, float y, int i_lives){
+Sprite::Sprite(Level* lvl, DrawEngine *de, int sprite_index, float xpos, float ypos, int i_lives)
+{
     drawArea = de;
     
-    pos.x = x;
-    pos.y = y;
+    pos.x = xpos;
+    pos.y = ypos;
     
-    spriteIndex = s_index;
+    spriteIndex = sprite_index;
     
     numLives = i_lives;
     
@@ -28,80 +26,35 @@ Sprite::Sprite(Level *l, DrawEngine *de, int s_index, float x, float y, int i_li
     
     classID = SPRITE_CLASSID;
     
-    level = l;
-}
-
-Sprite::~Sprite()
-{
-    // erase the dying sprites
-    erase(pos.x, pos.y);
-}
-
-vector Sprite::getPosition()
-{
-    return pos;
-}
-
-float Sprite::getX(){
-    return pos.x;
-}
-
-float Sprite::getY()
-{
-    return pos.y;
-}
-
-void Sprite::addLives(int num){
-    numLives += num;
-}
-
-int Sprite::getLives()
-{
-    return numLives;
-}
-
-bool Sprite::isAlive()
-{
-    return (numLives > 0);
-}
-
-bool Sprite::move(float x, float y)
-{
+    level = lvl;
     
-    int xpos = (int)(pos.x + x);
-    int ypos = (int)(pos.y + y);
+    draw(pos.x, pos.y);
+}
+
+bool Sprite::move(float xDir, float yDir)
+{
+    vector direction;
     
-    if (isValidLevelMove(xpos, ypos)) {
-        
-        
+    direction.x = (int)(pos.x + xDir);
+    direction.y = (int)(pos.y + yDir);
+    
+    if ( isValidLevelMove(direction.x, direction.y) )
+    {
+        facingDirection.x = xDir;
+        facingDirection.y = yDir;
         
         // erase sprite
         erase(pos.x, pos.y);
         
-        pos.x += x;
-        pos.y += y;
-        
-        facingDirection.x = x;
-        facingDirection.y = y;
+        setPosition(direction.x, direction.y);
         
         // draw sprite
         draw(pos.x, pos.y);
         
-        //    x = ((int)x + 1) % drawArea->getWindowWidth();
         return true;
     }
     
     return false;
-}
-
-void Sprite::draw(float x, float y)
-{
-    drawArea->drawSprite(spriteIndex, (int)x, (int)y);
-}
-
-void Sprite::erase(float x, float y)
-{
-    drawArea->eraseSprite((int)x, (int)y);
 }
 
 bool Sprite::isValidLevelMove(int xpos, int ypos)
@@ -110,11 +63,5 @@ bool Sprite::isValidLevelMove(int xpos, int ypos)
     if (level->level[xpos][ypos] != TILE_WALL)
         return true;
     
-    
     return false;
-    
-}
-
-void Sprite::idleUpdate(){
-    // this is only for the inhereited classes not for myself
 }
