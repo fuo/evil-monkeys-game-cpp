@@ -41,35 +41,35 @@ namespace EvilMonkeys
             erase(pos.x, pos.y);
         }
         
-        vector getPosition(void){ return pos; }
-        float getX(void){ return pos.x; }
-        float getY(void){ return pos.y; }
-        void setPosition(float x, float y) { pos.x = x; pos.y = y; }
+        inline vector getPosition(void){ return pos; }
+        inline float getX(void){ return pos.x; }
+        inline float getY(void){ return pos.y; }
+        inline void setPosition(float x, float y) { pos.x = x; pos.y = y; }
         
-        int getLives(void){ return numLives; }
+        inline int getLives(void){ return numLives; }
         
-        virtual void addLives(int num = 1){ numLives += num; }
+        inline virtual void __addLives(int num = 1){ numLives += num; }
         
-        virtual void idleUpdate(void)
+        inline virtual void idleUpdate(void)
         {
             // this is only for the inhereited classes not for myself
         }
         virtual bool move(float xDir, float yDir);
         
-        int getClassID(void){ return classID; }
-        void setClassID(int id){ classID = id; }
+        inline int getClassID(void){ return classID; }
+        inline void setClassID(int id){ classID = id; }
         
     protected:
         vector facingDirection;
         
         DrawEngine* drawArea;
         
-        void draw(float x, float y)
+        inline void draw(float x, float y)
         {
             drawArea->drawSprite(spriteIndex, (int)x, (int)y);
         }
         
-        void erase(float x, float y)
+        inline void erase(float x, float y)
         {
             drawArea->eraseSprite((int)x, (int)y);
         }

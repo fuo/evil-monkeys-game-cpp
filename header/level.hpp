@@ -38,7 +38,7 @@ namespace EvilMonkeys
         Level(DrawEngine *de, int width = 30, int height = 20);
         ~Level();
         
-        void addPlayer(Character *p){ player = p; }
+        inline void addPlayer(Character *p){ player = p; }
         
         void update(void);
         
@@ -46,9 +46,9 @@ namespace EvilMonkeys
         
         void addEnemies(int num);
         
-        void addNPC(Sprite *spr){ npc.push_back(spr); }
+        inline void addNPC(Sprite *spr){ npc.push_back(spr); }
         
-        void draw(void){ drawArea->drawBackground(); }
+        inline void draw(void){ drawArea->drawBackground(); }
         
         std::list <Sprite *> npc;
 

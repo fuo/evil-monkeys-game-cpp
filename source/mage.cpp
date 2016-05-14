@@ -20,9 +20,9 @@ Mage::Mage(Level *l, DrawEngine *de, int sprite_index, float xpos, float ypos,
     setClassID(MAGE_CLASSID);
 }
 
-bool Mage::keyPress(int key)
+bool Mage::__isKeyPressExecuteAction(int key)
 {
-    if (!Character::keyPress(key))
+    if (!Character::__isKeyPressExecuteAction(key))
         if (key == spellKey)
             return castSpell();
     

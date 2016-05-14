@@ -21,7 +21,7 @@ namespace EvilMonkeys
     public:
         Enemy(Level *l, DrawEngine *de, int sprite_index, float xpos, float ypos, int i_lives = 1);
         
-        void addGoal(Character* g){ goal = g; }
+        inline void addGoal(Character* g){ goal = g; }
         
     private:
         

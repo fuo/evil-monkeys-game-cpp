@@ -23,7 +23,7 @@ namespace EvilMonkeys
         char spellKey;
         
         // thanks virtual, the keypress in parent is public, so this one can be hidden!
-        bool keyPress(int key);
+        bool __isKeyPressExecuteAction(int key);
         
         bool castSpell(void);
     };

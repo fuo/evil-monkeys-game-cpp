@@ -51,7 +51,7 @@ bool Enemy::move(float xDir, float yDir)
         draw(getX(), getY());
         
         if ((int)goal->getX() == xpos && (int)goal->getY() == ypos) {
-            goal->addLives(-1);
+            goal->__addLives(-1);
         }
         
         return true;

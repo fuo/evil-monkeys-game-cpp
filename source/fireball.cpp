@@ -39,17 +39,17 @@ void Fireball::idleUpdate()
                )
             {                
                 // kill the enemy got hit
-                (*Iter)->addLives(-1);
+                (*Iter)->__addLives(-1);
                 --(level->numEnemies);
                 
                 // kill that fireball itself
-                addLives(-1);
+                __addLives(-1);
             }
         }
     }
     else
     {
         // hit the wall border
-        addLives(-1);
+        __addLives(-1);
     }
 }

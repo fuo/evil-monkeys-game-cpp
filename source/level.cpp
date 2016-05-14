@@ -80,7 +80,7 @@ char** const Level::createLevel()
 bool Level::keyPress(int key)
 {
     if (player->getLives() > 0)
-        if (player->keyPress(key))
+        if (player->__isKeyPressExecuteAction(key))
             return true;
     
     return false;

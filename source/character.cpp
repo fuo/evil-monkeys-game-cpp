@@ -13,16 +13,16 @@ using namespace EvilMonkeys;
 Character::Character(Level *l, DrawEngine* de, int s_index, float xpos, float ypos, int lives,
                      int up_key, int down_key, int left_key, int right_key) : Sprite(l, de, s_index, xpos, ypos, lives)
 {
-    upKey = up_key;
-    downKey = down_key;
-    leftKey = left_key;
-    rightKey = right_key;
+    i_upKey_ = up_key;
+    i_downKey_ = down_key;
+    i_leftKey_ = left_key;
+    i_rightKey_ = right_key;
     
     setClassID(CHARACTER_CLASSID);
     
 }
 
-bool Character::keyPress(int key)
+bool Character::__isKeyPressExecuteAction(int key)
 {
     switch(key)
     {	case KEY_UP:
@@ -43,12 +43,12 @@ bool Character::keyPress(int key)
     return false;
 }
 
-void Character::addLives(int num)
+void Character::__addLives(int num)
 {
-    Sprite::addLives(num);
+    Sprite::__addLives(num);
     
     if (getLives() > 0) {
-        // reset / re-spawn the position
+        // reset or re-spawn the position
         setPosition(1, 1);
         draw(getX(), getY());
     }

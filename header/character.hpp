@@ -21,12 +21,12 @@ namespace EvilMonkeys
                   int lives = 3, int up_key = KEY_UP, int down_key = KEY_DOWN,
                   int left_key = KEY_LEFT, int right_key = KEY_RIGHT);
         
-        virtual bool keyPress(int key);
+        virtual bool __isKeyPressExecuteAction(int key);
         
-        virtual void addLives(int num = 1);
+        virtual void __addLives(int num = 1);
         
     protected:
-        int upKey, downKey, rightKey, leftKey;
+        int i_upKey_, i_downKey_, i_rightKey_, i_leftKey_;
         
     };
 }

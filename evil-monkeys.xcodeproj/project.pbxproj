@@ -17,7 +17,6 @@
 		64DDAC751CE4706400412F48 /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6D1CE4706400412F48 /* level.cpp */; };
 		64DDAC761CE4706400412F48 /* mage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6E1CE4706400412F48 /* mage.cpp */; };
 		64DDAC771CE4706400412F48 /* sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6F1CE4706400412F48 /* sprite.cpp */; };
-		64DDAC891CE637FD00412F48 /* testcase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC7C1CE6365F00412F48 /* testcase.cpp */; };
 		64DDAC8B1CE6381A00412F48 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC8A1CE6381A00412F48 /* main.cpp */; };
 		64DDAC8C1CE63E3900412F48 /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6D1CE4706400412F48 /* level.cpp */; };
 		64DDAC8D1CE63E3E00412F48 /* drawEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC691CE4706400412F48 /* drawEngine.cpp */; };
@@ -28,6 +27,7 @@
 		64DDAC921CE63E6100412F48 /* enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6A1CE4706400412F48 /* enemy.cpp */; };
 		64DDAC931CE63E6300412F48 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC681CE4706400412F48 /* character.cpp */; };
 		64DDAC941CE63E7B00412F48 /* libncurses.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 645630A01CE0ED0100CBB607 /* libncurses.tbd */; };
+		64DDAC961CE7142800412F48 /* testEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC951CE7142800412F48 /* testEnemy.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -72,9 +72,10 @@
 		64DDAC6E1CE4706400412F48 /* mage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mage.cpp; path = source/mage.cpp; sourceTree = "<group>"; };
 		64DDAC6F1CE4706400412F48 /* sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sprite.cpp; path = source/sprite.cpp; sourceTree = "<group>"; };
 		64DDAC7A1CE6362C00412F48 /* catch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
-		64DDAC7C1CE6365F00412F48 /* testcase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = testcase.cpp; sourceTree = "<group>"; };
 		64DDAC821CE637D100412F48 /* test-evil-monkeys */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "test-evil-monkeys"; sourceTree = BUILT_PRODUCTS_DIR; };
 		64DDAC8A1CE6381A00412F48 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../tests/main.cpp; sourceTree = "<group>"; };
+		64DDAC951CE7142800412F48 /* testEnemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testEnemy.cpp; sourceTree = "<group>"; };
+		64DDAC971CE71A6C00412F48 /* enemyFixture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = enemyFixture.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				64DDAC7A1CE6362C00412F48 /* catch.hpp */,
+				64DDAC971CE71A6C00412F48 /* enemyFixture.hpp */,
 			);
 			name = header;
 			path = ../tests/header;
@@ -169,7 +171,7 @@
 		64DDAC7B1CE6362C00412F48 /* source */ = {
 			isa = PBXGroup;
 			children = (
-				64DDAC7C1CE6365F00412F48 /* testcase.cpp */,
+				64DDAC951CE7142800412F48 /* testEnemy.cpp */,
 			);
 			name = source;
 			path = ../tests/source;
@@ -278,9 +280,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				64DDAC891CE637FD00412F48 /* testcase.cpp in Sources */,
 				64DDAC8B1CE6381A00412F48 /* main.cpp in Sources */,
 				64DDAC901CE63E5B00412F48 /* game.cpp in Sources */,
+				64DDAC961CE7142800412F48 /* testEnemy.cpp in Sources */,
 				64DDAC8C1CE63E3900412F48 /* level.cpp in Sources */,
 				64DDAC8D1CE63E3E00412F48 /* drawEngine.cpp in Sources */,
 				64DDAC931CE63E6300412F48 /* character.cpp in Sources */,
