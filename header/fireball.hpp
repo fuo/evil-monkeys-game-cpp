@@ -1,6 +1,6 @@
 //
 //  fireball.h
-//  3dbuzz
+//  Evil Monkey Game
 //
 //  Created by phuong on 1/28/16.
 //  Copyright © 2016 phuong. All rights reserved.
@@ -11,16 +11,18 @@
 
 #include "sprite.hpp"
 
-class Fireball : public Sprite
+namespace EvilMonkeys
 {
-public:
-    Fireball(Level *lvl, DrawEngine *de, int sprite_index, float xpos, float ypos,
-             float xDir, float yDir, int i_lives = 1);
- 
-private:
-    
-    void idleUpdate(void);
-    
-};
-
+    class Fireball : public Sprite
+    {
+    public:
+        Fireball(Level *lvl, DrawEngine *de, int sprite_index, float xpos, float ypos,
+                 float xDir, float yDir, int i_lives = 1);
+     
+    private:
+        
+        void idleUpdate(void);
+        
+    };
+}
 #endif /* fireball_h */

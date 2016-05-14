@@ -1,6 +1,6 @@
 //
 //  enemy.cpp
-//  3dbuzz
+//  Evil Monkey Game
 //
 //  Created by phuong on 1/27/16.
 //  Copyright © 2016 phuong. All rights reserved.
@@ -11,11 +11,11 @@
 #include "character.hpp"
 #include "level.hpp"
 
+using namespace EvilMonkeys;
+
 #include <stdlib.h>
 #include <math.h>
 #include <list>
-using namespace std;
-
 
 Enemy::Enemy(Level *l, DrawEngine *de, int sprite_index, float xpos, float ypos, int i_lives) : Sprite(l, de, sprite_index, xpos, ypos, i_lives)
 {
@@ -30,9 +30,10 @@ bool Enemy::move(float xDir, float yDir)
     if (isValidLevelMove(xpos, ypos)) {
         
         // make sure we don't run into any other enemies;
-        list <Sprite *>::iterator Iter;
+        typename std::list<Sprite *>::const_iterator Iter = level->npc.begin();
+        typename std::list<Sprite *>::const_iterator itEnd = level->npc.end();
         
-        for (Iter = level->npc.begin(); Iter != level->npc.end(); Iter++) {
+        for ( ; Iter != itEnd; Iter++) {
             if ((*Iter) != this && (int)(*Iter)->getX() == xpos && (int)(*Iter)->getY() == ypos) {
                 
                 return false;

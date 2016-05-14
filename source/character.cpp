@@ -8,6 +8,8 @@
 
 #include "character.hpp"
 
+using namespace EvilMonkeys;
+
 Character::Character(Level *l, DrawEngine* de, int s_index, float xpos, float ypos, int lives,
                      int up_key, int down_key, int left_key, int right_key) : Sprite(l, de, s_index, xpos, ypos, lives)
 {
@@ -17,11 +19,6 @@ Character::Character(Level *l, DrawEngine* de, int s_index, float xpos, float yp
     rightKey = right_key;
     
     setClassID(CHARACTER_CLASSID);
-    
-}
-
-Character::~Character()
-{
     
 }
 

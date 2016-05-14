@@ -1,6 +1,6 @@
 //
 //  level.cpp
-//  3dbuzz
+//  Evil Monkey Game
 //
 //  Created by phuong on 1/27/16.
 //  Copyright © 2016 phuong. All rights reserved.
@@ -11,9 +11,9 @@
 #include "character.hpp" // work around circular include header
 #include "enemy.hpp"
 
-#include <stdlib.h>
+using namespace EvilMonkeys;
+
 #include <iostream>
-using namespace std;
 
 Level::Level(DrawEngine *de, int w, int h)
 {
@@ -90,18 +90,17 @@ void Level::update()
 {
     drawArea->printScore(1, 1, "Level 1: ");
     
-    string s = to_string(numEnemies);
+    std::string s = std::to_string(numEnemies);
     char const * tmp = s.c_str();
     
     drawArea->printScore(11, 1, tmp);
     drawArea->printScore(12, 1, " enemies");
     
-    s = to_string(player->getLives());
+    s = std::to_string(player->getLives());
     tmp = s.c_str();
     
     drawArea->printScore(22, 1, tmp);
     drawArea->printScore(23, 1, " lives");
-    
     
     // simulate AI
     for (Iter = npc.begin(); Iter != npc.end(); Iter++) {

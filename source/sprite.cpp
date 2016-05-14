@@ -1,6 +1,6 @@
 //
 //  sprite.cpp
-//  3dbuzz
+//  Evil Monkey Game
 //
 //  Created by phuong on 1/27/16.
 //  Copyright © 2016 phuong. All rights reserved.
@@ -9,6 +9,8 @@
 #include "sprite.hpp"
 
 #include "level.hpp"
+
+using namespace EvilMonkeys;
 
 Sprite::Sprite(Level* lvl, DrawEngine *de, int sprite_index, float xpos, float ypos, int i_lives)
 {

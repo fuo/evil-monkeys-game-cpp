@@ -8,6 +8,8 @@
 
 #include "drawEngine.hpp"
 
+using namespace EvilMonkeys;
+
 DrawEngine::DrawEngine()
 {
     /* Initialize curses */

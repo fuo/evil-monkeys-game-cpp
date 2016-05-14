@@ -1,6 +1,6 @@
 //
 //  fireball.cpp
-//  3dbuzz
+//  Evil Monkey Game
 //
 //  Created by phuong on 1/28/16.
 //  Copyright © 2016 phuong. All rights reserved.
@@ -8,10 +8,11 @@
 
 #include "fireball.hpp"
 
-#include <list>
-using namespace std;
-
 #include "level.hpp"
+
+using namespace EvilMonkeys;
+
+#include <list>
 
 Fireball::Fireball(Level *lvl, DrawEngine *de, int sprite_index, float xpos, float ypos,
                    float xDir, float yDir, int i_lives) : Sprite(lvl, de, sprite_index, xpos, ypos, i_lives)
@@ -26,7 +27,10 @@ void Fireball::idleUpdate()
 {
     if (Sprite::move(facingDirection.x, facingDirection.y))
     {
-        for (list <Sprite *>::iterator Iter = level->npc.begin(); Iter != level->npc.end(); Iter++)
+        typename std::list<Sprite *>::const_iterator Iter = level->npc.begin();
+        typename std::list<Sprite *>::const_iterator itEnd = level->npc.end();
+        
+        for( ; Iter != itEnd; ++Iter )
         {
             if (
                  (*Iter)->getClassID() != this->getClassID() &&

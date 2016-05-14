@@ -11,20 +11,24 @@
 
 #include "drawEngine.hpp"
 
-class Level;
-
-class Game
+namespace EvilMonkeys
 {
-public:
-    void run(void);
     
-protected:
-    void timerUpdate(double& lastTime);
-    
-private:
-    DrawEngine drawArea;
-    Level* level;
-    
-};
+    class Level;
+        
+    class Game
+    {
+    public:
+        void run(void);
+        
+    protected:
+        void timerUpdate(double& lastTime);
+        
+    private:
+        DrawEngine drawArea;
+        Level* level;
+        
+    };
 
+}
 #endif /* game_hpp */

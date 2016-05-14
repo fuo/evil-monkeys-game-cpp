@@ -1,6 +1,6 @@
 //
 //  mage.h
-//  3dbuzz
+//  Evil Monkey Game
 //
 //  Created by phuong on 1/28/16.
 //  Copyright © 2016 phuong. All rights reserved.
@@ -11,19 +11,21 @@
 
 #include "character.hpp"
 
-class Mage : public Character
+namespace EvilMonkeys
 {
-public:
-    Mage(Level *l, DrawEngine *de, int sprite_index, float xpos = 1, float ypos = 1,
-         int lives = 3, char spellKey = ' ', int up_key = KEY_UP, int down_key = KEY_DOWN, int left_key = KEY_LEFT, int right_key = KEY_RIGHT);
-    
-private:
-    char spellKey;
-    
-    // thanks virtual, the keypress in parent is public, so this one can be hidden!
-    bool keyPress(int key);
-    
-    bool castSpell(void);
-};
-
+    class Mage : public Character
+    {
+    public:
+        Mage(Level *l, DrawEngine *de, int sprite_index, float xpos = 1, float ypos = 1,
+             int lives = 3, char spellKey = ' ', int up_key = KEY_UP, int down_key = KEY_DOWN, int left_key = KEY_LEFT, int right_key = KEY_RIGHT);
+        
+    private:
+        char spellKey;
+        
+        // thanks virtual, the keypress in parent is public, so this one can be hidden!
+        bool keyPress(int key);
+        
+        bool castSpell(void);
+    };
+}
 #endif /* mage_h */

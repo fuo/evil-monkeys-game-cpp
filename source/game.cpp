@@ -11,6 +11,8 @@
 #include "mage.hpp"
 #include "level.hpp"
 
+using namespace EvilMonkeys;
+
 #include <sys/time.h>
 
 

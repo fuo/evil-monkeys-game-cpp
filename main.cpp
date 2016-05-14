@@ -32,7 +32,7 @@ int main(int argc, const char * argv[])
     isTermAvail = (getenv("TERM") != NULL);
     
     
-    Game game;
+    EvilMonkeys::Game game;
     game.run();
 
     

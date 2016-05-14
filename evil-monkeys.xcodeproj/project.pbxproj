@@ -17,10 +17,30 @@
 		64DDAC751CE4706400412F48 /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6D1CE4706400412F48 /* level.cpp */; };
 		64DDAC761CE4706400412F48 /* mage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6E1CE4706400412F48 /* mage.cpp */; };
 		64DDAC771CE4706400412F48 /* sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6F1CE4706400412F48 /* sprite.cpp */; };
+		64DDAC891CE637FD00412F48 /* testcase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC7C1CE6365F00412F48 /* testcase.cpp */; };
+		64DDAC8B1CE6381A00412F48 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC8A1CE6381A00412F48 /* main.cpp */; };
+		64DDAC8C1CE63E3900412F48 /* level.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6D1CE4706400412F48 /* level.cpp */; };
+		64DDAC8D1CE63E3E00412F48 /* drawEngine.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC691CE4706400412F48 /* drawEngine.cpp */; };
+		64DDAC8E1CE63E5600412F48 /* sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6F1CE4706400412F48 /* sprite.cpp */; };
+		64DDAC8F1CE63E5800412F48 /* mage.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6E1CE4706400412F48 /* mage.cpp */; };
+		64DDAC901CE63E5B00412F48 /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6C1CE4706400412F48 /* game.cpp */; };
+		64DDAC911CE63E5E00412F48 /* fireball.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6B1CE4706400412F48 /* fireball.cpp */; };
+		64DDAC921CE63E6100412F48 /* enemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC6A1CE4706400412F48 /* enemy.cpp */; };
+		64DDAC931CE63E6300412F48 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC681CE4706400412F48 /* character.cpp */; };
+		64DDAC941CE63E7B00412F48 /* libncurses.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 645630A01CE0ED0100CBB607 /* libncurses.tbd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		645630941CE0ECB100CBB607 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		64DDAC801CE637D100412F48 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = /usr/share/man/man1/;
@@ -51,6 +71,10 @@
 		64DDAC6D1CE4706400412F48 /* level.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = level.cpp; path = source/level.cpp; sourceTree = "<group>"; };
 		64DDAC6E1CE4706400412F48 /* mage.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mage.cpp; path = source/mage.cpp; sourceTree = "<group>"; };
 		64DDAC6F1CE4706400412F48 /* sprite.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = sprite.cpp; path = source/sprite.cpp; sourceTree = "<group>"; };
+		64DDAC7A1CE6362C00412F48 /* catch.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = catch.hpp; sourceTree = "<group>"; };
+		64DDAC7C1CE6365F00412F48 /* testcase.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = testcase.cpp; sourceTree = "<group>"; };
+		64DDAC821CE637D100412F48 /* test-evil-monkeys */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "test-evil-monkeys"; sourceTree = BUILT_PRODUCTS_DIR; };
+		64DDAC8A1CE6381A00412F48 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../tests/main.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +86,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		64DDAC7F1CE637D100412F48 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64DDAC941CE63E7B00412F48 /* libncurses.tbd in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -70,6 +102,7 @@
 			children = (
 				645630A01CE0ED0100CBB607 /* libncurses.tbd */,
 				645630981CE0ECB100CBB607 /* evil-monkeys */,
+				64DDAC831CE637D200412F48 /* test-evil-monkeys */,
 				645630971CE0ECB100CBB607 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -78,6 +111,7 @@
 			isa = PBXGroup;
 			children = (
 				645630961CE0ECB100CBB607 /* evil-monkeys */,
+				64DDAC821CE637D100412F48 /* test-evil-monkeys */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,6 +157,34 @@
 			name = header;
 			sourceTree = "<group>";
 		};
+		64DDAC791CE6362C00412F48 /* header */ = {
+			isa = PBXGroup;
+			children = (
+				64DDAC7A1CE6362C00412F48 /* catch.hpp */,
+			);
+			name = header;
+			path = ../tests/header;
+			sourceTree = "<group>";
+		};
+		64DDAC7B1CE6362C00412F48 /* source */ = {
+			isa = PBXGroup;
+			children = (
+				64DDAC7C1CE6365F00412F48 /* testcase.cpp */,
+			);
+			name = source;
+			path = ../tests/source;
+			sourceTree = "<group>";
+		};
+		64DDAC831CE637D200412F48 /* test-evil-monkeys */ = {
+			isa = PBXGroup;
+			children = (
+				64DDAC8A1CE6381A00412F48 /* main.cpp */,
+				64DDAC791CE6362C00412F48 /* header */,
+				64DDAC7B1CE6362C00412F48 /* source */,
+			);
+			path = "test-evil-monkeys";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -143,6 +205,23 @@
 			productReference = 645630961CE0ECB100CBB607 /* evil-monkeys */;
 			productType = "com.apple.product-type.tool";
 		};
+		64DDAC811CE637D100412F48 /* test-evil-monkeys */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 64DDAC861CE637D200412F48 /* Build configuration list for PBXNativeTarget "test-evil-monkeys" */;
+			buildPhases = (
+				64DDAC7E1CE637D100412F48 /* Sources */,
+				64DDAC7F1CE637D100412F48 /* Frameworks */,
+				64DDAC801CE637D100412F48 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "test-evil-monkeys";
+			productName = "test-evil-monkeys";
+			productReference = 64DDAC821CE637D100412F48 /* test-evil-monkeys */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -153,6 +232,9 @@
 				ORGANIZATIONNAME = badila;
 				TargetAttributes = {
 					645630951CE0ECB100CBB607 = {
+						CreatedOnToolsVersion = 7.3.1;
+					};
+					64DDAC811CE637D100412F48 = {
 						CreatedOnToolsVersion = 7.3.1;
 					};
 				};
@@ -170,6 +252,7 @@
 			projectRoot = "";
 			targets = (
 				645630951CE0ECB100CBB607 /* evil-monkeys */,
+				64DDAC811CE637D100412F48 /* test-evil-monkeys */,
 			);
 		};
 /* End PBXProject section */
@@ -188,6 +271,23 @@
 				64DDAC731CE4706400412F48 /* fireball.cpp in Sources */,
 				64DDAC741CE4706400412F48 /* game.cpp in Sources */,
 				64DDAC771CE4706400412F48 /* sprite.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		64DDAC7E1CE637D100412F48 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				64DDAC891CE637FD00412F48 /* testcase.cpp in Sources */,
+				64DDAC8B1CE6381A00412F48 /* main.cpp in Sources */,
+				64DDAC901CE63E5B00412F48 /* game.cpp in Sources */,
+				64DDAC8C1CE63E3900412F48 /* level.cpp in Sources */,
+				64DDAC8D1CE63E3E00412F48 /* drawEngine.cpp in Sources */,
+				64DDAC931CE63E6300412F48 /* character.cpp in Sources */,
+				64DDAC921CE63E6100412F48 /* enemy.cpp in Sources */,
+				64DDAC8E1CE63E5600412F48 /* sprite.cpp in Sources */,
+				64DDAC911CE63E5E00412F48 /* fireball.cpp in Sources */,
+				64DDAC8F1CE63E5800412F48 /* mage.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +391,20 @@
 			};
 			name = Release;
 		};
+		64DDAC871CE637D200412F48 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		64DDAC881CE637D200412F48 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -311,6 +425,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		64DDAC861CE637D200412F48 /* Build configuration list for PBXNativeTarget "test-evil-monkeys" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				64DDAC871CE637D200412F48 /* Debug */,
+				64DDAC881CE637D200412F48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};

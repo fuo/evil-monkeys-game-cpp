@@ -12,21 +12,22 @@
 #include "sprite.hpp"
 #include <ncurses.h>
 
-class Character : public Sprite
+namespace EvilMonkeys
 {
-public:
-    Character(Level *l, DrawEngine *de, int s_index, float xpos = 1, float ypos = 1,
-              int lives = 3, int up_key = KEY_UP, int down_key = KEY_DOWN,
-              int left_key = KEY_LEFT, int right_key = KEY_RIGHT);
-    ~Character();
-    
-    virtual bool keyPress(int key);
-    
-    virtual void addLives(int num = 1);
-    
-protected:
-    int upKey, downKey, rightKey, leftKey;
-    
-};
-
+    class Character : public Sprite
+    {
+    public:
+        Character(Level *l, DrawEngine *de, int s_index, float xpos = 1, float ypos = 1,
+                  int lives = 3, int up_key = KEY_UP, int down_key = KEY_DOWN,
+                  int left_key = KEY_LEFT, int right_key = KEY_RIGHT);
+        
+        virtual bool keyPress(int key);
+        
+        virtual void addLives(int num = 1);
+        
+    protected:
+        int upKey, downKey, rightKey, leftKey;
+        
+    };
+}
 #endif /* character_hpp */

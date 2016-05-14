@@ -1,6 +1,6 @@
 //
 //  mage.cpp
-//  3dbuzz
+//  Evil Monkey Game
 //
 //  Created by phuong on 1/28/16.
 //  Copyright © 2016 phuong. All rights reserved.
@@ -10,6 +10,8 @@
 
 #include "level.hpp"
 #include "fireball.hpp"
+
+using namespace EvilMonkeys;
 
 Mage::Mage(Level *l, DrawEngine *de, int sprite_index, float xpos, float ypos,
            int lives, char spellK, int up_key, int down_key, int left_key, int right_key) : Character(l, de, sprite_index, xpos, ypos, lives, up_key, down_key, left_key, right_key)
