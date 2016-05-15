@@ -23,6 +23,9 @@ Level::Level(DrawEngine *de, int w, int h)
     width = w;
     height = h;
     
+    startTime = 0;
+    elapsedTime = 0;
+    
     player = 0;
     numEnemies = 0;
     numFireballs = 0;
@@ -90,12 +93,22 @@ bool Level::keyPress(int key)
     return false;
 }
 
-void Level::update()
+void Level::update(unsigned long timing)
 {
-    drawArea->printScore(1, 1, "Level 1: ");
+    if (startTime == 0) {
+        startTime = timing;
+    }
     
-    std::string s = std::to_string(numEnemies);
+    elapsedTime = timing - startTime;
+    
+    std::string s = std::to_string(elapsedTime);
     char const * tmp = s.c_str();
+    
+    drawArea->printScore(1, 1, tmp);
+    drawArea->printScore(4, 1, "secs");
+    
+    s = std::to_string(numEnemies);
+    tmp = s.c_str();
     
     drawArea->printScore(11, 1, tmp);
     drawArea->printScore(12, 1, " enemies");
@@ -136,8 +149,8 @@ void Level::addEnemies(int num)
     int i = num;
     
     while (i > 0) {
-        int xpos = int((float(rand() % 100) / 100) * (width - 2) + 1);
-        int ypos = int((float(rand() % 100) / 100) * (height - 2) + 1);
+        int xpos = int((float(rand() % 100) / 100) * (width - 4) + 1);
+        int ypos = int((float(rand() % 100) / 100) * (height - 4) + 1);
         
         if (level[xpos][ypos] != TILE_WALL) {
             
@@ -160,8 +173,8 @@ void Level::spawnBombs(int num)
     int i = num;
     
     while (i > 0) {
-        int xpos = int((float(rand() % 100) / 100) * (width - 2) + 1);
-        int ypos = int((float(rand() % 100) / 100) * (height - 2) + 1);
+        int xpos = int((float(rand() % 100) / 100) * (width - 6) + 1);
+        int ypos = int((float(rand() % 100) / 100) * (height - 6) + 1);
         
         typename std::list<Sprite *>::const_iterator Iter = npc.begin();
         typename std::list<Sprite *>::const_iterator itEnd = npc.end();

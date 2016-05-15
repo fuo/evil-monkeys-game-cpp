@@ -47,7 +47,7 @@ namespace EvilMonkeys
         
         inline void addPlayer(Character *p){ player = p; }
         
-        void update(void);
+        void update(unsigned long time);
         
         bool keyPress(int key);
         
@@ -62,6 +62,8 @@ namespace EvilMonkeys
         
         std::list <Sprite *> npc;
 
+        unsigned long startTime;
+        unsigned long elapsedTime;
         
         int numEnemies;
         int numFireballs;

@@ -36,7 +36,7 @@ void Game::run()
     level->draw();
     
     level->addPlayer(new Mage(level, &drawArea, SPRITE_PLAYER));
-    level->addEnemies(10);
+    level->addEnemies(1);
     level->spawnBombs(10);
     
     double lastTime = 0;
@@ -72,8 +72,11 @@ void Game::timerUpdate(double & lastTime)
         return;
     
 //----------------------------------
+
+    gettimeofday(tv, 0);
+    unsigned long time_in_micros = tv->tv_sec;
     
-    level->update();
+    level->update((unsigned long)(time_in_micros % 10000));
     
 //----------------------------------
     
