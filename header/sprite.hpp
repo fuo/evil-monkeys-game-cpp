@@ -45,14 +45,18 @@ namespace EvilMonkeys
         inline float getX(void){ return pos.x; }
         inline float getY(void){ return pos.y; }
         inline void setPosition(float x, float y) { pos.x = x; pos.y = y; }
+        inline void setFacingDirection(float x, float y) { facingDirection.x = x; facingDirection.y = y; }
         
         inline int getLives(void){ return numLives; }
         
         inline virtual void __addLives(int num = 1){ numLives += num; }
         
-        inline virtual void idleUpdate(void)
+        inline virtual void __idleUpdate(void)
         {
             // this is only for the inhereited classes not for myself
+            // because it's too early to know what should be implemented here
+            // but I can use it as the interface for all of my children
+            // thanks virtual late-binding... apply based pointer!
         }
         virtual bool move(float xDir, float yDir);
         

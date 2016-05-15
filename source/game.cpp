@@ -19,7 +19,7 @@ using namespace EvilMonkeys;
 #define GAME_SPEED 50
 
 bool kbhit(void);
-bool getKeyInput(int&);
+bool getKeyInput(int& key);
 
 void Game::run()
 {

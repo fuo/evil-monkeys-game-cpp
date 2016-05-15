@@ -23,7 +23,7 @@ namespace EvilMonkeys
         
         virtual bool __isKeyPressExecuteAction(int key);
         
-        virtual void __addLives(int num = 1);
+        void __addLives(int num = 1);
         
     protected:
         int i_upKey_, i_downKey_, i_rightKey_, i_leftKey_;

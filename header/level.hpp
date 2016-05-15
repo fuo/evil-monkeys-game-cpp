@@ -38,6 +38,12 @@ namespace EvilMonkeys
         Level(DrawEngine *de, int width = 30, int height = 20);
         ~Level();
         
+        inline int getWidth(){ return width; }
+        inline int getHeight(){ return height; }
+        
+        inline int** getLevel(){ return level; }
+        inline int checkGrid(int xpos, int ypos){ return level[xpos][ypos]; }
+        
         inline void addPlayer(Character *p){ player = p; }
         
         void update(void);
@@ -54,8 +60,9 @@ namespace EvilMonkeys
 
         
         int numEnemies;
+        int numFireballs;
         
-        char** const createLevel(void);
+        int** const createLevel(void);
         
     private:
         int width;
@@ -63,7 +70,7 @@ namespace EvilMonkeys
         
         std::list <Sprite *>::const_iterator Iter;
         
-        char **level = NULL;
+        int** level = NULL;
         
         
         

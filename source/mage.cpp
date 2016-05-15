@@ -35,5 +35,7 @@ bool Mage::castSpell()
     
     level->addNPC((Sprite *)temp);
     
+    ++(level->numFireballs);
+    
     return true;
 }

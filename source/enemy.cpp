@@ -60,7 +60,7 @@ bool Enemy::move(float xDir, float yDir)
     return false;
 }
 
-void Enemy::idleUpdate()
+void Enemy::__idleUpdate()
 {
     if (goal->getLives() > 0)
         simulateAI();
@@ -69,6 +69,12 @@ void Enemy::idleUpdate()
 void Enemy::simulateAI(void)
 {
     vector goal_pos = goal->getPosition();
+    
+    if (goal_pos.x == getX() && goal_pos.y == getY()) {
+        move(0, 0);
+        return;
+    }
+    
     vector direction;
     
     direction.x = goal_pos.x - getX();
@@ -79,7 +85,7 @@ void Enemy::simulateAI(void)
     direction.x = direction.x / (mag * 6);
     direction.y = direction.y / (mag * 6);
     
-    char** lvl = level->createLevel();
+    int** lvl = level->createLevel();
     
     if (lvl[0][lround(direction.y)] != TILE_WALL || lvl[lround(direction.x)][0] != TILE_WALL)
     {

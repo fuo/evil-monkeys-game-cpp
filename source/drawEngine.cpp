@@ -35,7 +35,6 @@ DrawEngine::DrawEngine()
     
     score = newwin(score_size, screenWidth, screenHeight, 0);
     
-//    draw_borders(field);
     draw_borders(score);
     
     
@@ -69,7 +68,7 @@ DrawEngine::~DrawEngine()
     delwin(score);
 }
 
-void DrawEngine::setMap(char** grid, int xSize, int ySize)
+void DrawEngine::setMap(int** grid, int xSize, int ySize)
 {
     map = grid;
     screenWidth = xSize;
@@ -78,7 +77,6 @@ void DrawEngine::setMap(char** grid, int xSize, int ySize)
     field = newwin(screenHeight, screenWidth, 0, 0);
     score = newwin(score_size, screenWidth, screenHeight, 0);
     
-//    draw_borders(field);
     draw_borders(score);
 }
 
@@ -135,7 +133,9 @@ int DrawEngine::createSprite(int figureIndex, char img)
 
 bool DrawEngine::eraseSprite(int xpos, int ypos)
 {
-    gotoxy(xpos, ypos);
+    if(!gotoxy(xpos, ypos))
+        return false;
+    
     waddch(field, ' ');
     return true;
 }
@@ -149,6 +149,9 @@ bool DrawEngine::drawSprite(int figureIndex, int xpos, int ypos)
 
 bool DrawEngine::gotoxy(int xpos, int ypos)
 {
+    if (xpos > screenWidth || ypos > screenHeight)
+        return false;
+    
     wmove(field, ++ypos, ++xpos);
     return true;
 }
@@ -173,7 +176,7 @@ void DrawEngine::drawBackground()
 {
     if (map)
     {
-        for (int y=0; y < screenHeight; y++)
+        for (int y = 0; y < screenHeight; y++)
         {
             gotoxy(0, y);
             
@@ -183,7 +186,6 @@ void DrawEngine::drawBackground()
             }
             
         }
-        cursorVisibility(0);
         
     }
     

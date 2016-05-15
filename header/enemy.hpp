@@ -27,7 +27,8 @@ namespace EvilMonkeys
         
         bool move(float xDir, float yDir);
         
-        void idleUpdate(void);
+        void __idleUpdate(void);
+        
         void simulateAI(void);
         
         Character* goal = NULL;

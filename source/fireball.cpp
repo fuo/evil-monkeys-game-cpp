@@ -21,9 +21,10 @@ Fireball::Fireball(Level *lvl, DrawEngine *de, int sprite_index, float xpos, flo
     facingDirection.y = yDir;
     
     setClassID(FIREBALL_CLASSID);
+    
 }
 
-void Fireball::idleUpdate()
+void Fireball::__idleUpdate()
 {
     if (Sprite::move(facingDirection.x, facingDirection.y))
     {
@@ -44,6 +45,7 @@ void Fireball::idleUpdate()
                 
                 // kill that fireball itself
                 __addLives(-1);
+                --(level->numFireballs);
             }
         }
     }
@@ -51,5 +53,6 @@ void Fireball::idleUpdate()
     {
         // hit the wall border
         __addLives(-1);
+        --(level->numFireballs);
     }
 }

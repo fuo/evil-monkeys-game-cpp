@@ -24,6 +24,7 @@ Level::Level(DrawEngine *de, int w, int h)
     
     player = 0;
     numEnemies = 0;
+    numFireballs = 0;
     
     drawArea->setMap(createLevel(), width, height);
 }
@@ -42,16 +43,16 @@ Level::~Level()
         delete (*Iter);
 }
 
-char** const Level::createLevel()
+int** const Level::createLevel()
 {
     if (level != NULL)
         return level;
     
     // char ** ; create memory for our level
-    level = new char *[width];
+    level = new int *[width];
     
     for (int x = 0; x < width; x++)
-        level[x] = new char[height];
+        level[x] = new int[height];
     
     for (int x = 0; x < width - 2; x++)
     {
@@ -105,7 +106,7 @@ void Level::update()
     // simulate AI
     for (Iter = npc.begin(); Iter != npc.end(); Iter++) {
         
-        (*Iter)->idleUpdate();
+        (*Iter)->__idleUpdate();
         
         if ((*Iter)->getLives() < 1) {
             

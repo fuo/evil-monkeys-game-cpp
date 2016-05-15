@@ -29,7 +29,7 @@ namespace EvilMonkeys
         
         // to the Level
         void createBackgroundTile(int tileIndex, char img);
-        void setMap(char** grid, int xSize, int ySize);
+        void setMap(int** grid, int xSize, int ySize);
         void drawBackground(void);
         
         void setup(void);
@@ -38,7 +38,7 @@ namespace EvilMonkeys
         WINDOW *field;
         WINDOW *score;
         
-        char** map = NULL;
+        int** map = NULL;
         
         int screenWidth, screenHeight, score_size;
         

@@ -21,7 +21,7 @@ namespace EvilMonkeys
      
     private:
         
-        void idleUpdate(void);
+        void __idleUpdate(void);
         
     };
 }

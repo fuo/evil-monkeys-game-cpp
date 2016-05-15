@@ -61,7 +61,7 @@ bool Sprite::move(float xDir, float yDir)
 
 bool Sprite::isValidLevelMove(int xpos, int ypos)
 {
-    char** lvl = level->createLevel();
+    int** lvl = level->createLevel();
     // check inside level
     if (lvl[xpos][ypos] != TILE_WALL)
         return true;
