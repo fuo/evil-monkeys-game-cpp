@@ -28,6 +28,9 @@ namespace EvilMonkeys
     protected:
         int i_upKey_, i_downKey_, i_rightKey_, i_leftKey_;
         
+    private:
+        bool __move(float xDir, float yDir);
+        
     };
 }
 #endif /* character_hpp */

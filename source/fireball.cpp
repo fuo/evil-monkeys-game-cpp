@@ -15,7 +15,7 @@ using namespace EvilMonkeys;
 #include <list>
 
 Fireball::Fireball(Level *lvl, DrawEngine *de, int sprite_index, float xpos, float ypos,
-                   float xDir, float yDir, int i_lives) : Sprite(lvl, de, sprite_index, xpos, ypos, i_lives)
+                   float xDir, float yDir, int i_lives) : Bomb(lvl, de, sprite_index, xpos, ypos, i_lives)
 {
     facingDirection.x = xDir;
     facingDirection.y = yDir;
@@ -25,7 +25,7 @@ Fireball::Fireball(Level *lvl, DrawEngine *de, int sprite_index, float xpos, flo
 
 void Fireball::__idleUpdate()
 {
-    if (Sprite::move(facingDirection.x, facingDirection.y))
+    if (Sprite::__move(facingDirection.x, facingDirection.y))
     {
         typename std::list<Sprite *>::const_iterator Iter = level->npc.begin();
         typename std::list<Sprite *>::const_iterator itEnd = level->npc.end();

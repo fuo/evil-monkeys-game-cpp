@@ -19,7 +19,8 @@ namespace EvilMonkeys
     {
         SPRITE_PLAYER,
         SPRITE_ENEMY,
-        SPRITE_FIREBALL
+        SPRITE_FIREBALL,
+        SPRITE_BOMB,
     };
 
     enum
@@ -51,16 +52,21 @@ namespace EvilMonkeys
         bool keyPress(int key);
         
         void addEnemies(int num);
+        void spawnBombs(int num);
         
         inline void addNPC(Sprite *spr){ npc.push_back(spr); }
         
         inline void draw(void){ drawArea->drawBackground(); }
+        
+        bool matchPlayerPosition(int xpos, int ypos);
         
         std::list <Sprite *> npc;
 
         
         int numEnemies;
         int numFireballs;
+        int numBombs;
+        int maxBombsAllow;
         
         int** const createLevel(void);
         

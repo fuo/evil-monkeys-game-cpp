@@ -9,11 +9,11 @@
 #ifndef fireball_h
 #define fireball_h
 
-#include "sprite.hpp"
+#include "bomb.hpp"
 
 namespace EvilMonkeys
 {
-    class Fireball : public Sprite
+    class Fireball : public Bomb
     {
     public:
         Fireball(Level *lvl, DrawEngine *de, int sprite_index, float xpos, float ypos,

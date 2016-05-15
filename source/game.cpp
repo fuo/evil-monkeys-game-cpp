@@ -28,14 +28,16 @@ void Game::run()
     drawArea.createBackgroundTile(TILE_EMPTY, ' ');
     drawArea.createBackgroundTile(TILE_WALL, 219);
     
-    drawArea.createSprite(SPRITE_PLAYER, 'o');
+    drawArea.createSprite(SPRITE_PLAYER, '>');
     drawArea.createSprite(SPRITE_ENEMY, '$');
-    drawArea.createSprite(SPRITE_FIREBALL, '*');
+    drawArea.createSprite(SPRITE_FIREBALL, '-');
+    drawArea.createSprite(SPRITE_BOMB, '*');
     
     level->draw();
     
     level->addPlayer(new Mage(level, &drawArea, SPRITE_PLAYER));
-    level->addEnemies(3);
+    level->addEnemies(10);
+    level->spawnBombs(10);
     
     double lastTime = 0;
     int key = ' ';

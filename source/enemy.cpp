@@ -22,7 +22,7 @@ Enemy::Enemy(Level *l, DrawEngine *de, int sprite_index, float xpos, float ypos,
     setClassID(ENEMY_CLASSID);
 }
 
-bool Enemy::move(float xDir, float yDir)
+bool Enemy::__move(float xDir, float yDir)
 {
     int xpos = (int)(getX() + xDir);
     int ypos = (int)(getY() + yDir);
@@ -34,7 +34,7 @@ bool Enemy::move(float xDir, float yDir)
         typename std::list<Sprite *>::const_iterator itEnd = level->npc.end();
         
         for ( ; Iter != itEnd; Iter++) {
-            if ((*Iter) != this && (int)(*Iter)->getX() == xpos && (int)(*Iter)->getY() == ypos) {
+            if ((*Iter) != this && (int)(*Iter)->getX() == xpos && (int)(*Iter)->getY() == ypos && (*Iter)->getClassID() != BOMB_CLASSID) {
                 
                 return false;
             }
@@ -71,7 +71,7 @@ void Enemy::simulateAI(void)
     vector goal_pos = goal->getPosition();
     
     if (goal_pos.x == getX() && goal_pos.y == getY()) {
-        move(0, 0);
+        __move(0, 0);
         return;
     }
     
@@ -89,28 +89,28 @@ void Enemy::simulateAI(void)
     
     if (lvl[0][lround(direction.y)] != TILE_WALL || lvl[lround(direction.x)][0] != TILE_WALL)
     {
-        if (!move(direction.x, direction.y))
+        if (!__move(direction.x, direction.y))
         {
-            if (!move(0, float(rand() % 3 - 1)))
+            if (!__move(0, float(rand() % 3 - 1)))
             {
-                if (!move(float(rand() % 3 - 1), 0)){ }
+                if (!__move(float(rand() % 3 - 1), 0)){ }
             }
         }
     }
     else
     {
-        if (!move(0, direction.y))
+        if (!__move(0, direction.y))
         {
-            if (!move(0, float(rand() % 3 - 1)))
+            if (!__move(0, float(rand() % 3 - 1)))
             {
-                if (!move(float(rand() % 3 - 1), 0)) { }
+                if (!__move(float(rand() % 3 - 1), 0)) { }
             }
         }
-        if (!move(direction.x, 0))
+        if (!__move(direction.x, 0))
         {
-            if (!move(0, float(rand() % 3 - 1)))
+            if (!__move(0, float(rand() % 3 - 1)))
             {
-                if (!move(float(rand() % 3 - 1), 0)) { }
+                if (!__move(float(rand() % 3 - 1), 0)) { }
             }
         }
     }

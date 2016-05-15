@@ -20,7 +20,8 @@ namespace EvilMonkeys
         CHARACTER_CLASSID,
         ENEMY_CLASSID,
         FIREBALL_CLASSID,
-        MAGE_CLASSID
+        MAGE_CLASSID,
+        BOMB_CLASSID,
     };
 
     struct vector
@@ -50,7 +51,7 @@ namespace EvilMonkeys
         
         inline int getLives(void){ return numLives; }
         
-        inline virtual void __addLives(int num = 1){ numLives += num; }
+        virtual void __addLives(int num = 1);
         
         inline virtual void __idleUpdate(void)
         {
@@ -59,7 +60,7 @@ namespace EvilMonkeys
             // but I can use it as the interface for all of my children
             // thanks virtual late-binding... apply based pointer!
         }
-        virtual bool move(float xDir, float yDir);
+        virtual bool __move(float xDir, float yDir);
         
         inline int getClassID(void){ return classID; }
         inline void setClassID(int id){ classID = id; }

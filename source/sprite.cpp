@@ -33,7 +33,7 @@ Sprite::Sprite(Level* lvl, DrawEngine *de, int sprite_index, float xpos, float y
     draw(pos.x, pos.y);
 }
 
-bool Sprite::move(float xDir, float yDir)
+bool Sprite::__move(float xDir, float yDir)
 {
     vector direction;
     
@@ -57,6 +57,12 @@ bool Sprite::move(float xDir, float yDir)
     }
     
     return false;
+}
+
+void Sprite::__addLives(int num)
+{
+    numLives += num;
+    
 }
 
 bool Sprite::isValidLevelMove(int xpos, int ypos)

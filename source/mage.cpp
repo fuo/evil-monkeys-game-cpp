@@ -10,13 +10,15 @@
 
 #include "level.hpp"
 #include "fireball.hpp"
+#include "bomb.hpp"
 
 using namespace EvilMonkeys;
 
 Mage::Mage(Level *l, DrawEngine *de, int sprite_index, float xpos, float ypos,
-           int lives, char spellK, int up_key, int down_key, int left_key, int right_key) : Character(l, de, sprite_index, xpos, ypos, lives, up_key, down_key, left_key, right_key)
+           int lives, char spellK, char bombK, int up_key, int down_key, int left_key, int right_key) : Character(l, de, sprite_index, xpos, ypos, lives, up_key, down_key, left_key, right_key)
 {
     spellKey = spellK;
+    bombKey = bombK;
     setClassID(MAGE_CLASSID);
 }
 
@@ -31,8 +33,26 @@ bool Mage::__isKeyPressExecuteAction(int key)
             
             return castSpell();
         }
+        
+        if (key == bombKey) {
+            if( !isValidLevelMove(getX() + facingDirection.x, getY() + facingDirection.y) || level->numBombs >= level->maxBombsAllow )
+                return false;
+            
+            return castBomb();
+        }
     }
     return false;
+}
+
+bool Mage::castBomb()
+{
+    Bomb* b = new Bomb(level, drawArea, SPRITE_BOMB, (int)getX()+facingDirection.x, (int)getY()+facingDirection.y);
+ 
+    level->addNPC((Sprite*)b);
+    
+    ++(level->numBombs);
+    
+    return true;
 }
 
 bool Mage::castSpell()

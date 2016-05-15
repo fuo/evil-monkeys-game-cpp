@@ -10,6 +10,7 @@
 
 #include "character.hpp" // work around circular include header
 #include "enemy.hpp"
+#include "bomb.hpp"
 
 using namespace EvilMonkeys;
 
@@ -25,6 +26,8 @@ Level::Level(DrawEngine *de, int w, int h)
     player = 0;
     numEnemies = 0;
     numFireballs = 0;
+    numBombs = 0;
+    maxBombsAllow = 3;
     
     drawArea->setMap(createLevel(), width, height);
 }
@@ -103,6 +106,12 @@ void Level::update()
     drawArea->printScore(22, 1, tmp);
     drawArea->printScore(23, 1, " lives");
     
+    s = std::to_string(maxBombsAllow - numBombs);
+    tmp = s.c_str();
+    
+    drawArea->printScore(31, 1, tmp);
+    drawArea->printScore(32, 1, " bombs left");
+    
     // simulate AI
     for (Iter = npc.begin(); Iter != npc.end(); Iter++) {
         
@@ -142,4 +151,54 @@ void Level::addEnemies(int num)
             i--;
         }
     }
+}
+
+void Level::spawnBombs(int num)
+{
+    maxBombsAllow = num;
+    
+    int i = num;
+    
+    while (i > 0) {
+        int xpos = int((float(rand() % 100) / 100) * (width - 2) + 1);
+        int ypos = int((float(rand() % 100) / 100) * (height - 2) + 1);
+        
+        typename std::list<Sprite *>::const_iterator Iter = npc.begin();
+        typename std::list<Sprite *>::const_iterator itEnd = npc.end();
+        
+        bool flag = true;
+        
+        for( ; Iter != itEnd; ++Iter )
+        {
+            if (
+                (int)(*Iter)->getX() == xpos &&
+                (int)(*Iter)->getY() == ypos
+                )
+            {
+                flag = false;
+            }
+        
+        }
+        
+        if (level[xpos][ypos] != TILE_WALL && flag) {
+            
+            // have to clean up those died enemy got killed to free memory somewhere!!!
+//            Enemy *temp = new Enemy(this, drawArea, SPRITE_ENEMY, (float)xpos, float(ypos));
+            Bomb* temp = new Bomb(this, drawArea, SPRITE_BOMB, (float)xpos, (float)ypos);
+            
+//            temp->addGoal(player);
+            
+            addNPC((Sprite *)temp);
+            numBombs++;
+            i--;
+        }
+    }
+}
+
+bool Level::matchPlayerPosition(int xpos, int ypos)
+{
+    if ( xpos == player->getX() && xpos == player->getY() )
+        return true;
+    
+    return false;
 }

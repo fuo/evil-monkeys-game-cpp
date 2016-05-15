@@ -25,7 +25,7 @@ namespace EvilMonkeys
         
     private:
         
-        bool move(float xDir, float yDir);
+        bool __move(float xDir, float yDir);
         
         void __idleUpdate(void);
         

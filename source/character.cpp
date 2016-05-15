@@ -27,19 +27,19 @@ bool Character::__isKeyPressExecuteAction(int key)
     switch(key)
     {	case KEY_UP:
             drawArea->createSprite(SPRITE_PLAYER, '^');
-            return move(0, -1);
+            return __move(0, -1);
             break;
         case KEY_DOWN:
             drawArea->createSprite(SPRITE_PLAYER, 'v');
-            return move(0, 1);
+            return __move(0, 1);
             break;
         case KEY_RIGHT:
             drawArea->createSprite(SPRITE_PLAYER, '>');
-            return move(1, 0);
+            return __move(1, 0);
             break;
         case KEY_LEFT:            
             drawArea->createSprite(SPRITE_PLAYER, '<');
-            return move(-1, 0);
+            return __move(-1, 0);
         default:
             break;
     }
@@ -56,4 +56,46 @@ void Character::__addLives(int num)
         setPosition(1, 1);
         draw(getX(), getY());
     }
+}
+
+bool Character::__move(float xDir, float yDir)
+{
+    int xpos = (int)(getX() + xDir);
+    int ypos = (int)(getY() + yDir);
+    
+    if (isValidLevelMove(xpos, ypos)) {
+        
+        // make sure we don't run into any other enemies;
+        typename std::list<Sprite *>::const_iterator Iter = level->npc.begin();
+        typename std::list<Sprite *>::const_iterator itEnd = level->npc.end();
+        
+        for ( ; Iter != itEnd; Iter++) {
+            if ( (int)(*Iter)->getX() == xpos && (int)(*Iter)->getY() == ypos && (*Iter)->getClassID() == BOMB_CLASSID) {
+                
+                (*Iter)->__addLives(-1);
+                Sprite* temp = *Iter;
+                --Iter;
+                delete temp;
+                level->npc.remove(temp);
+                
+                --(level->numBombs);
+            }
+        }
+        
+        
+        erase(getX(), getY());
+        
+        setPosition(getX() + xDir, getY() + yDir);
+        
+        facingDirection.x = xDir;
+        facingDirection.y = yDir;
+        
+        draw(getX(), getY());
+        
+        
+        
+        return true;
+    }
+    
+    return false;
 }
