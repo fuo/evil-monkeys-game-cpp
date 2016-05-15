@@ -10,6 +10,7 @@
 #define sprite_h
 
 #include "drawEngine.hpp"
+#include "level.hpp"
 
 namespace EvilMonkeys
 {
@@ -28,7 +29,7 @@ namespace EvilMonkeys
         float y;
     };
 
-    class Level;
+//    class Level;
 
     class Sprite
     {

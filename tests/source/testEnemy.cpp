@@ -13,7 +13,6 @@
 using namespace std;
 
 #include "level.hpp"
-//#include "character.hpp"
 #include "mage.hpp"
 #include "fireball.hpp"
 using namespace EvilMonkeys;

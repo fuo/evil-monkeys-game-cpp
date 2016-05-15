@@ -121,7 +121,7 @@ void DrawEngine::draw_borders(WINDOW *screen) {
     }
 }
 
-int DrawEngine::createSprite(int figureIndex, char img)
+int DrawEngine::createSprite(int figureIndex, int img)
 {
     if (figureIndex >= 0 && figureIndex < 16)
     {

@@ -23,14 +23,27 @@ Mage::Mage(Level *l, DrawEngine *de, int sprite_index, float xpos, float ypos,
 bool Mage::__isKeyPressExecuteAction(int key)
 {
     if (!Character::__isKeyPressExecuteAction(key))
+    {
         if (key == spellKey)
+        {
+            if( !isValidLevelMove(getX() + facingDirection.x, getY() + facingDirection.y) || level->numFireballs > 0)
+                return false;
+            
             return castSpell();
-    
+        }
+    }
     return false;
 }
 
 bool Mage::castSpell()
 {
+    if ( (facingDirection.x == 0 && facingDirection.y == -1) || (facingDirection.x == 0 && facingDirection.y == 1) ) {
+        drawArea->createSprite(SPRITE_FIREBALL, '|');
+    }
+    if ( (facingDirection.x == -1 && facingDirection.y == 0) || (facingDirection.x == 1 && facingDirection.y == 0) ) {
+        drawArea->createSprite(SPRITE_FIREBALL, '-');
+    }
+
     Fireball *temp = new Fireball(level, drawArea, SPRITE_FIREBALL, (int)getX()+facingDirection.x, (int)getY()+facingDirection.y, facingDirection.x, facingDirection.y);
     
     level->addNPC((Sprite *)temp);

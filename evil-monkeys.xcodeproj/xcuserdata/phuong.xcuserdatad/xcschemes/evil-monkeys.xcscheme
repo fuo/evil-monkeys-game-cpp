@@ -20,6 +20,20 @@
                ReferencedContainer = "container:evil-monkeys.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "64DDAC811CE637D100412F48"
+               BuildableName = "test-evil-monkeys"
+               BlueprintName = "test-evil-monkeys"
+               ReferencedContainer = "container:evil-monkeys.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

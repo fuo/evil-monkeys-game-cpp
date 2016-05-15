@@ -21,7 +21,6 @@ Fireball::Fireball(Level *lvl, DrawEngine *de, int sprite_index, float xpos, flo
     facingDirection.y = yDir;
     
     setClassID(FIREBALL_CLASSID);
-    
 }
 
 void Fireball::__idleUpdate()

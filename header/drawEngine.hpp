@@ -19,7 +19,7 @@ namespace EvilMonkeys
         DrawEngine();
         ~DrawEngine();
         
-        int createSprite(int figureIndex, char img);
+        int createSprite(int figureIndex, int img);
         bool deleteSprite(int figureIndex);
         
         bool eraseSprite(int xpos, int ypos);
