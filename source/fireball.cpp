@@ -38,9 +38,11 @@ void Fireball::__idleUpdate()
                  (int)(*Iter)->getY() == this->getY()
                )
             {                
-                // kill the enemy got hit
+                // kill the enemy OR Bomb got hit
                 (*Iter)->__addLives(-1);
-                --(level->numEnemies);
+                
+                if ((*Iter)->getClassID() == ENEMY_CLASSID)
+                    --(level->numEnemies);
                 
                 // kill that fireball itself
                 __addLives(-1);

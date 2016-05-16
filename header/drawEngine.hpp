@@ -25,7 +25,7 @@ namespace EvilMonkeys
         bool eraseSprite(int xpos, int ypos);
         bool drawSprite(int figureIndex, int xpos, int ypos);
         
-        void printScore(int xpos, int ypos, const char* text);
+        void printScore(const char* text, int xpos, int ypos = 1);
         
         // to the Level
         void createBackgroundTile(int tileIndex, char img);

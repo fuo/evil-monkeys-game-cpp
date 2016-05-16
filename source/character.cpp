@@ -27,19 +27,40 @@ bool Character::__isKeyPressExecuteAction(int key)
     switch(key)
     {	case KEY_UP:
             drawArea->createSprite(SPRITE_PLAYER, '^');
-            return __move(0, -1);
+            if(__move(0, -1)){
+                if (!level->isRunning)
+                    level->isRunning = true;
+                return true;
+            }
+            return false;
             break;
         case KEY_DOWN:
             drawArea->createSprite(SPRITE_PLAYER, 'v');
-            return __move(0, 1);
+            if(__move(0, 1)){
+                if (!level->isRunning)
+                    level->isRunning = true;
+                return true;
+            }
+               return false;
             break;
         case KEY_RIGHT:
             drawArea->createSprite(SPRITE_PLAYER, '>');
-            return __move(1, 0);
+            if(__move(1, 0)){
+                if (!level->isRunning)
+                    level->isRunning = true;
+                return true;
+            }
+            return false;
             break;
         case KEY_LEFT:            
             drawArea->createSprite(SPRITE_PLAYER, '<');
-            return __move(-1, 0);
+            if(__move(-1, 0)){
+                if (!level->isRunning)
+                    level->isRunning = true;
+                return true;
+            }
+            return false;
+            break;
         default:
             break;
     }

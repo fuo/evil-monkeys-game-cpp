@@ -22,7 +22,7 @@ bool getKeyInput(int& key);
 
 void Game::run()
 {
-    level = new Level(&drawArea, 80);
+    level = new Level(&drawArea);
     
     drawArea.createBackgroundTile(TILE_EMPTY, ' ');
     drawArea.createBackgroundTile(TILE_WALL, 219);
@@ -35,8 +35,8 @@ void Game::run()
     level->draw();
     
     level->addPlayer(new Mage(level, &drawArea, SPRITE_PLAYER));
-    level->addEnemies(25);
-    level->spawnBombs(99);
+    level->addEnemies(1);
+    level->spawnBombs(9);
     
     double lastTime = 0;
     int key = ' ';
@@ -50,7 +50,11 @@ void Game::run()
             // constantly refresh the window
             drawArea.setup();
             
-            this->timerUpdate(lastTime);
+            if (level->isRunning)
+                this->timerUpdate(lastTime);
+            else
+                drawArea.printScore("paused ", 72);
+            
         }
 
         // pass the pressed key to the level

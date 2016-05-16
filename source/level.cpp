@@ -20,6 +20,8 @@ Level::Level(DrawEngine *de, int w, int h)
 {
     drawArea = de;
     
+    isRunning = false;
+    
     width = w;
     height = h;
     
@@ -86,6 +88,14 @@ int** const Level::createLevel()
 
 bool Level::isKeyPressExecuteAction(int key)
 {
+    if (getenv ("ESCDELAY") == NULL)
+        ESCDELAY = 25;
+    
+    if (key == 27) {
+        isRunning = !isRunning;
+        return false;
+    }        
+    
     if (player->getLives() > 0)
         if (player->__isKeyPressExecuteAction(key))
             return true;
@@ -104,37 +114,38 @@ void Level::update(unsigned long timing)
     std::string s = std::to_string(elapsedTime/1000);
     char const * tmp = s.c_str();
     
-    drawArea->printScore(1, 1, tmp);
-    drawArea->printScore(4, 1, "secs");
+    drawArea->printScore(tmp, 1);
+    drawArea->printScore("secs", 4);
     
     s = std::to_string(numEnemies);
     tmp = s.c_str();
     if (numEnemies > 9) {
-        drawArea->printScore(11, 1, tmp);
-        drawArea->printScore(14, 1, "enemies");
+        drawArea->printScore(tmp, 11);
+        drawArea->printScore("enemies", 14);
     } else {
-        drawArea->printScore(11, 1, " ");
-        drawArea->printScore(12, 1, tmp);
-        drawArea->printScore(14, 1, "enemies");
+        drawArea->printScore(" ", 11);
+        drawArea->printScore(tmp, 12);
+        drawArea->printScore("enemies", 14);
     }
     s = std::to_string(player->getLives());
     tmp = s.c_str();
     
-    drawArea->printScore(22, 1, tmp);
-    drawArea->printScore(23, 1, " lives");
+    drawArea->printScore(tmp, 22);
+    drawArea->printScore(" lives", 23);
     
     s = std::to_string(maxBombsAllow - numBombs);
     tmp = s.c_str();
     
     if (maxBombsAllow - numBombs > 9) {
-        drawArea->printScore(31, 1, tmp);
-        drawArea->printScore(33, 1, "bombs left");
+        drawArea->printScore(tmp, 31);
+        drawArea->printScore("bombs left", 33);
     } else {
-        drawArea->printScore(31, 1, " ");
-        drawArea->printScore(32, 1, tmp);
-        drawArea->printScore(33, 1, "bombs left");
+        drawArea->printScore(" ", 31);
+        drawArea->printScore(tmp, 32);
+        drawArea->printScore("bombs left", 33);
     }
     
+    drawArea->printScore("running", 72);
     
     // simulate AI
     for (Iter = npc.begin(); Iter != npc.end(); Iter++) {

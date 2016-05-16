@@ -14,6 +14,12 @@ DrawEngine::DrawEngine()
 {
     /* Initialize curses */
     initscr();
+    
+//    start_color();			/* Start color 			*/
+//    init_pair(1, COLOR_RED, COLOR_WHITE);
+
+//    attron(COLOR_PAIR(1));
+    
     clear();
     cbreak();			/* Line buffering disabled, Pass on
                          * everty thing to me 		*/
@@ -62,6 +68,8 @@ DrawEngine::DrawEngine()
 
 DrawEngine::~DrawEngine()
 {
+//    attroff(COLOR_PAIR(1));
+    
     cursorVisibility(true);
     endwin();
     delwin(field);
@@ -80,7 +88,7 @@ void DrawEngine::setMap(int** grid, int xSize, int ySize)
     draw_borders(score);
 }
 
-void DrawEngine::printScore(int xpos, int ypos, const char* text)
+void DrawEngine::printScore(const char* text, int xpos, int ypos)
 {
     mvwprintw(score, ypos, xpos, text);
     wrefresh(score);
@@ -143,6 +151,7 @@ bool DrawEngine::eraseSprite(int xpos, int ypos)
 bool DrawEngine::drawSprite(int figureIndex, int xpos, int ypos)
 {
     gotoxy(xpos, ypos);
+//    waddch(field, spriteImages[figureIndex] | A_UNDERLINE | COLOR_PAIR(1) );
     waddch(field, spriteImages[figureIndex]);
     return true;
 }

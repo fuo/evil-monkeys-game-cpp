@@ -52,6 +52,7 @@ bool Enemy::__move(float xDir, float yDir)
         
         if ((int)goal->getX() == xpos && (int)goal->getY() == ypos) {
             goal->__addLives(-1);
+            level->isRunning = false;
         }
         
         return true;

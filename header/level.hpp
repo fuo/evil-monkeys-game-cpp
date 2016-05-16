@@ -36,7 +36,7 @@ namespace EvilMonkeys
     class Level
     {
     public:
-        Level(DrawEngine *de, int width = 30, int height = 20);
+        Level(DrawEngine *de, int width = 80, int height = 20);
         ~Level();
         
         inline int getWidth(){ return width; }
@@ -67,6 +67,8 @@ namespace EvilMonkeys
         int numFireballs;
         int numBombs;
         int maxBombsAllow;
+        
+        bool isRunning;
         
         int** const createLevel(void);
         

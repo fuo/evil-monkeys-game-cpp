@@ -29,19 +29,15 @@ void Bomb::__idleUpdate()
             (int)(*Iter)->getY() == this->getY()
             )
         {
-            // kill the enemy got hit
+            // kill the enemy OR Fireball got hit
             (*Iter)->__addLives(-1);
-            --(level->numEnemies);
             
-            // kill itself
+            if ((*Iter)->getClassID() == ENEMY_CLASSID)
+                --(level->numEnemies);
+            
+            // and kill itself
             __addLives(-1);
-//            --(level->numBombs);
+
         }
     }
-    
-//    if ( level->matchPlayerPosition( this->getX(), this->getY() ) ) {
-////        __addLives(-1);
-//        --(level->numBombs);
-//    }
-    
 }

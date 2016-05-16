@@ -31,12 +31,18 @@ bool Mage::__isKeyPressExecuteAction(int key)
             if( !isValidLevelMove(getX() + facingDirection.x, getY() + facingDirection.y) || level->numFireballs > 0)
                 return false;
             
+            if (!level->isRunning)
+                level->isRunning = true;
+            
             return castSpell();
         }
         
         if (key == bombKey) {
             if( !isValidLevelMove(getX() + facingDirection.x, getY() + facingDirection.y) || level->numBombs >= level->maxBombsAllow )
                 return false;
+            
+            if (!level->isRunning)
+                level->isRunning = true;
             
             return castBomb();
         }
