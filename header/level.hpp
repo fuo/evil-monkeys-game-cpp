@@ -49,7 +49,7 @@ namespace EvilMonkeys
         
         void update(unsigned long time);
         
-        bool keyPress(int key);
+        bool isKeyPressExecuteAction(int key);
         
         void addEnemies(int num);
         void spawnBombs(int num);
@@ -57,8 +57,6 @@ namespace EvilMonkeys
         inline void addNPC(Sprite *spr){ npc.push_back(spr); }
         
         inline void draw(void){ drawArea->drawBackground(); }
-        
-        bool matchPlayerPosition(int xpos, int ypos);
         
         std::list <Sprite *> npc;
 
@@ -80,9 +78,7 @@ namespace EvilMonkeys
         
         int** level = NULL;
         
-        
-        
-        // the first sprite that has keypress method (the human control sprite index)
+        // the first sprite that has isKeyPressExecuteAction method (the human control sprite index)
         Character *player;
         
         DrawEngine *drawArea;

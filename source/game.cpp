@@ -15,7 +15,6 @@ using namespace EvilMonkeys;
 
 #include <sys/time.h>
 
-
 #define GAME_SPEED 50
 
 bool kbhit(void);
@@ -36,8 +35,8 @@ void Game::run()
     level->draw();
     
     level->addPlayer(new Mage(level, &drawArea, SPRITE_PLAYER));
-    level->addEnemies(1);
-    level->spawnBombs(10);
+    level->addEnemies(25);
+    level->spawnBombs(99);
     
     double lastTime = 0;
     int key = ' ';
@@ -55,7 +54,7 @@ void Game::run()
         }
 
         // pass the pressed key to the level
-        level->keyPress(key);
+        level->isKeyPressExecuteAction(key);
     }
     
     delete level;
@@ -72,11 +71,8 @@ void Game::timerUpdate(double & lastTime)
         return;
     
 //----------------------------------
-
-    gettimeofday(tv, 0);
-    unsigned long time_in_micros = tv->tv_sec;
     
-    level->update((unsigned long)(time_in_micros % 10000));
+    level->update((unsigned long)(lastTime));
     
 //----------------------------------
     

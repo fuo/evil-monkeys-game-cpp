@@ -21,8 +21,6 @@ namespace EvilMonkeys
     public:
         void run(void);
         
-//        double elapsed;
-        
     protected:
         void timerUpdate(double& lastTime);
         

@@ -72,7 +72,7 @@ int** const Level::createLevel()
             }
             else
             {
-                if (random < 90 || (x < 3 && y < 3))
+                if (random < 88 || (x < 3 && y < 3))
                     level[x][y] = TILE_EMPTY;
                 else
                     level[x][y] = TILE_WALL;
@@ -84,7 +84,7 @@ int** const Level::createLevel()
     return level;
 }
 
-bool Level::keyPress(int key)
+bool Level::isKeyPressExecuteAction(int key)
 {
     if (player->getLives() > 0)
         if (player->__isKeyPressExecuteAction(key))
@@ -101,7 +101,7 @@ void Level::update(unsigned long timing)
     
     elapsedTime = timing - startTime;
     
-    std::string s = std::to_string(elapsedTime);
+    std::string s = std::to_string(elapsedTime/1000);
     char const * tmp = s.c_str();
     
     drawArea->printScore(1, 1, tmp);
@@ -109,10 +109,14 @@ void Level::update(unsigned long timing)
     
     s = std::to_string(numEnemies);
     tmp = s.c_str();
-    
-    drawArea->printScore(11, 1, tmp);
-    drawArea->printScore(12, 1, " enemies");
-    
+    if (numEnemies > 9) {
+        drawArea->printScore(11, 1, tmp);
+        drawArea->printScore(14, 1, "enemies");
+    } else {
+        drawArea->printScore(11, 1, " ");
+        drawArea->printScore(12, 1, tmp);
+        drawArea->printScore(14, 1, "enemies");
+    }
     s = std::to_string(player->getLives());
     tmp = s.c_str();
     
@@ -122,8 +126,15 @@ void Level::update(unsigned long timing)
     s = std::to_string(maxBombsAllow - numBombs);
     tmp = s.c_str();
     
-    drawArea->printScore(31, 1, tmp);
-    drawArea->printScore(32, 1, " bombs left");
+    if (maxBombsAllow - numBombs > 9) {
+        drawArea->printScore(31, 1, tmp);
+        drawArea->printScore(33, 1, "bombs left");
+    } else {
+        drawArea->printScore(31, 1, " ");
+        drawArea->printScore(32, 1, tmp);
+        drawArea->printScore(33, 1, "bombs left");
+    }
+    
     
     // simulate AI
     for (Iter = npc.begin(); Iter != npc.end(); Iter++) {
@@ -148,11 +159,12 @@ void Level::addEnemies(int num)
 {
     int i = num;
     
-    while (i > 0) {
+    while (i > 0)
+    {
         int xpos = int((float(rand() % 100) / 100) * (width - 4) + 1);
         int ypos = int((float(rand() % 100) / 100) * (height - 4) + 1);
         
-        if (level[xpos][ypos] != TILE_WALL) {
+        if ( level[xpos][ypos] != TILE_WALL && xpos > player->getX() + 9 && ypos > player->getY() + 9 ) {
             
             // have to clean up those died enemy got killed to free memory somewhere!!!
             Enemy *temp = new Enemy(this, drawArea, SPRITE_ENEMY, (float)xpos, float(ypos));
@@ -173,8 +185,8 @@ void Level::spawnBombs(int num)
     int i = num;
     
     while (i > 0) {
-        int xpos = int((float(rand() % 100) / 100) * (width - 6) + 1);
-        int ypos = int((float(rand() % 100) / 100) * (height - 6) + 1);
+        int xpos = int((float(rand() % 100) / 100) * (width - 4) + 1);
+        int ypos = int((float(rand() % 100) / 100) * (height - 4) + 1);
         
         typename std::list<Sprite *>::const_iterator Iter = npc.begin();
         typename std::list<Sprite *>::const_iterator itEnd = npc.end();
@@ -193,25 +205,16 @@ void Level::spawnBombs(int num)
         
         }
         
-        if (level[xpos][ypos] != TILE_WALL && flag) {
+        if (level[xpos][ypos] != TILE_WALL && flag && xpos > player->getX() + 1 && ypos > player->getY() + 1) {
             
-            // have to clean up those died enemy got killed to free memory somewhere!!!
-//            Enemy *temp = new Enemy(this, drawArea, SPRITE_ENEMY, (float)xpos, float(ypos));
+            // have to clean up those died bomb
             Bomb* temp = new Bomb(this, drawArea, SPRITE_BOMB, (float)xpos, (float)ypos);
             
-//            temp->addGoal(player);
-            
             addNPC((Sprite *)temp);
+            
             numBombs++;
+            
             i--;
         }
     }
-}
-
-bool Level::matchPlayerPosition(int xpos, int ypos)
-{
-    if ( xpos == player->getX() && xpos == player->getY() )
-        return true;
-    
-    return false;
 }

@@ -32,6 +32,8 @@ int main(int argc, const char * argv[])
     isTermAvail = (getenv("TERM") != NULL);
     
     
+    srand( (int) time( NULL ) );
+    
     EvilMonkeys::Game game;
     game.run();
 
