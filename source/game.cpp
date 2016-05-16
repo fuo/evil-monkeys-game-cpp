@@ -35,8 +35,8 @@ void Game::run()
     level->draw();
     
     level->addPlayer(new Mage(level, &drawArea, SPRITE_PLAYER));
-    level->addEnemies(1);
-    level->spawnBombs(9);
+    level->addEnemies(16);
+    level->spawnBombs(6);
     
     double lastTime = 0;
     int key = ' ';

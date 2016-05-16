@@ -14,9 +14,6 @@ using namespace std;
 
 bool isTermAvail = true; // check this global variable before ncurses calls
 
-string leftPad(string, long, char padChar = ' ');
-string rightPad(string, long, char padChar = ' ');
-
 int main(int argc, const char * argv[])
 {
     for (int argi = 1; argi < argc; argi++)
@@ -52,62 +49,4 @@ int main(int argc, const char * argv[])
     }
 
     return 0;
-}
-
-string leftPad(string str, long len, char padChar)
-{
-    long strlen = str.length(), i = -1, newlen = len;
-    
-    if (len < strlen)
-        return str;
-    
-    char* const leftPaddedStr = new char[len];
-    
-    len -= strlen;
-    
-    while (++i < newlen)
-    {
-        if (i < len)
-            leftPaddedStr[i] = padChar;
-        else
-            leftPaddedStr[i] = str[i - len];
-    }
-    
-    leftPaddedStr[i] = '\0';
-    
-    str = leftPaddedStr;
-    
-    delete [] leftPaddedStr;
-    
-    return str;
-}
-
-// leftpad("hello", 8, *); => "***hello"
-
-string rightPad(string str, long len, char padChar)
-{
-    long strlen = str.length(), i = -1, newlen = len;
-    
-    if (len < strlen)
-        return str;
-    
-    char* const rightPaddedStr = new char[len];
-    
-    len -= strlen;
-    
-    while (++i < newlen)
-    {
-        if (i < strlen)
-            rightPaddedStr[i] = str[i];
-        else
-            rightPaddedStr[i] = padChar;
-    }
-    
-    rightPaddedStr[i] = '\0';
-    
-    str = rightPaddedStr;
-    
-    delete [] rightPaddedStr;
-    
-    return str;
 }

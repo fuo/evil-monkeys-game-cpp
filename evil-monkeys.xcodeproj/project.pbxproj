@@ -30,8 +30,6 @@
 		64DDAC961CE7142800412F48 /* testEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC951CE7142800412F48 /* testEnemy.cpp */; };
 		64DDAC9E1CE9CE1400412F48 /* bomb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC9D1CE9CE1400412F48 /* bomb.cpp */; };
 		64DDAC9F1CE9CE1400412F48 /* bomb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC9D1CE9CE1400412F48 /* bomb.cpp */; };
-		64DDACA11CE9CEB200412F48 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 64DDACA01CE9CEB200412F48 /* README.md */; };
-		64DDACA21CE9CEB200412F48 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 64DDACA01CE9CEB200412F48 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -283,7 +281,6 @@
 				64DDAC711CE4706400412F48 /* drawEngine.cpp in Sources */,
 				64DDAC731CE4706400412F48 /* fireball.cpp in Sources */,
 				64DDAC741CE4706400412F48 /* game.cpp in Sources */,
-				64DDACA11CE9CEB200412F48 /* README.md in Sources */,
 				64DDAC771CE4706400412F48 /* sprite.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -298,7 +295,6 @@
 				64DDAC8C1CE63E3900412F48 /* level.cpp in Sources */,
 				64DDAC8D1CE63E3E00412F48 /* drawEngine.cpp in Sources */,
 				64DDAC9F1CE9CE1400412F48 /* bomb.cpp in Sources */,
-				64DDACA21CE9CEB200412F48 /* README.md in Sources */,
 				64DDAC931CE63E6300412F48 /* character.cpp in Sources */,
 				64DDAC921CE63E6100412F48 /* enemy.cpp in Sources */,
 				64DDAC8E1CE63E5600412F48 /* sprite.cpp in Sources */,

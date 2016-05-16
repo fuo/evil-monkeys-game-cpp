@@ -24,8 +24,12 @@ SCENARIO("--Enemy will hunt down a character--", "[enemy]")
 {
 //    getchar();
     
+    srand( (int) time( NULL ) );
+    
     DrawEngine de;
     Level* lvl = new Level(&de);
+    
+    lvl->isRunning = true;
     
     def_prog_mode();
     endwin();
@@ -36,17 +40,15 @@ SCENARIO("--Enemy will hunt down a character--", "[enemy]")
         int xpos = 0, ypos = 0;
         
         do{
-//            srand((unsigned int)time(0));
-            xpos = int((float(rand() % 100) / 100) * (lvl->getWidth() - 2) + 1);
-            srand(xpos);
-            ypos = int((float(rand() % 100) / 100) * (lvl->getHeight() - 2) + 1);
+            xpos = int((float(rand() % 100) / 100) * (lvl->getWidth() - 4) + 1);
+            ypos = int((float(rand() % 100) / 100) * (lvl->getHeight() - 4) + 1);
         
         }while (lvl->checkGrid(xpos, ypos) == TILE_WALL);
         
         REQUIRE(lvl->checkGrid(xpos, ypos) != TILE_WALL);
-        
+
         evilMonkey = new Enemy(lvl, &de, SPRITE_ENEMY, (float)xpos, float(ypos));
-        
+
         REQUIRE(evilMonkey->getLives() == 1);
         
         CHECK(lvl->npc.size() == 0);
@@ -67,6 +69,9 @@ SCENARIO("--Enemy will hunt down a character--", "[enemy]")
                 float oldy = evilMonkey->getY();
                 
                 sprite_enemy->__idleUpdate();
+
+                CAPTURE( evilMonkey->getX() );
+                CAPTURE( evilMonkey->getY() );
                 
                 REQUIRE(oldx != evilMonkey->getX());
                 REQUIRE(oldy != evilMonkey->getY());
@@ -141,10 +146,8 @@ SCENARIO("--Enemy will hunt down a character--", "[enemy]")
                         }
                         
                         do{
-                            srand((unsigned int)time(0));
-                            xpos = int((float(rand() % 100) / 100) * (lvl->getWidth() - 2) + 1);
-                            srand(xpos + (unsigned int)time(0));
-                            ypos = int((float(rand() % 100) / 100) * (lvl->getHeight() - 2) + 1);
+                            xpos = int((float(rand() % 100) / 100) * (lvl->getWidth() - 4) + 1);
+                            ypos = int((float(rand() % 100) / 100) * (lvl->getHeight() - 4) + 1);
                             
                         }while (lvl->checkGrid(xpos, ypos) == TILE_EMPTY);
                         
