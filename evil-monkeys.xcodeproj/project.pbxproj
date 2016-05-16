@@ -28,8 +28,10 @@
 		64DDAC931CE63E6300412F48 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC681CE4706400412F48 /* character.cpp */; };
 		64DDAC941CE63E7B00412F48 /* libncurses.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 645630A01CE0ED0100CBB607 /* libncurses.tbd */; };
 		64DDAC961CE7142800412F48 /* testEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC951CE7142800412F48 /* testEnemy.cpp */; };
-		64DDAC9A1CE88B5A00412F48 /* bomb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC981CE88B5A00412F48 /* bomb.cpp */; };
-		64DDAC9B1CE88B5A00412F48 /* bomb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC981CE88B5A00412F48 /* bomb.cpp */; };
+		64DDAC9E1CE9CE1400412F48 /* bomb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC9D1CE9CE1400412F48 /* bomb.cpp */; };
+		64DDAC9F1CE9CE1400412F48 /* bomb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 64DDAC9D1CE9CE1400412F48 /* bomb.cpp */; };
+		64DDACA11CE9CEB200412F48 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 64DDACA01CE9CEB200412F48 /* README.md */; };
+		64DDACA21CE9CEB200412F48 /* README.md in Sources */ = {isa = PBXBuildFile; fileRef = 64DDACA01CE9CEB200412F48 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -78,8 +80,9 @@
 		64DDAC8A1CE6381A00412F48 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../tests/main.cpp; sourceTree = "<group>"; };
 		64DDAC951CE7142800412F48 /* testEnemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = testEnemy.cpp; sourceTree = "<group>"; };
 		64DDAC971CE71A6C00412F48 /* enemyFixture.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = enemyFixture.hpp; sourceTree = "<group>"; };
-		64DDAC981CE88B5A00412F48 /* bomb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = bomb.cpp; sourceTree = "<group>"; };
-		64DDAC991CE88B5A00412F48 /* bomb.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = bomb.hpp; path = ../bomb.hpp; sourceTree = "<group>"; };
+		64DDAC9C1CE9CE0B00412F48 /* bomb.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = bomb.hpp; path = header/bomb.hpp; sourceTree = SOURCE_ROOT; };
+		64DDAC9D1CE9CE1400412F48 /* bomb.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = bomb.cpp; path = source/bomb.cpp; sourceTree = "<group>"; };
+		64DDACA01CE9CEB200412F48 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,7 @@
 		6456308D1CE0ECB100CBB607 = {
 			isa = PBXGroup;
 			children = (
+				64DDACA01CE9CEB200412F48 /* README.md */,
 				645630A01CE0ED0100CBB607 /* libncurses.tbd */,
 				645630981CE0ECB100CBB607 /* evil-monkeys */,
 				64DDAC831CE637D200412F48 /* test-evil-monkeys */,
@@ -134,11 +138,11 @@
 		645630A51CE0EFD700CBB607 /* source */ = {
 			isa = PBXGroup;
 			children = (
+				64DDAC9D1CE9CE1400412F48 /* bomb.cpp */,
 				64DDAC681CE4706400412F48 /* character.cpp */,
 				64DDAC691CE4706400412F48 /* drawEngine.cpp */,
 				64DDAC6A1CE4706400412F48 /* enemy.cpp */,
 				64DDAC6B1CE4706400412F48 /* fireball.cpp */,
-				64DDAC981CE88B5A00412F48 /* bomb.cpp */,
 				64DDAC6C1CE4706400412F48 /* game.cpp */,
 				64DDAC6D1CE4706400412F48 /* level.cpp */,
 				64DDAC6E1CE4706400412F48 /* mage.cpp */,
@@ -151,6 +155,7 @@
 		645630A61CE0F03300CBB607 /* header */ = {
 			isa = PBXGroup;
 			children = (
+				64DDAC9C1CE9CE0B00412F48 /* bomb.hpp */,
 				64DDAC601CE4705900412F48 /* character.hpp */,
 				64DDAC611CE4705900412F48 /* drawEngine.hpp */,
 				64DDAC621CE4705900412F48 /* enemy.hpp */,
@@ -158,7 +163,6 @@
 				64DDAC641CE4705900412F48 /* game.hpp */,
 				64DDAC651CE4705900412F48 /* level.hpp */,
 				64DDAC661CE4705900412F48 /* mage.hpp */,
-				64DDAC991CE88B5A00412F48 /* bomb.hpp */,
 				64DDAC671CE4705900412F48 /* sprite.hpp */,
 			);
 			name = header;
@@ -273,12 +277,13 @@
 				64DDAC751CE4706400412F48 /* level.cpp in Sources */,
 				64DDAC721CE4706400412F48 /* enemy.cpp in Sources */,
 				64DDAC5E1CE46ECC00412F48 /* main.cpp in Sources */,
-				64DDAC9A1CE88B5A00412F48 /* bomb.cpp in Sources */,
+				64DDAC9E1CE9CE1400412F48 /* bomb.cpp in Sources */,
 				64DDAC761CE4706400412F48 /* mage.cpp in Sources */,
 				64DDAC701CE4706400412F48 /* character.cpp in Sources */,
 				64DDAC711CE4706400412F48 /* drawEngine.cpp in Sources */,
 				64DDAC731CE4706400412F48 /* fireball.cpp in Sources */,
 				64DDAC741CE4706400412F48 /* game.cpp in Sources */,
+				64DDACA11CE9CEB200412F48 /* README.md in Sources */,
 				64DDAC771CE4706400412F48 /* sprite.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -292,7 +297,8 @@
 				64DDAC961CE7142800412F48 /* testEnemy.cpp in Sources */,
 				64DDAC8C1CE63E3900412F48 /* level.cpp in Sources */,
 				64DDAC8D1CE63E3E00412F48 /* drawEngine.cpp in Sources */,
-				64DDAC9B1CE88B5A00412F48 /* bomb.cpp in Sources */,
+				64DDAC9F1CE9CE1400412F48 /* bomb.cpp in Sources */,
+				64DDACA21CE9CEB200412F48 /* README.md in Sources */,
 				64DDAC931CE63E6300412F48 /* character.cpp in Sources */,
 				64DDAC921CE63E6100412F48 /* enemy.cpp in Sources */,
 				64DDAC8E1CE63E5600412F48 /* sprite.cpp in Sources */,
