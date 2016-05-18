@@ -9,6 +9,8 @@
 #ifndef game_h
 #define game_h
 
+#include "drawEngine.h"
+
 namespace EvilMonkeys
 {
     class Game
@@ -19,6 +21,10 @@ namespace EvilMonkeys
     protected:
         void timerUpdate(double& lastTime);
         
+    private:
+        // incorperate the DrawEngine
+        DrawEngine drawArea;
+
     };    
 }
 #endif /* game_h */

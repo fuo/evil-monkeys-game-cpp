@@ -18,6 +18,9 @@ bool getKeyInput(int& key);
 
 void EvilMonkeys::Game::run()
 {
+    //setup
+    drawArea.createSprite(0, 'o', RED_BLACK);
+
     double lastTime = 0;
     int key = ' ';
     
@@ -27,16 +30,22 @@ void EvilMonkeys::Game::run()
     {
         while (!getKeyInput(key))
         {
+
             this->timerUpdate(lastTime);
             
+            // constantly refresh the windows
+            drawArea.refresh();
         }
         
         // pass the pressed key to the level
         
+
+
     }
     
 }
 
+int i = -1;
 void EvilMonkeys::Game::timerUpdate(double & lastTime)
 {
     timeval* tv = new timeval();
@@ -49,7 +58,10 @@ void EvilMonkeys::Game::timerUpdate(double & lastTime)
     
     //----------------------------------
     
+    drawArea.drawSprite(0, ++i, 5);
+
     
+
     
     //----------------------------------
     
