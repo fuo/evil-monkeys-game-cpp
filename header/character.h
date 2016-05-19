@@ -30,7 +30,7 @@ namespace EvilMonkeys
         
     private:
         bool __move(float xDir, float yDir);
-        
+        void __hookToLevel(Level* lvl);
     };
 }
 #endif /* character_h */

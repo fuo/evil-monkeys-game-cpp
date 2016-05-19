@@ -7,6 +7,8 @@
 //
 
 #include "character.h"
+
+#include "level.h"
 using namespace EvilMonkeys;
 
 Character::Character(DrawEngine* de, int s_index, float xpos, float ypos, int lives,
@@ -57,4 +59,10 @@ void Character::__addLives(int num)
 bool Character::__move(float xDir, float yDir)
 {
     return Sprite::__move(xDir, yDir);
+}
+
+void Character::__hookToLevel(Level* lvl)
+{
+    Sprite::__hookToLevel(lvl);
+    level->addPlayer(this);
 }
