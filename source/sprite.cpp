@@ -8,6 +8,7 @@
 
 #include "sprite.h"
 
+#include "level.h"
 using namespace EvilMonkeys;
 
 Sprite::Sprite(DrawEngine *de, int sprite_index, float xpos, float ypos, int i_lives)
@@ -33,25 +34,30 @@ Sprite::Sprite(DrawEngine *de, int sprite_index, float xpos, float ypos, int i_l
 
 bool Sprite::__move(float xDir, float yDir)
 {
-    facingDirection.x = xDir;
-    facingDirection.y = yDir;
-
     vector target;
     
     target.x = pos.x + xDir;
     target.y = pos.y + yDir;
 
-    // erase sprite at current before move
-    erase_();
+    if ( isValidLevelMove(target.x, target.y) )
+    {
+        // update the facing direction before move
+        facingDirection.x = xDir;
+        facingDirection.y = yDir;
 
-    // update its pos to the target position
-    setPosition(target.x, target.y);
-    
-    // draw itseft with its new position
-    draw_();
+        // erase sprite at current position
+        erase_();
 
-    return true;
+        // update its pos to the target position
+        setPosition(target.x, target.y);
 
+        // draw itseft with its new position
+        draw_();
+
+        return true;
+    }
+
+    return false;
 }
 
 void Sprite::draw_(float x, float y){
@@ -63,4 +69,16 @@ void Sprite::draw_(float x, float y){
         y = pos.y;
 
     drawArea->drawSprite_(spriteIndex, (int)x, (int)y);
+}
+
+bool Sprite::isValidLevelMove(int xpos, int ypos)
+{
+    if (!level)
+        return false;
+
+    // check inside level
+    if ( level->checkMapTileEmpty(xpos, ypos) )
+        return true;
+
+    return false;
 }

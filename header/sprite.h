@@ -29,6 +29,8 @@ namespace EvilMonkeys
         float y;
     };
 
+    class Level;
+
     class Sprite
     {
     public:
@@ -62,11 +64,16 @@ namespace EvilMonkeys
         
         inline int getClassID(void){ return classID; }
         inline void setClassID(int id){ classID = id; }
+
+        bool isValidLevelMove(int xpos, int ypos);
+
+        virtual void __hookToLevel(Level* lvl){ level = lvl; }
         
     protected:
         vector facingDirection;
         
         DrawEngine* drawArea;
+        Level* level;
         
         void draw_(float x = -1, float y = -1);
 
