@@ -12,7 +12,6 @@
 #include "drawEngine.h"
 #include "character.h"
 
-#include <ncurses.h>
 #include <sys/time.h>
 
 #define GAME_SPEED 50
