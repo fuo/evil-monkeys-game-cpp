@@ -31,6 +31,7 @@ DrawEngine::~DrawEngine()
 void DrawEngine::initColor_()
 {
     start_color();			/* Start color 			*/
+    init_pair(WHITE_WHITE, COLOR_WHITE, COLOR_WHITE);
     init_pair(RED_BLACK, COLOR_RED, COLOR_BLACK);
 }
 
@@ -193,7 +194,12 @@ void DrawEngine::drawBackground_()
             
             for (int x = 0; x < screenWidth; x++)
             {
-                waddch(field, tileImages[map[x][y]]);
+                if (tileImages[map[x][y]] != ' ') {
+                    waddch(field, tileImages[map[x][y]] | COLOR_PAIR(WHITE_WHITE));
+                } else {
+                    waddch(field, tileImages[map[x][y]]);
+                }
+
             }
             
         }
