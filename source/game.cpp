@@ -8,6 +8,7 @@
 
 #include "game.h"
 
+#include "level.h"
 #include "drawEngine.h"
 #include "character.h"
 
@@ -21,10 +22,13 @@ bool getKeyInput(int& key);
 
 void EvilMonkeys::Game::run(DrawEngine* drawArea)
 {
-    //setup
-    int playerSprite = drawArea->createSprite(0, 'o', RED_BLACK);
+    //setup a new world
+    world = new Level(drawArea);
 
-    Character* hero = new Character(drawArea, playerSprite);
+    int playerSprite = drawArea->createSprite(SPRITE_PLAYER, 'o', RED_BLACK);
+
+    Sprite* hero = new Character(drawArea, playerSprite);
+    hero->__hookToLevel(world);
 
     double lastTime = 0;
     int key = ' ';
@@ -35,16 +39,17 @@ void EvilMonkeys::Game::run(DrawEngine* drawArea)
     {
         while (!getKeyInput(key))
         {
+            if (!world->isPaused())
+                this->timerUpdate_(lastTime);
+            else
+                drawArea->printScore("paused ", 72);
 
-            this->timerUpdate_(lastTime);
-            
             // constantly refresh the windows
             drawArea->refresh();
         }
         
         // pass the pressed key to the level
-        
-        hero->__isKeyPressExecuteAction(key);
+        world->isKeyPressExecuteAction(key);
 
     }
     
@@ -63,6 +68,7 @@ void EvilMonkeys::Game::timerUpdate_(double & lastTime)
     //----------------------------------
 
     // this is for NPC not our hero
+    world->update(lastTime);
     
     //----------------------------------
     

@@ -12,6 +12,7 @@
 namespace EvilMonkeys
 {
     class DrawEngine;
+    class Level;
 
     class Game
     {
@@ -20,7 +21,10 @@ namespace EvilMonkeys
         
     protected:
         void timerUpdate_(double& lastTime);
-            
+
+    private:
+        Level* world;
+
     };    
 }
 #endif /* game_h */
