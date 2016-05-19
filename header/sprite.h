@@ -36,7 +36,7 @@ namespace EvilMonkeys
         
         ~Sprite(){
             // erase the dying sprites
-            erase();
+            erase_();
         }
         
         inline vector getPosition(void){ return pos; }
@@ -70,8 +70,8 @@ namespace EvilMonkeys
         
         void draw_(float x = -1, float y = -1);
 
-        inline void erase(void){
-            drawArea->eraseSprite((int)pos.x, (int)pos.y);
+        inline void erase_(void){
+            drawArea->eraseSprite_((int)pos.x, (int)pos.y);
         }
 
 

@@ -18,7 +18,7 @@ namespace EvilMonkeys
         WHITE_BLACK,
         RED_BLACK,
     };
-    
+
     // friend class
     class Sprite;
     class DrawEngine
@@ -43,8 +43,6 @@ namespace EvilMonkeys
         
         // manipulate the Level
         void setMap(int** grid, int xSize, int ySize);
-        void drawBackground(void);
-        
         
         int getSpriteColor(int sprite_index){ return spriteColor[sprite_index]; }
 
@@ -55,6 +53,8 @@ namespace EvilMonkeys
         // API for Sprite class only
         bool eraseSprite_(int xpos, int ypos);
         bool drawSprite_(int figureIndex, int xpos, int ypos, int color = 0);
+
+        void drawBackground_(void);
 
     private:
         WINDOW *field;
@@ -71,12 +71,12 @@ namespace EvilMonkeys
         char tileImages[16];
         
         // inner methods
-        bool gotoxy(int xpos, int ypos);
-        int cursorVisibility(int visibility){ return curs_set(visibility); }
-        void draw_borders(WINDOW*);
+        bool gotoxy_(int xpos, int ypos);
+        int cursorVisibility_(int visibility){ return curs_set(visibility); }
+        void draw_borders_(WINDOW*);
         
-        void initNcurse(void);
-        void initColor(void);
+        void initNcurse_(void);
+        void initColor_(void);
     };
 }
 #endif /* drawEngine_h */

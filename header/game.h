@@ -19,10 +19,8 @@ namespace EvilMonkeys
         void run(DrawEngine* drawArea);
         
     protected:
-        void timerUpdate(double& lastTime);
-        
-
-
+        void timerUpdate_(double& lastTime);
+            
     };    
 }
 #endif /* game_h */

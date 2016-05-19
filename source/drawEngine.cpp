@@ -12,9 +12,9 @@ using namespace EvilMonkeys;
 
 DrawEngine::DrawEngine()
 {
-    initNcurse();
+    initNcurse_();
     
-    cursorVisibility(false);
+    cursorVisibility_(false);
     
 }
 
@@ -22,19 +22,19 @@ DrawEngine::~DrawEngine()
 {
 //    attroff(COLOR_PAIR(RED_WHITE));
     
-    cursorVisibility(true);
+    cursorVisibility_(true);
     endwin();
     delwin(field);
     delwin(score);
 }
 
-void DrawEngine::initColor()
+void DrawEngine::initColor_()
 {
     start_color();			/* Start color 			*/
     init_pair(RED_BLACK, COLOR_RED, COLOR_BLACK);
 }
 
-void DrawEngine::initNcurse()
+void DrawEngine::initNcurse_()
 {
     /* Initialize curses mode */
     initscr();
@@ -45,7 +45,7 @@ void DrawEngine::initNcurse()
 //        exit(1);
     }
     
-    initColor();
+    initColor_();
 
     //    attron(COLOR_PAIR(RED_WHITE));
     
@@ -70,7 +70,7 @@ void DrawEngine::initNcurse()
     field = newwin(screenHeight, screenWidth, 0, 0);
     score = newwin(score_size, screenWidth, screenHeight, 0);
     
-    draw_borders(score);
+    draw_borders_(score);
     
     // re-sizing
     getmaxyx(stdscr, new_y, new_x);
@@ -87,8 +87,8 @@ void DrawEngine::initNcurse()
         wclear(field);
         wclear(score);
         
-        draw_borders(field);
-        draw_borders(score);
+        draw_borders_(field);
+        draw_borders_(score);
     }
 }
 
@@ -102,10 +102,10 @@ void DrawEngine::setMap(int** grid, int xSize, int ySize)
     field = newwin(screenHeight, screenWidth, 0, 0);
     score = newwin(score_size, screenWidth, screenHeight, 0);
     
-    draw_borders(score);
+    draw_borders_(score);
 }
 
-void DrawEngine::draw_borders(WINDOW *screen) {
+void DrawEngine::draw_borders_(WINDOW *screen) {
     int x, y, i;
     
     getmaxyx(screen, y, x);
@@ -140,18 +140,18 @@ int DrawEngine::createSprite(int figureIndex, int img, int color)
     return -1;
 }
 
-bool DrawEngine::eraseSprite(int xpos, int ypos)
+bool DrawEngine::eraseSprite_(int xpos, int ypos)
 {
-    if(!gotoxy(xpos, ypos))
+    if(!gotoxy_(xpos, ypos))
         return false;
     
     waddch(field, ' ');
     return true;
 }
 
-bool DrawEngine::drawSprite(int figureIndex, int xpos, int ypos, int color)
+bool DrawEngine::drawSprite_(int figureIndex, int xpos, int ypos, int color)
 {
-    if( !gotoxy(xpos, ypos) )
+    if( !gotoxy_(xpos, ypos) )
         return false;
     
     if (color)
@@ -165,7 +165,7 @@ bool DrawEngine::drawSprite(int figureIndex, int xpos, int ypos, int color)
     return true;
 }
 
-bool DrawEngine::gotoxy(int xpos, int ypos)
+bool DrawEngine::gotoxy_(int xpos, int ypos)
 {
     if ( xpos > screenWidth || xpos < 0 || ypos > screenHeight || ypos < 0 )
         return false;
@@ -183,13 +183,13 @@ void DrawEngine::createBackgroundTile(int tileIndex, char img)
     }
 }
 
-void DrawEngine::drawBackground()
+void DrawEngine::drawBackground_()
 {
     if (map)
     {
         for (int y = 0; y < screenHeight; y++)
         {
-            gotoxy(0, y);
+            gotoxy_(0, y);
             
             for (int x = 0; x < screenWidth; x++)
             {

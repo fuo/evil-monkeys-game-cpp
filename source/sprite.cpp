@@ -27,8 +27,8 @@ Sprite::Sprite(DrawEngine *de, int sprite_index, float xpos, float ypos, int i_l
     
     classID = SPRITE_CLASSID;
 
-    // draw itself on the screen so the world can see me
-    draw();
+    // display itseft to the world
+    draw_();
 }
 
 bool Sprite::__move(float xDir, float yDir)
@@ -42,14 +42,14 @@ bool Sprite::__move(float xDir, float yDir)
     target.y = pos.y + yDir;
 
     // erase sprite at current before move
-    erase();
+    erase_();
 
     // update its pos to the target position
     setPosition(target.x, target.y);
     
     // draw itseft with its new position
-    draw();
-    
+    draw_();
+
     return true;
 
 }

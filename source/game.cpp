@@ -36,7 +36,7 @@ void EvilMonkeys::Game::run(DrawEngine* drawArea)
         while (!getKeyInput(key))
         {
 
-            this->timerUpdate(lastTime);
+            this->timerUpdate_(lastTime);
             
             // constantly refresh the windows
             drawArea->refresh();
@@ -50,7 +50,7 @@ void EvilMonkeys::Game::run(DrawEngine* drawArea)
     
 }
 
-void EvilMonkeys::Game::timerUpdate(double & lastTime)
+void EvilMonkeys::Game::timerUpdate_(double & lastTime)
 {
     timeval* tv = new timeval();
     gettimeofday(tv, 0);
