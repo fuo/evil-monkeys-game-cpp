@@ -9,8 +9,6 @@
 #ifndef game_h
 #define game_h
 
-#include "sprite.h"
-
 namespace EvilMonkeys
 {
     class Game
@@ -25,8 +23,6 @@ namespace EvilMonkeys
         // incorperate the DrawEngine
         DrawEngine drawArea;
 
-        // hook the player into Game for now, later the Level will manage it.
-        Sprite* player;
 
     };    
 }

@@ -8,6 +8,7 @@
 
 #include "game.h"
 
+#include "character.h"
 #include <ncurses.h>
 #include <sys/time.h>
 
@@ -21,7 +22,7 @@ void EvilMonkeys::Game::run()
     //setup
     int playerSprite = drawArea.createSprite(0, 'o', RED_BLACK);
 
-    player = new Sprite(&drawArea, playerSprite);
+    Character* hero = new Character(drawArea, playerSprite);
 
     double lastTime = 0;
     int key = ' ';
@@ -41,7 +42,7 @@ void EvilMonkeys::Game::run()
         
         // pass the pressed key to the level
         
-
+        hero->__isKeyPressExecuteAction(key);
 
     }
     
@@ -59,9 +60,7 @@ void EvilMonkeys::Game::timerUpdate(double & lastTime)
     
     //----------------------------------
 
-
-    player->__move(1, 0);
-
+    // this is for NPC not our hero
     
     //----------------------------------
     
