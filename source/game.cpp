@@ -19,7 +19,9 @@ bool getKeyInput(int& key);
 void EvilMonkeys::Game::run()
 {
     //setup
-    drawArea.createSprite(0, 'o', RED_BLACK);
+    int playerSprite = drawArea.createSprite(0, 'o', RED_BLACK);
+
+    player = new Sprite(&drawArea, playerSprite);
 
     double lastTime = 0;
     int key = ' ';
@@ -45,7 +47,6 @@ void EvilMonkeys::Game::run()
     
 }
 
-int i = -1;
 void EvilMonkeys::Game::timerUpdate(double & lastTime)
 {
     timeval* tv = new timeval();
@@ -57,10 +58,9 @@ void EvilMonkeys::Game::timerUpdate(double & lastTime)
         return;
     
     //----------------------------------
-    
-    drawArea.drawSprite(0, ++i, 5);
 
-    
+
+    player->__move(1, 0);
 
     
     //----------------------------------
