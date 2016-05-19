@@ -36,7 +36,7 @@ namespace EvilMonkeys
         
         ~Sprite(){
             // erase the dying sprites
-            erase(pos.x, pos.y);
+            erase();
         }
         
         inline vector getPosition(void){ return pos; }
@@ -68,10 +68,10 @@ namespace EvilMonkeys
         
         DrawEngine* drawArea;
         
-        void draw(float x, float y, int color = 0);
+        void draw(float x = -1, float y = -1, int color = 0);
 
-        inline void erase(float x, float y){
-            drawArea->eraseSprite((int)x, (int)y);
+        inline void erase(void){
+            drawArea->eraseSprite((int)pos.x, (int)pos.y);
         }
 
 

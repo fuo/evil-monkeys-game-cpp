@@ -20,40 +20,48 @@ Sprite::Sprite(DrawEngine *de, int sprite_index, float xpos, float ypos, int i_l
     spriteIndex = sprite_index;
     
     numLives = i_lives;
-    
+
+    // face to the right at spawn time
     facingDirection.x = 1;
     facingDirection.y = 0;
     
     classID = SPRITE_CLASSID;
 
     // draw itself on the screen so the world can see me
-    draw(pos.x, pos.y);
+    draw();
 }
 
 bool Sprite::__move(float xDir, float yDir)
 {
-    vector direction;
-    
-    direction.x = (int)(pos.x + xDir);
-    direction.y = (int)(pos.y + yDir);
-    
-
     facingDirection.x = xDir;
     facingDirection.y = yDir;
+
+    vector target;
     
-    // erase sprite
-    erase(pos.x, pos.y);
+    target.x = pos.x + xDir;
+    target.y = pos.y + yDir;
+
+    // erase sprite at current before move
+    erase();
+
+    // update its pos to the target position
+    setPosition(target.x, target.y);
     
-    setPosition(direction.x, direction.y);
-    
-    // draw sprite
-    draw(pos.x, pos.y);
+    // draw itseft with its new position
+    draw();
     
     return true;
 
 }
 
 void Sprite::draw(float x, float y, int color){
+
+    if (x < 0)
+        x = pos.x;
+
+    if (y < 0)
+        y = pos.y;
+
     if (color)
         drawArea->drawSprite(spriteIndex, (int)x, (int)y, color);
     else
