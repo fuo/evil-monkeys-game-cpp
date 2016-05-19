@@ -19,6 +19,8 @@ namespace EvilMonkeys
         RED_BLACK,
     };
     
+    // friend class
+    class Sprite;
     class DrawEngine
     {
     public:
@@ -43,11 +45,16 @@ namespace EvilMonkeys
         void setMap(int** grid, int xSize, int ySize);
         void drawBackground(void);
         
-        // API
-        bool eraseSprite(int xpos, int ypos);
-        bool drawSprite(int figureIndex, int xpos, int ypos, int color = 0);
         
         int getSpriteColor(int sprite_index){ return spriteColor[sprite_index]; }
+
+        // make friend with Sprite so he can use those protected methods
+        friend class Sprite;
+
+    protected:
+        // API for Sprite class only
+        bool eraseSprite_(int xpos, int ypos);
+        bool drawSprite_(int figureIndex, int xpos, int ypos, int color = 0);
 
     private:
         WINDOW *field;
