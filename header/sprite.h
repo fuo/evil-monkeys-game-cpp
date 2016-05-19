@@ -68,7 +68,7 @@ namespace EvilMonkeys
         
         DrawEngine* drawArea;
         
-        void draw(float x = -1, float y = -1, int color = 0);
+        void draw_(float x = -1, float y = -1);
 
         inline void erase(void){
             drawArea->eraseSprite((int)pos.x, (int)pos.y);

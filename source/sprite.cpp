@@ -54,7 +54,7 @@ bool Sprite::__move(float xDir, float yDir)
 
 }
 
-void Sprite::draw(float x, float y, int color){
+void Sprite::draw_(float x, float y){
 
     if (x < 0)
         x = pos.x;
@@ -62,8 +62,5 @@ void Sprite::draw(float x, float y, int color){
     if (y < 0)
         y = pos.y;
 
-    if (color)
-        drawArea->drawSprite(spriteIndex, (int)x, (int)y, color);
-    else
-        drawArea->drawSprite(spriteIndex, (int)x, (int)y);
+    drawArea->drawSprite_(spriteIndex, (int)x, (int)y);
 }
