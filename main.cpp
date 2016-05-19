@@ -8,6 +8,8 @@
 
 #include "game.h"
 
+#include "drawEngine.h"
+
 #include <ncurses.h>
 #include <iostream>
 
@@ -30,9 +32,11 @@ int main(int argc, const char * argv[])
 //----------------------------------
     
     srand( (int) time( NULL ) );
-    
+
+    EvilMonkeys::DrawEngine drawArea;
+
     EvilMonkeys::Game game;
-    game.run();
+    game.run(&drawArea);
     
 //----------------------------------
     

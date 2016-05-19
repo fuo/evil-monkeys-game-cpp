@@ -8,7 +8,9 @@
 
 #include "game.h"
 
+#include "drawEngine.h"
 #include "character.h"
+
 #include <ncurses.h>
 #include <sys/time.h>
 
@@ -17,10 +19,10 @@
 bool kbhit(void);
 bool getKeyInput(int& key);
 
-void EvilMonkeys::Game::run()
+void EvilMonkeys::Game::run(DrawEngine* drawArea)
 {
     //setup
-    int playerSprite = drawArea.createSprite(0, 'o', RED_BLACK);
+    int playerSprite = drawArea->createSprite(0, 'o', RED_BLACK);
 
     Character* hero = new Character(drawArea, playerSprite);
 
@@ -37,7 +39,7 @@ void EvilMonkeys::Game::run()
             this->timerUpdate(lastTime);
             
             // constantly refresh the windows
-            drawArea.refresh();
+            drawArea->refresh();
         }
         
         // pass the pressed key to the level

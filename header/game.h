@@ -11,17 +11,16 @@
 
 namespace EvilMonkeys
 {
+    class DrawEngine;
+
     class Game
     {
     public:
-        void run(void);
+        void run(DrawEngine* drawArea);
         
     protected:
         void timerUpdate(double& lastTime);
         
-    private:
-        // incorperate the DrawEngine
-        DrawEngine drawArea;
 
 
     };    
