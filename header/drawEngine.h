@@ -21,6 +21,8 @@ namespace EvilMonkeys
 
     // friend class
     class Sprite;
+    class Level;
+
     class DrawEngine
     {
     public:
@@ -48,12 +50,14 @@ namespace EvilMonkeys
 
         // make friend with Sprite so he can use those protected methods
         friend class Sprite;
+        friend class Level;
 
     protected:
         // API for Sprite class only
         bool eraseSprite_(int xpos, int ypos);
         bool drawSprite_(int figureIndex, int xpos, int ypos, int color = 0);
 
+        // API for Level class only
         void drawBackground_(void);
 
     private:
