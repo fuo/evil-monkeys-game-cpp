@@ -24,8 +24,7 @@ void EvilMonkeys::Game::run(DrawEngine* drawArea)
     //setup a new world
     world = new Level(drawArea);
 
-    int playerSprite = drawArea->createSprite(SPRITE_PLAYER, 'o', RED_BLACK);
-
+    int playerSprite = drawArea->registerSprite(SPRITE_PLAYER, '>', GREEN_BLACK);
     Sprite* hero = new Character(drawArea, playerSprite);
     hero->__hookToLevel(world);
 

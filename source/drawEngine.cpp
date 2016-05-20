@@ -15,6 +15,10 @@ DrawEngine::DrawEngine()
     initNcurse_();
     
     cursorVisibility_(false);
+
+    for (int i = 0; i < 16; i++) {
+        spriteColor[i] = -1;
+    }
     
 }
 
@@ -130,12 +134,15 @@ void DrawEngine::draw_borders_(WINDOW *screen) {
     }
 }
 
-int DrawEngine::createSprite(int figureIndex, int img, int color)
+int DrawEngine::registerSprite(int figureIndex, int img, int color)
 {
     if (figureIndex >= 0 && figureIndex < 16)
     {
         spriteImages[figureIndex] = img;
-        spriteColor[figureIndex]  = color;
+
+        if ( spriteColor[figureIndex] < 0 || color > 0 )
+            spriteColor[figureIndex] = color;
+
         return figureIndex;
     }
     return -1;

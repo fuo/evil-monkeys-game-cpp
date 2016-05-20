@@ -27,15 +27,19 @@ bool Character::__isKeyPressExecuteAction(int key)
 {
     switch(key)
     {	case KEY_UP:
+            drawArea->registerSprite(SPRITE_PLAYER, '^');
             return __move(0, -1);
 
         case KEY_DOWN:
+            drawArea->registerSprite(SPRITE_PLAYER, 'v');
             return __move(0, 1);
 
         case KEY_RIGHT:
+            drawArea->registerSprite(SPRITE_PLAYER, '>');
             return __move(1, 0);
 
         case KEY_LEFT:
+            drawArea->registerSprite(SPRITE_PLAYER, '<');
             return __move(-1, 0);
 
         default:

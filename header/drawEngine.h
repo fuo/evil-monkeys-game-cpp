@@ -31,10 +31,11 @@ namespace EvilMonkeys
         ~DrawEngine();
         
         // manage the drawing material
-        int createSprite(int figureIndex, int img, int color = 0);
         void createBackgroundTile(int tileIndex, char img);
         
         
+        int registerSprite(int figureIndex, int img, int color = 0);
+
         // helpers
         void refresh(void){
             wrefresh(field);
