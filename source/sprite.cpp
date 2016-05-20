@@ -82,3 +82,8 @@ bool Sprite::isValidLevelMove(int xpos, int ypos)
 
     return false;
 }
+
+bool Sprite::matchCurrentLocation(int xpos, int ypos)
+{
+    return ( (int)pos.x == xpos && (int)pos.y == ypos );
+}

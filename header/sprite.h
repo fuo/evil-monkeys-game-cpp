@@ -46,7 +46,9 @@ namespace EvilMonkeys
         inline float getY(void){ return pos.y; }
         inline void setPosition(float x, float y) { pos.x = x; pos.y = y; }
         inline void setFacingDirection(float x, float y) { facingDirection.x = x; facingDirection.y = y; }
-        
+
+        bool matchCurrentLocation(int xpos, int ypos);
+
         inline int getLives(void){ return numLives; }
         
         virtual void __addLives(int num = 1){
