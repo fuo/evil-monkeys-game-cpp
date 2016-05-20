@@ -18,6 +18,7 @@ namespace EvilMonkeys
         WHITE_BLACK,
         RED_BLACK,
         WHITE_WHITE,
+        GREEN_BLACK,
     };
 
     // friend class
