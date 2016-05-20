@@ -47,21 +47,29 @@ namespace EvilMonkeys
         
         bool isKeyPressExecuteAction(int key);
 
-        inline void addNPC(Sprite *spr){ NPC_sprites.push_back(spr); }
-        
         int** const generatedMap(void);
 
         inline bool isPaused(){ return !running; }
+        std::list<Sprite *>::const_iterator firstNPC(){ return NPC_sprites.begin(); }
+        std::list<Sprite *>::const_iterator lastNPC(){ return NPC_sprites.end(); }
+
+        void spawnNPC(int num, int sprite_index);
 
     protected:
         void setMapTile_(int wall);
         void draw_(int** const generatedMap);
+
+        void spawnEnemies_(int num, int enemySprite);
+
+        inline void addNPC_(Sprite *spr){ NPC_sprites.push_back(spr); }
 
     private:
         int width;
         int height;
 
         bool running;
+
+        int numEnemies;
 
         unsigned long startTime;
         unsigned long elapsedTime;
@@ -75,6 +83,8 @@ namespace EvilMonkeys
         Character *player;
         
         DrawEngine *drawArea;
+
+        void refreshStatuses_(void);
     };
 }
 #endif /* level_h */

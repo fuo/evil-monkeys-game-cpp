@@ -7,9 +7,12 @@
 //
 
 #include "level.h"
+
+#include "enemy.h"
 using namespace EvilMonkeys;
 
 #include <iostream>
+#include <math.h>
 
 Level::Level(DrawEngine *de, int tile_wall, int w, int h)
 {
@@ -109,6 +112,26 @@ bool Level::isKeyPressExecuteAction(int key)
     return false;
 }
 
+void Level::refreshStatuses_()
+{
+    std::string tmp = std::to_string(numEnemies);
+
+    if (numEnemies > 9) {
+        drawArea->printScore(tmp.c_str(), 11);
+        drawArea->printScore("enemies", 14);
+    } else {
+        drawArea->printScore(" ", 11);
+        drawArea->printScore(tmp.c_str(), 12);
+        drawArea->printScore("enemies", 14);
+    }
+
+    tmp = std::to_string(player->getLives());
+
+    drawArea->printScore(tmp.c_str(), 22);
+    drawArea->printScore(" lives", 23);
+
+}
+
 void Level::update(unsigned long timing)
 {
     if (startTime == 0)
@@ -120,6 +143,8 @@ void Level::update(unsigned long timing)
     
     drawArea->printScore(seconds.c_str(), 1);
     drawArea->printScore("secs", 4);
+
+    refreshStatuses_();
 
     drawArea->printScore("running", 72);
     
@@ -147,4 +172,42 @@ bool Level::checkMapTileEmpty(int xpos, int ypos)
         return false;
 
     return digitalMap[xpos][ypos] == TILE_EMPTY;
+}
+
+void Level::spawnNPC(int num, int sprite_index)
+{
+    switch (sprite_index) {
+        case SPRITE_ENEMY:
+            numEnemies = num;
+            spawnEnemies_(num, sprite_index);
+            break;
+
+        default:
+            break;
+    }
+}
+
+void Level::spawnEnemies_(int num, int enemySprite)
+{
+    int distanceToGoal = 9;
+
+    while (num > 0)
+    {
+        int xpos = (int)lround((float(rand() % 100) / 100) * (width - 4) + 1);
+        int ypos = (int)lround((float(rand() % 100) / 100) * (height - 4) + 1);
+
+        if ( checkMapTileEmpty(xpos, ypos) && xpos > player->getX() + distanceToGoal && ypos > player->getY() + distanceToGoal ) {
+
+            // have to clean up those died enemy got killed to free memory somewhere!!!
+            Enemy *temp = new Enemy(drawArea, enemySprite, (float)xpos, float(ypos));
+
+            temp->__hookToLevel(this);
+
+            temp->addGoal(player);
+
+            addNPC_((Sprite *)temp);
+
+            num--;
+        }
+    }
 }

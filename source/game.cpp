@@ -29,6 +29,9 @@ void EvilMonkeys::Game::run(DrawEngine* drawArea)
     Sprite* hero = new Character(drawArea, playerSprite);
     hero->__hookToLevel(world);
 
+    int enemySprite = drawArea->registerSprite(SPRITE_ENEMY, '$', RED_BLACK);
+    world->spawnNPC(30, enemySprite);
+
     double lastTime = 0;
     int key = ' ';
     
