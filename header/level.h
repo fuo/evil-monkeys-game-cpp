@@ -47,8 +47,6 @@ namespace EvilMonkeys
         
         bool isKeyPressExecuteAction(int key);
 
-        int** const generatedMap(void);
-
         inline bool isPaused(){ return !running; }
         std::list<Sprite *>::const_iterator firstNPC(){ return NPC_sprites.begin(); }
         std::list<Sprite *>::const_iterator lastNPC(){ return NPC_sprites.end(); }
@@ -60,6 +58,8 @@ namespace EvilMonkeys
         void draw_(int** const generatedMap);
 
         void spawnEnemies_(int num, int enemySprite);
+
+        int** const generatedMap_(void);
 
         inline void addNPC_(Sprite *spr){ NPC_sprites.push_back(spr); }
 

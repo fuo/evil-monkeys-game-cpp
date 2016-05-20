@@ -29,7 +29,7 @@ Level::Level(DrawEngine *de, int tile_wall, int w, int h)
     player = nullptr;
 
     setMapTile_(tile_wall);
-    draw_( generatedMap() );
+    draw_( generatedMap_() );
 }
 
 Level::~Level()
@@ -46,7 +46,7 @@ Level::~Level()
         delete (*sprite_Iter);
 }
 
-int** const Level::generatedMap()
+int** const Level::generatedMap_()
 {
     if (digitalMap != NULL)
         return digitalMap;
@@ -83,13 +83,13 @@ int** const Level::generatedMap()
 
 void Level::setMapTile_(int wall)
 {
-    drawArea->createBackgroundTile(TILE_WALL, wall);
-    drawArea->createBackgroundTile(TILE_EMPTY, ' ');
+    drawArea->createBackgroundTile_(TILE_WALL, wall);
+    drawArea->createBackgroundTile_(TILE_EMPTY, ' ');
 }
 
 void Level::draw_(int** const generatedMap)
 {
-    drawArea->setMap(generatedMap, width, height);
+    drawArea->setMap_(generatedMap, width, height);
     drawArea->drawBackground_();
 }
 

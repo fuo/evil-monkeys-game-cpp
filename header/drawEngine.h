@@ -31,9 +31,6 @@ namespace EvilMonkeys
         ~DrawEngine();
         
         // manage the drawing material
-        void createBackgroundTile(int tileIndex, char img);
-        
-        
         int registerSprite(int figureIndex, int img, int color = 0);
 
         // helpers
@@ -44,9 +41,6 @@ namespace EvilMonkeys
         void printScore(const char* text, int xpos, int ypos = 1){
             mvwprintw(score, ypos, xpos, text);
         }
-        
-        // manipulate the Level
-        void setMap(int** grid, int xSize, int ySize);
         
         int getSpriteColor(int sprite_index){ return spriteColor[sprite_index]; }
 
@@ -60,7 +54,9 @@ namespace EvilMonkeys
         bool drawSprite_(int figureIndex, int xpos, int ypos, int color = 0);
 
         // API for Level class only
+        void createBackgroundTile_(int tileIndex, char img);
         void drawBackground_(void);
+        void setMap_(int** grid, int xSize, int ySize);
 
     private:
         WINDOW *field;

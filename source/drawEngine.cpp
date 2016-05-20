@@ -97,7 +97,7 @@ void DrawEngine::initNcurse_()
     }
 }
 
-void DrawEngine::setMap(int** grid, int xSize, int ySize)
+void DrawEngine::setMap_(int** grid, int xSize, int ySize)
 {
     map = grid;
     
@@ -183,7 +183,7 @@ bool DrawEngine::gotoxy_(int xpos, int ypos)
 }
 
 // to the Level
-void DrawEngine::createBackgroundTile(int tileIndex, char img)
+void DrawEngine::createBackgroundTile_(int tileIndex, char img)
 {
     if (tileIndex >= 0 && tileIndex < 16)
     {
