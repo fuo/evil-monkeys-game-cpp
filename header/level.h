@@ -48,6 +48,8 @@ namespace EvilMonkeys
         bool isKeyPressExecuteAction(int key);
 
         inline bool isPaused(){ return !running; }
+        inline void pause(){ refreshStatuses_(); running = false; }
+
         std::list<Sprite *>::const_iterator firstNPC(){ return NPC_sprites.begin(); }
         std::list<Sprite *>::const_iterator lastNPC(){ return NPC_sprites.end(); }
 

@@ -57,6 +57,8 @@ void Character::__addLives(int num)
         // reset or re-spawn the position
         setPosition(1, 1);
         draw_();
+        
+        level->pause();
     }
 }
 
