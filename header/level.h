@@ -54,9 +54,11 @@ namespace EvilMonkeys
         std::list<Sprite *>::const_iterator lastNPC(){ return NPC_sprites.end(); }
 
         void spawnNPC(int num, int sprite_index);
+        int getNumFireballs(){ return numFireballs; }
         int getNumBombs(){ return numBombs; }
         int getMaxBombsAllow(){ return maxBombsAllow; }
         void updateNumBombs(int num){ numBombs += num; }
+        void updateNumFireballs(int num){ numFireballs += num; }
 
     protected:
         void setMapTile_(int wall);
@@ -64,6 +66,8 @@ namespace EvilMonkeys
 
         void spawnEnemies_(int num, int enemySprite);
         bool spawnBombs_(int bombSprite, int distanceToGoal, int xpos, int ypos);
+
+        bool spawnFireball_(int fireballSprite, int distanceToGoal, int xpos, int ypos, float xface, float yface);
 
         int** const generatedMap_(void);
 
@@ -77,6 +81,7 @@ namespace EvilMonkeys
 
         int numEnemies;
         int maxBombsAllow, numBombs;
+        int numFireballs;
 
         unsigned long startTime;
         unsigned long elapsedTime;

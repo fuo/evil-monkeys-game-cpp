@@ -219,6 +219,8 @@ void Level::spawnNPC(int num, int sprite_index)
         case SPRITE_BOMB:
             return spawnBombs_(sprite_index, distanceToGoal, xpos, ypos);
 
+        case SPRITE_FIREBALL:
+            return spawnFireball_(sprite_index, distanceToGoal, xpos, ypos, xface, yface);
         default:
             break;
     }
@@ -227,6 +229,19 @@ void Level::spawnNPC(int num, int sprite_index)
 void Level::spawnEnemies_(int num, int enemySprite)
 {
     int distanceToGoal = 9;
+bool Level::spawnFireball_(int fireballSprite, int distanceToGoal, int xpos, int ypos, float xface, float yface)
+{
+    if (checkMapTileEmpty(xpos, ypos))
+    {
+        Fireball *temp = new Fireball(drawArea, SPRITE_FIREBALL, float(xpos - xface), float(ypos - yface), xface, yface);
+        temp->__hookToLevel(this, false);
+        addNPC_((Sprite *)temp);
+
+        return true;
+    }
+
+    return false;
+}
 
     while (num > 0)
 bool Level::spawnBombs_(int bombSprite, int distanceToGoal, int xpos, int ypos)
