@@ -98,8 +98,8 @@ bool Character::__move(float xDir, float yDir)
     return false;
 }
 
-void Character::__hookToLevel(Level* lvl)
+void Character::__hookToLevel(Level* lvl, bool draw_at_once)
 {
-    Sprite::__hookToLevel(lvl);
+    Sprite::__hookToLevel(lvl, draw_at_once);
     level->addPlayer(this);
 }

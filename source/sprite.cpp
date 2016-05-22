@@ -27,9 +27,6 @@ Sprite::Sprite(DrawEngine *de, int sprite_index, float xpos, float ypos, int i_l
     facingDirection.y = 0;
     
     classID = SPRITE_CLASSID;
-
-    // display itseft to the world
-    draw_();
 }
 
 bool Sprite::__move(float xDir, float yDir)
@@ -104,4 +101,13 @@ bool Sprite::isValidLevelMove(int xpos, int ypos)
 bool Sprite::matchCurrentLocation(int xpos, int ypos)
 {
     return ( (int)pos.x == xpos && (int)pos.y == ypos );
+}
+
+void Sprite::__hookToLevel(Level* lvl, bool draw_at_once)
+{
+    if (draw_at_once)
+        // display itseft to the world right after born
+        draw_();
+
+    level = lvl;
 }

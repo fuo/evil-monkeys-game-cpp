@@ -67,7 +67,7 @@ namespace EvilMonkeys
 
         bool isValidLevelMove(int xpos, int ypos);
 
-        virtual void __hookToLevel(Level* lvl){ level = lvl; }
+        virtual void __hookToLevel(Level* lvl, bool draw_at_once = true);
         
     protected:
         vector facingDirection;
