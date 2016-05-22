@@ -31,6 +31,11 @@ void EvilMonkeys::Game::run(DrawEngine* drawArea)
     int enemySprite = drawArea->registerSprite(SPRITE_ENEMY, '$', RED_BLACK);
     world->spawnNPC(30, enemySprite);
 
+    int bombSprite = drawArea->registerSprite(SPRITE_BOMB, '*');
+    world->spawnNPC(bombSprite);
+    world->spawnNPC(bombSprite);
+    world->spawnNPC(bombSprite);
+
     double lastTime = 0;
     int key = ' ';
     
