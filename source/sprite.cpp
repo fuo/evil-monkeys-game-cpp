@@ -43,7 +43,9 @@ bool Sprite::__move(float xDir, float yDir)
         facingDirection.y = yDir;
 
         // erase sprite at current position
-        erase_();
+
+        if ( !level->posOccupiedByPlayer(pos.x, pos.y) )
+            erase_();
 
         // update its pos to the target position
         setPosition(target.x, target.y);
