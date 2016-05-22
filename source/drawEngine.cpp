@@ -18,6 +18,7 @@ DrawEngine::DrawEngine()
 
     for (int i = 0; i < 16; i++) {
         spriteColor[i] = -1;
+        spriteImages[i] = -1;
     }
     
 }
@@ -137,6 +138,10 @@ void DrawEngine::draw_borders_(WINDOW *screen) {
 
 int DrawEngine::registerSprite(int figureIndex, int img, int color)
 {
+    if (img == -1 && spriteImages[figureIndex] != -1) {
+        return figureIndex;
+    }
+
     if (figureIndex >= 0 && figureIndex < 16)
     {
         spriteImages[figureIndex] = img;

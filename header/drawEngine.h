@@ -32,7 +32,7 @@ namespace EvilMonkeys
         ~DrawEngine();
         
         // manage the drawing material
-        int registerSprite(int figureIndex, int img, int color = 0);
+        int registerSprite(int figureIndex, int img = -1, int color = 0);
 
         // helpers
         void refresh(void){
