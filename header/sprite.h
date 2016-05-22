@@ -51,9 +51,7 @@ namespace EvilMonkeys
 
         inline int getLives(void){ return numLives; }
         
-        virtual void __addLives(int num = 1){
-            numLives += num;
-        }
+        virtual void __addLives(int num = 1);
         
         inline virtual void __idleUpdate(void)
         {
