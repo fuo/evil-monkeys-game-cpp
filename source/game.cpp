@@ -10,7 +10,7 @@
 
 #include "level.h"
 #include "drawEngine.h"
-#include "character.h"
+#include "mage.h"
 
 #include <sys/time.h>
 
@@ -25,7 +25,7 @@ void EvilMonkeys::Game::run(DrawEngine* drawArea)
     world = new Level(drawArea);
 
     int playerSprite = drawArea->registerSprite(SPRITE_PLAYER, '>', GREEN_BLACK);
-    Sprite* hero = new Character(drawArea, playerSprite);
+    Sprite* hero = new Mage(drawArea, playerSprite);
     hero->__hookToLevel(world);
 
     int enemySprite = drawArea->registerSprite(SPRITE_ENEMY, '$', RED_BLACK);
