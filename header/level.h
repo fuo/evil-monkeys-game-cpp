@@ -61,6 +61,8 @@ namespace EvilMonkeys
         void updateNumBombs(int num){ numBombs += num; }
         void updateNumFireballs(int num){ numFireballs += num; }
 
+        void removeNPC(Sprite* spr){ delete spr; NPC_sprites.remove(spr); }
+
     protected:
         void setMapTile_(int wall);
         void draw_(int** const generatedMap);

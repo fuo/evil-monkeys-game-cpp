@@ -196,13 +196,8 @@ void Level::update(unsigned long timing)
         
         if ((*sprite_Iter)->getLives() < 1) {
             
-            Sprite *temp = *sprite_Iter;
-            
-            sprite_Iter--;
-            
-            delete temp;
-            
-            NPC_sprites.remove(temp);
+            removeNPC(*sprite_Iter--);
+
         }
     }
 }
