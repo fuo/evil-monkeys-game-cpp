@@ -118,16 +118,20 @@ bool Level::isKeyPressExecuteAction(int key)
 
 void Level::refreshStatuses_()
 {
-    std::string tmp = std::to_string(numEnemies);
+    int no_of_enemies = 0;
     int no_of_bombs = 0;
 
-    if (numEnemies > 9) {
+
     typename std::list<Sprite *>::const_iterator Iter = NPC_sprites.begin();
     typename std::list<Sprite *>::const_iterator itEnd = NPC_sprites.end();
 
     for( ; Iter != itEnd; ++Iter )
     {
         switch ( (*Iter)->getClassID() ) {
+            case ENEMY_CLASSID:
+                no_of_enemies++;
+                break;
+
             case BOMB_CLASSID:
                 no_of_bombs++;
                 break;
@@ -137,12 +141,15 @@ void Level::refreshStatuses_()
         }
     }
 
+    std::string tmp = std::to_string(no_of_enemies);
+
+    if (no_of_enemies > 9) {
         drawArea->printScore(tmp.c_str(), 11);
-        drawArea->printScore("enemies", 14);
+        drawArea->printScore("enemy", 15);
     } else {
         drawArea->printScore(" ", 11);
         drawArea->printScore(tmp.c_str(), 12);
-        drawArea->printScore("enemies", 14);
+        drawArea->printScore("enemy", 14);
     }
 
     tmp = std::to_string(player->getLives());
@@ -208,13 +215,11 @@ bool Level::checkMapTileEmpty(int xpos, int ypos)
     return digitalMap[xpos][ypos] == TILE_EMPTY;
 }
 
-void Level::spawnNPC(int num, int sprite_index)
+bool Level::spawnNPC(int sprite_index, int distanceToGoal, int xpos, int ypos, float xface, float yface)
 {
     switch (sprite_index) {
         case SPRITE_ENEMY:
-            numEnemies = num;
-            spawnEnemies_(num, sprite_index);
-            break;
+            return spawnEnemies_(sprite_index, distanceToGoal, xpos, ypos);
 
         case SPRITE_BOMB:
             return spawnBombs_(sprite_index, distanceToGoal, xpos, ypos);
@@ -224,11 +229,48 @@ void Level::spawnNPC(int num, int sprite_index)
         default:
             break;
     }
+
+    return false;
 }
 
-void Level::spawnEnemies_(int num, int enemySprite)
+bool Level::spawnEnemies_(int enemySprite, int distanceToGoal, int xpos, int ypos)
 {
-    int distanceToGoal = 9;
+    bool gen_rand_pos = false;
+
+    if (xpos == -1)
+    {
+        xpos = (int)lround((float(rand() % 100) / 100) * (width - 4) + 1);
+        gen_rand_pos = true;
+    }
+
+    if (ypos == -1)
+    {
+        ypos = (int)lround((float(rand() % 100) / 100) * (height - 4) + 1);
+        gen_rand_pos = true;
+    }
+
+    if (gen_rand_pos)
+        while ( !checkMapTileEmpty(xpos, ypos) || xpos <= player->getX() + distanceToGoal || ypos <= player->getY() + distanceToGoal )
+        {
+            xpos = (int)lround((float(rand() % 100) / 100) * (width - 4) + 1);
+            ypos = (int)lround((float(rand() % 100) / 100) * (height - 4) + 1);
+        }
+
+    if (checkMapTileEmpty(xpos, ypos))
+    {
+        // have to clean up those died enemy got killed to free memory somewhere!!!
+        Enemy *temp = new Enemy(drawArea, enemySprite, (float)xpos, float(ypos));
+
+        temp->__hookToLevel(this);
+
+        temp->addGoal(player);
+
+        addNPC_((Sprite *)temp);
+    }
+
+    return true;
+}
+
 bool Level::spawnFireball_(int fireballSprite, int distanceToGoal, int xpos, int ypos, float xface, float yface)
 {
     if (checkMapTileEmpty(xpos, ypos))
@@ -243,7 +285,6 @@ bool Level::spawnFireball_(int fireballSprite, int distanceToGoal, int xpos, int
     return false;
 }
 
-    while (num > 0)
 bool Level::spawnBombs_(int bombSprite, int distanceToGoal, int xpos, int ypos)
 {
     bool gen_rand_pos = false;

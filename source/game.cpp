@@ -29,7 +29,7 @@ void EvilMonkeys::Game::run(DrawEngine* drawArea)
     hero->__hookToLevel(world);
 
     int enemySprite = drawArea->registerSprite(SPRITE_ENEMY, '$', RED_BLACK);
-    world->spawnNPC(30, enemySprite);
+    world->spawnNPC(enemySprite);
 
     int bombSprite = drawArea->registerSprite(SPRITE_BOMB, '*');
     world->spawnNPC(bombSprite);
