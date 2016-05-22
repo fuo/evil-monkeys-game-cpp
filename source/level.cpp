@@ -8,6 +8,7 @@
 
 #include "level.h"
 
+#include "fireball.h"
 #include "enemy.h"
 using namespace EvilMonkeys;
 
@@ -25,7 +26,10 @@ Level::Level(DrawEngine *de, int tile_wall, int w, int h)
     
     startTime = 0;
     elapsedTime = 0;
-    
+
+    maxBombsAllow = 0;
+    numBombs = 0;
+
     player = nullptr;
 
     setMapTile_(tile_wall);
@@ -115,8 +119,24 @@ bool Level::isKeyPressExecuteAction(int key)
 void Level::refreshStatuses_()
 {
     std::string tmp = std::to_string(numEnemies);
+    int no_of_bombs = 0;
 
     if (numEnemies > 9) {
+    typename std::list<Sprite *>::const_iterator Iter = NPC_sprites.begin();
+    typename std::list<Sprite *>::const_iterator itEnd = NPC_sprites.end();
+
+    for( ; Iter != itEnd; ++Iter )
+    {
+        switch ( (*Iter)->getClassID() ) {
+            case BOMB_CLASSID:
+                no_of_bombs++;
+                break;
+
+            default:
+                break;
+        }
+    }
+
         drawArea->printScore(tmp.c_str(), 11);
         drawArea->printScore("enemies", 14);
     } else {
@@ -130,6 +150,20 @@ void Level::refreshStatuses_()
     drawArea->printScore(tmp.c_str(), 22);
     drawArea->printScore(" lives", 23);
 
+    tmp = std::to_string(maxBombsAllow - numBombs);
+
+    if (maxBombsAllow - numBombs > 9) {
+        drawArea->printScore(tmp.c_str(), 31);
+        drawArea->printScore("bombs", 34);
+    } else {
+        drawArea->printScore(" ", 31);
+        drawArea->printScore(tmp.c_str(), 32);
+        drawArea->printScore("bombs", 34);
+    }
+
+    tmp = std::to_string(no_of_bombs);
+    drawArea->printScore(tmp.c_str(), 42);
+    drawArea->printScore("bombs avail", 44);
 }
 
 void Level::update(unsigned long timing)
@@ -182,6 +216,9 @@ void Level::spawnNPC(int num, int sprite_index)
             spawnEnemies_(num, sprite_index);
             break;
 
+        case SPRITE_BOMB:
+            return spawnBombs_(sprite_index, distanceToGoal, xpos, ypos);
+
         default:
             break;
     }
@@ -192,22 +229,63 @@ void Level::spawnEnemies_(int num, int enemySprite)
     int distanceToGoal = 9;
 
     while (num > 0)
+bool Level::spawnBombs_(int bombSprite, int distanceToGoal, int xpos, int ypos)
+{
+    bool gen_rand_pos = false;
+
+    if (xpos == -1)
     {
-        int xpos = (int)lround((float(rand() % 100) / 100) * (width - 4) + 1);
-        int ypos = (int)lround((float(rand() % 100) / 100) * (height - 4) + 1);
-
-        if ( checkMapTileEmpty(xpos, ypos) && xpos > player->getX() + distanceToGoal && ypos > player->getY() + distanceToGoal ) {
-
-            // have to clean up those died enemy got killed to free memory somewhere!!!
-            Enemy *temp = new Enemy(drawArea, enemySprite, (float)xpos, float(ypos));
-
-            temp->__hookToLevel(this);
-
-            temp->addGoal(player);
-
-            addNPC_((Sprite *)temp);
-
-            num--;
-        }
+        xpos = (int)lround((float(rand() % 100) / 100) * (width - 4) + 1);
+        gen_rand_pos = true;
     }
+
+    if (ypos == -1)
+    {
+        ypos = (int)lround((float(rand() % 100) / 100) * (height - 4) + 1);
+        gen_rand_pos = true;
+    }
+
+    typename std::list<Sprite *>::const_iterator Iter = NPC_sprites.begin();
+    typename std::list<Sprite *>::const_iterator itEnd = NPC_sprites.end();
+
+    bool spawn_pos_is_free = true;
+
+    for( ; Iter != itEnd; ++Iter )
+    {
+        if (
+            (int)(*Iter)->getX() == xpos &&
+            (int)(*Iter)->getY() == ypos
+            )
+        {
+            if (!gen_rand_pos)
+            {
+                if ( (*Iter)->getClassID() == BOMB_CLASSID )
+                    spawn_pos_is_free = false;
+            }
+            else
+            {
+                spawn_pos_is_free = false;
+            }
+        }
+
+    }
+
+    if (gen_rand_pos)
+        while ( !checkMapTileEmpty(xpos, ypos) || !spawn_pos_is_free || xpos <= player->getX() + distanceToGoal || ypos <= player->getY() + distanceToGoal )
+        {
+            xpos = (int)lround((float(rand() % 100) / 100) * (width - 4) + 1);
+            ypos = (int)lround((float(rand() % 100) / 100) * (height - 4) + 1);
+        }
+
+    if (spawn_pos_is_free && checkMapTileEmpty(xpos, ypos))
+    {
+        // have to clean up those died bomb
+        Bomb* temp = new Bomb(drawArea, bombSprite, (float)xpos, (float)ypos);
+
+        temp->__hookToLevel(this);
+
+        addNPC_((Sprite *)temp);
+    }
+
+    return true;
 }
