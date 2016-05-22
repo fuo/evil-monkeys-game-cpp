@@ -64,7 +64,38 @@ void Character::__addLives(int num)
 
 bool Character::__move(float xDir, float yDir)
 {
-    return Sprite::__move(xDir, yDir);
+    int xpos = (int)(getX() + xDir);
+    int ypos = (int)(getY() + yDir);
+
+    if (isValidLevelMove(xpos, ypos)) {
+
+        facingDirection.x = xDir;
+        facingDirection.y = yDir;
+
+        // collect the bomb when passing by it
+        typename std::list<Sprite *>::const_iterator Iter = level->firstNPC();
+        typename std::list<Sprite *>::const_iterator itEnd = level->lastNPC();
+
+        for ( ; Iter != itEnd; ++Iter) {
+            if ((*Iter)->matchCurrentLocation(xpos, ypos) && (*Iter)->getClassID() == BOMB_CLASSID) {
+
+                level->removeNPC(*Iter--);
+
+                level->updateNumBombs(-1);
+            }
+        }
+
+
+        erase_();
+
+        setPosition(getX() + xDir, getY() + yDir);
+
+        draw_();
+
+        return true;
+    }
+
+    return false;
 }
 
 void Character::__hookToLevel(Level* lvl)
