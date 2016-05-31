@@ -40,7 +40,6 @@ namespace EvilMonkeys
         inline int getHeight(){ return height; }
 
         bool checkMapTileEmpty(int xpos, int ypos);
-        bool posOccupiedByPlayer(int xpos, int ypos);
         
         inline void addPlayer(Character *p){ player = p; }
         

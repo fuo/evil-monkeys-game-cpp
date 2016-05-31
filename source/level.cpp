@@ -210,16 +210,9 @@ bool Level::checkMapTileEmpty(int xpos, int ypos)
     return digitalMap[xpos][ypos] == TILE_EMPTY;
 }
 
-bool Level::posOccupiedByPlayer(int xpos, int ypos)
-{
-    if (!player)
         return false;
 
-    if (player->getX() == xpos && player->getY() == ypos)
-        return true;
 
-    return false;
-}
 
 bool Level::spawnNPC(int sprite_index, int distanceToGoal, int xpos, int ypos, float xface, float yface)
 {
