@@ -70,7 +70,6 @@ namespace EvilMonkeys
         bool spawnEnemies_(int enemySprite, int distanceToGoal, int xpos, int ypos);
         bool spawnBombs_(int bombSprite, int distanceToGoal, int xpos, int ypos);
 
-        bool spawnFireball_(int fireballSprite, int distanceToGoal, int xpos, int ypos, float xface, float yface);
 
         int** const generatedMap_(void);
 
