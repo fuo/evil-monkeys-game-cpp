@@ -14,16 +14,11 @@ using namespace EvilMonkeys;
 #include <stdlib.h>
 #include <math.h>
 
-Enemy::Enemy(DrawEngine *de, int sprite_index, float xpos, float ypos, int i_lives) : Sprite(de, sprite_index, xpos, ypos, i_lives)
-{
-    setClassID(ENEMY_CLASSID);
-}
-
 bool Enemy::__move(float xDir, float yDir)
 {
     int xpos = (int)(getX() + xDir);
     int ypos = (int)(getY() + yDir);
-    
+
     if (isValidLevelMove(xpos, ypos)) {
 
         facingDirection.x = xDir;
@@ -35,16 +30,16 @@ bool Enemy::__move(float xDir, float yDir)
 
         for ( ; Iter != itEnd; Iter++) {
             if ((*Iter) != this && (*Iter)->matchCurrentLocation(xpos, ypos) && (*Iter)->getClassID() != BOMB_CLASSID) {
-                
+
                 return false;
             }
         }
-        
-        
+
+
         erase_();
-        
+
         setPosition(getX() + xDir, getY() + yDir);
-        
+
         draw_();
 
         // hit and kill the player
@@ -53,7 +48,27 @@ bool Enemy::__move(float xDir, float yDir)
 
         return true;
     }
-    
+
+    return false;
+}
+
+void Enemy::__addLives(int num)
+{
+    Sprite::__addLives(num);
+
+    //transform
+    setSpriteIndex(drawArea->registerSprite(SPRITE_ENEMY_1, '$', RED_BLACK));
+}
+
+bool Enemy::__hookToLevel(Level* lvl, bool draw_at_once)
+{
+    if (Sprite::__hookToLevel(lvl, draw_at_once))
+    {
+        addGoal(level->getPlayer());
+
+        return true;
+    }
+
     return false;
 }
 
@@ -66,19 +81,19 @@ void Enemy::__idleUpdate()
 void Enemy::simulateAI_(void)
 {
     vector goal_pos = goal->getPosition();
-    
+
     if (goal_pos.x == getX() && goal_pos.y == getY()) {
         __move(0, 0);
         return;
     }
-    
+
     vector direction;
-    
+
     direction.x = goal_pos.x - getX();
     direction.y = goal_pos.y - getY();
-    
+
     float mag = sqrt(direction.x * direction.x + direction.y * direction.y);
-    
+
     direction.x = direction.x / (mag * 6);
     direction.y = direction.y / (mag * 6);
 
@@ -99,7 +114,7 @@ void Enemy::simulateAI_(void)
         if (!__move(direction.x, 0))
             if (!__move(0, float(rand() % 3 - 1)))
                 __move(float(rand() % 3 - 1), 0);
-
+        
     }
     
 }
