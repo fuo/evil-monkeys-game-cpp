@@ -231,43 +231,6 @@ bool Level::spawnNPC(int sprite_index, int distanceToGoal, int xpos, int ypos, f
     return false;
 }
 
-bool Level::spawnEnemies_(int enemySprite, int distanceToGoal, int xpos, int ypos)
-{
-    bool gen_rand_pos = false;
-
-    if (xpos == -1)
-    {
-        xpos = (int)lround((float(rand() % 100) / 100) * (width - 4) + 1);
-        gen_rand_pos = true;
-    }
-
-    if (ypos == -1)
-    {
-        ypos = (int)lround((float(rand() % 100) / 100) * (height - 4) + 1);
-        gen_rand_pos = true;
-    }
-
-    if (gen_rand_pos)
-        while ( !checkMapTileEmpty(xpos, ypos) || xpos <= player->getX() + distanceToGoal || ypos <= player->getY() + distanceToGoal )
-        {
-            xpos = (int)lround((float(rand() % 100) / 100) * (width - 4) + 1);
-            ypos = (int)lround((float(rand() % 100) / 100) * (height - 4) + 1);
-        }
-
-    if (checkMapTileEmpty(xpos, ypos))
-    {
-        // have to clean up those died enemy got killed to free memory somewhere!!!
-        Enemy *temp = new Enemy(drawArea, enemySprite, (float)xpos, float(ypos));
-
-        temp->__hookToLevel(this);
-
-        temp->addGoal(player);
-
-        addNPC_((Sprite *)temp);
-    }
-
-    return true;
-}
 }
 
 bool Level::spawnBombs_(int bombSprite, int distanceToGoal, int xpos, int ypos)

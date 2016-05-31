@@ -67,7 +67,6 @@ namespace EvilMonkeys
         void setMapTile_(int wall);
         void draw_(int** const generatedMap);
 
-        bool spawnEnemies_(int enemySprite, int distanceToGoal, int xpos, int ypos);
         bool spawnBombs_(int bombSprite, int distanceToGoal, int xpos, int ypos);
 
 
