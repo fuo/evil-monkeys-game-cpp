@@ -52,7 +52,7 @@ namespace EvilMonkeys
     class Level
     {
     public:
-        Level(DrawEngine *de, int tile_wall = ACS_CKBOARD | A_REVERSE, int width = 80, int height = 21);
+        Level(DrawEngine *de, int tile_wall = WALL_CHAR, int width = LEVEL_WIDTH, int height = LEVEL_HEIGHT);
         ~Level();
         
         inline int getWidth(){ return width; }
@@ -62,9 +62,19 @@ namespace EvilMonkeys
 
         inline void addPlayer(Character *p){ player = p; }
         
+        inline Character* getPlayer(){ return player; }
+
         void update(unsigned long time);
         
+        void setLastTimeReload(unsigned long time){ lastTimeReload = time; }
+        unsigned long getLastTimeReload(){ return lastTimeReload; }
+
+        unsigned long getElapsedTime(){ return elapsedTime; }
+
         bool isKeyPressExecuteAction(int key);
+
+        inline int gen_xpos(int width){ return (int)lround((float(rand() % 100) / 100) * (width - 4) + 1); }
+        inline int gen_ypos(int height){ return (int)lround((float(rand() % 100) / 100) * (height - 4) + 1); }
 
         inline bool isPaused(){ return !running; }
         inline void pause(){ refreshStatuses_(); running = false; }
@@ -80,17 +90,14 @@ namespace EvilMonkeys
         void updateNumBombs(int num){ numBombs += num; }
         void updateNumFireballs(int num){ numFireballs += num; }
 
-        void removeNPC(Sprite* spr){ delete spr; NPC_sprites.remove(spr); }
+        inline void addNPC(Sprite *spr){ NPC_sprites.push_back(spr); }
+        inline void removeNPC(Sprite* spr){ delete spr; NPC_sprites.remove(spr); }
 
     protected:
         void setMapTile_(int wall);
         void draw_(int** const generatedMap);
 
-
-
-        int** const generatedMap_(void);
-
-        inline void addNPC_(Sprite *spr){ NPC_sprites.push_back(spr); }
+        int** const generatedDigitalMap_(int wall_density);
 
     private:
         int width;
@@ -104,6 +111,7 @@ namespace EvilMonkeys
         unsigned long startTime;
         unsigned long elapsedTime;
 
+        unsigned long lastTimeReload;
         std::list <Sprite *> NPC_sprites;
         std::list <Sprite *>::const_iterator sprite_Iter;
         

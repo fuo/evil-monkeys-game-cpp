@@ -24,6 +24,7 @@ Level::Level(DrawEngine *de, int wallTile, int w, int h)
     
     startTime = 0;
     elapsedTime = 0;
+    lastTimeReload = 0;
 
     maxBombsAllow = 0;
     numBombs = 0;
@@ -60,7 +61,6 @@ int** const Level::generatedDigitalMap_(int wall_density)
         digitalMap[x] = new int[height];
     
     for (int x = 0; x < width - 2; x++)
-    {
         for (int y = 0; y < height; y++)
         {
             int random = rand() % 100;
@@ -78,7 +78,6 @@ int** const Level::generatedDigitalMap_(int wall_density)
             }
             
         }
-    }
     
     return digitalMap;
 }
@@ -175,6 +174,10 @@ void Level::refreshStatuses_()
         drawArea->printScore(tmp.c_str(), 43);
         drawArea->printScore("bombs avail", 44);
     }
+
+    tmp = std::to_string(((Mage*)player)->getAmmoCartridge());
+    drawArea->printScore(tmp.c_str(), 60);
+    drawArea->printScore("ammo", 62);
 }
 
 void Level::update(unsigned long timing)
