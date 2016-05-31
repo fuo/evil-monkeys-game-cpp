@@ -21,6 +21,7 @@ namespace EvilMonkeys
         FIREBALL_CLASSID,
         MAGE_CLASSID,
         BOMB_CLASSID,
+        EVILMONKEY_CLASSID,
     };
 
     struct vector
@@ -47,7 +48,9 @@ namespace EvilMonkeys
         inline void setPosition(float x, float y) { pos.x = x; pos.y = y; }
         inline void setFacingDirection(float x, float y) { facingDirection.x = x; facingDirection.y = y; }
 
+        inline void setSpriteIndex(int new_index){ spriteIndex = new_index; }
         bool matchCurrentLocation(int xpos, int ypos);
+        bool matchCurrentFacingDir(float xDir, float yDir);
 
         inline int getLives(void){ return numLives; }
 
@@ -69,11 +72,13 @@ namespace EvilMonkeys
 
         bool isValidLevelMove(int xpos, int ypos);
 
-        virtual void __hookToLevel(Level* lvl, bool draw_at_once = true);
         
+        virtual bool __hookToLevel(Level* lvl, bool draw_at_once = true);
     protected:
+        vector pos;
         vector facingDirection;
         
+        int numLives, classID;
         bool isNPC;
         DrawEngine* drawArea;
         Level* level;
@@ -86,8 +91,7 @@ namespace EvilMonkeys
 
 
     private:
-        int classID, spriteIndex, numLives;
-        vector pos;
+        int spriteIndex;
     };
 }
 #endif /* sprite_h */

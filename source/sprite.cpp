@@ -88,11 +88,27 @@ bool Sprite::matchCurrentLocation(int xpos, int ypos)
     return ( (int)pos.x == xpos && (int)pos.y == ypos );
 }
 
-void Sprite::__hookToLevel(Level* lvl, bool draw_at_once)
+bool Sprite::matchCurrentFacingDir(float xDir, float yDir)
 {
+    return ( (int)facingDirection.x == (int)xDir && (int)facingDirection.y == (int)yDir );
+}
+
+bool Sprite::__hookToLevel(Level* lvl, bool draw_at_once)
+{
+    if (lvl == nullptr)
+        return false;
+
+    if (classID == FIREBALL_CLASSID)
+        draw_at_once = false;
+
     if (draw_at_once)
         // display itseft to the world right after born
         draw_();
 
     level = lvl;
+
+    if (isNPC)
+        level->addNPC(this);
+
+    return true;
 }
