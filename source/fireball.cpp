@@ -32,3 +32,9 @@ void Fireball::__idleUpdate()
         // hit the wall border
         __addLives(-1);    
 }
+
+void Fireball::__addLives(int num)
+{
+    Sprite::__addLives(num);
+    level->updateNumFireballs(-1);
+}

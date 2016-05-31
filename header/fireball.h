@@ -22,7 +22,7 @@ namespace EvilMonkeys
     private:
         
         void __idleUpdate(void);
-        
+        void __addLives(int num = 1);
     };
 }
 #endif /* fireball_h */
