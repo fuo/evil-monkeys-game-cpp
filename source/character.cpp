@@ -21,6 +21,7 @@ Character::Character(DrawEngine* de, int s_index, float xpos, float ypos, int li
     
     setClassID(CHARACTER_CLASSID);
     
+    nonNPC();
 }
 
 bool Character::__isKeyPressExecuteAction(int key)

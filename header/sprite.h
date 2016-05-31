@@ -65,6 +65,8 @@ namespace EvilMonkeys
         inline int getClassID(void){ return classID; }
         inline void setClassID(int id){ classID = id; }
 
+        inline void nonNPC(){ isNPC = false; }
+
         bool isValidLevelMove(int xpos, int ypos);
 
         virtual void __hookToLevel(Level* lvl, bool draw_at_once = true);
@@ -72,6 +74,7 @@ namespace EvilMonkeys
     protected:
         vector facingDirection;
         
+        bool isNPC;
         DrawEngine* drawArea;
         Level* level;
         

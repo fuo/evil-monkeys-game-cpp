@@ -27,6 +27,7 @@ Sprite::Sprite(DrawEngine *de, int sprite_index, float xpos, float ypos, int i_l
     facingDirection.y = 0;
     
     classID = SPRITE_CLASSID;
+    isNPC = true;
 }
 
 bool Sprite::__move(float xDir, float yDir)
