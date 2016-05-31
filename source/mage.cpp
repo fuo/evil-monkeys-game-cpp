@@ -98,10 +98,10 @@ bool Mage::reload_()
 
 bool Mage::castSpell_()
 {
-    if ( (facingDirection.x == 0 && facingDirection.y == -1) || (facingDirection.x == 0 && facingDirection.y == 1) ) {
+    if ( matchCurrentFacingDir(0, -1) || matchCurrentFacingDir(0, 1) ) {
         drawArea->registerSprite(SPRITE_FIREBALL, '|');
     }
-    if ( (facingDirection.x == -1 && facingDirection.y == 0) || (facingDirection.x == 1 && facingDirection.y == 0) ) {
+    if ( matchCurrentFacingDir(-1, 0) || matchCurrentFacingDir(1, 0) ) {
         drawArea->registerSprite(SPRITE_FIREBALL, '-');
     }
 
