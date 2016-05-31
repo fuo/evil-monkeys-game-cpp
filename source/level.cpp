@@ -169,8 +169,14 @@ void Level::refreshStatuses_()
     }
 
     tmp = std::to_string(no_of_bombs);
-    drawArea->printScore(tmp.c_str(), 42);
-    drawArea->printScore("bombs avail", 44);
+    if (no_of_bombs > 9) {
+        drawArea->printScore(tmp.c_str(), 42);
+        drawArea->printScore("bombs avail", 44);
+    } else{
+        drawArea->printScore(" ", 42);
+        drawArea->printScore(tmp.c_str(), 43);
+        drawArea->printScore("bombs avail", 44);
+    }
 }
 
 void Level::update(unsigned long timing)
