@@ -59,24 +59,6 @@ bool Sprite::__move(float xDir, float yDir)
     return false;
 }
 
-void Sprite::__addLives(int num)
-{
-    numLives += num;
-
-    if (numLives < 1)
-    {
-        switch (classID)
-        {
-            case FIREBALL_CLASSID:
-                level->updateNumFireballs(-1);
-                break;
-
-            default:
-                break;
-        }
-    }
-}
-
 void Sprite::draw_(float x, float y){
 
     if (x < 0)

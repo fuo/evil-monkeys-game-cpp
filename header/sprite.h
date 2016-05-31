@@ -50,9 +50,9 @@ namespace EvilMonkeys
         bool matchCurrentLocation(int xpos, int ypos);
 
         inline int getLives(void){ return numLives; }
-        
-        virtual void __addLives(int num = 1);
-        
+
+        virtual void __addLives(int num = 1){ numLives += num; }
+
         inline virtual void __idleUpdate(void)
         {
             // this is only for the inhereited classes not for myself
