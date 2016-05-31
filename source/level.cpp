@@ -202,17 +202,20 @@ void Level::update(unsigned long timing)
     }
 }
 
-bool Level::checkMapTileEmpty(int xpos, int ypos)
+bool Level::checkMapTileEmpty(int xpos, int ypos, int excludeSpriteIndex)
 {
-    if ( xpos > width || xpos < 0 || ypos > height || ypos < 0 )
+    if (excludeSpriteIndex == SPRITE_PLAYER)
+        return !(player->getX() == xpos && player->getY() == ypos);
+
+    if ( xpos > width || xpos < 0 || ypos > height || ypos < 0)
         return false;
 
-    return digitalMap[xpos][ypos] == TILE_EMPTY;
-}
+    int excludeSpriteCLASSID = excludeSpriteIndex;
 
-        return false;
-
-
+    switch (excludeSpriteIndex) {
+        case SPRITE_BOMB:
+            excludeSpriteCLASSID = BOMB_CLASSID;
+            break;
 
 bool Level::spawnNPC(int sprite_index, int distanceToGoal, int xpos, int ypos, float xface, float yface)
 {
@@ -222,15 +225,27 @@ bool Level::spawnNPC(int sprite_index, int distanceToGoal, int xpos, int ypos, f
 
         case SPRITE_BOMB:
             return spawnBombs_(sprite_index, distanceToGoal, xpos, ypos);
+            excludeSpriteCLASSID = ENEMY_CLASSID;
+            break;
 
         case SPRITE_FIREBALL:
         default:
+            excludeSpriteCLASSID = excludeSpriteIndex;
             break;
     }
 
     return false;
 }
+    if (excludeSpriteCLASSID >= 0)
+        for( typename std::list<Sprite *>::const_iterator Iter = NPC_sprites.begin(), itEnd = NPC_sprites.end(); Iter != itEnd; ++Iter )
+            if (
+                (int)(*Iter)->getX() == xpos &&
+                (int)(*Iter)->getY() == ypos &&
+                (*Iter)->getClassID() == excludeSpriteCLASSID
+                )
+                return false;
 
+    return digitalMap[xpos][ypos] == TILE_EMPTY;
 }
 
 {

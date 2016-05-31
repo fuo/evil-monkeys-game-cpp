@@ -44,7 +44,7 @@ bool Sprite::__move(float xDir, float yDir)
 
         // erase sprite at current position
 
-        if ( !level->posOccupiedByPlayer(pos.x, pos.y) )
+        if ( level->checkMapTileEmpty(pos.x, pos.y, SPRITE_PLAYER) )
             erase_();
 
         // update its pos to the target position

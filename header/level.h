@@ -39,8 +39,8 @@ namespace EvilMonkeys
         inline int getWidth(){ return width; }
         inline int getHeight(){ return height; }
 
-        bool checkMapTileEmpty(int xpos, int ypos);
-        
+        bool checkMapTileEmpty(int xpos, int ypos, int excludeSpriteCLASSID = -1);
+
         inline void addPlayer(Character *p){ player = p; }
         
         void update(unsigned long time);
