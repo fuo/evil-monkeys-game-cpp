@@ -217,25 +217,15 @@ bool Level::checkMapTileEmpty(int xpos, int ypos, int excludeSpriteIndex)
             excludeSpriteCLASSID = BOMB_CLASSID;
             break;
 
-bool Level::spawnNPC(int sprite_index, int distanceToGoal, int xpos, int ypos, float xface, float yface)
-{
-    switch (sprite_index) {
         case SPRITE_ENEMY:
-            return spawnEnemies_(sprite_index, distanceToGoal, xpos, ypos);
-
-        case SPRITE_BOMB:
-            return spawnBombs_(sprite_index, distanceToGoal, xpos, ypos);
             excludeSpriteCLASSID = ENEMY_CLASSID;
             break;
 
-        case SPRITE_FIREBALL:
         default:
             excludeSpriteCLASSID = excludeSpriteIndex;
             break;
     }
 
-    return false;
-}
     if (excludeSpriteCLASSID >= 0)
         for( typename std::list<Sprite *>::const_iterator Iter = NPC_sprites.begin(), itEnd = NPC_sprites.end(); Iter != itEnd; ++Iter )
             if (
@@ -248,18 +238,49 @@ bool Level::spawnNPC(int sprite_index, int distanceToGoal, int xpos, int ypos, f
     return digitalMap[xpos][ypos] == TILE_EMPTY;
 }
 
+bool Level::spawnNPC(int sprite_index, int distanceToGoal, int xpos, int ypos, float xface, float yface)
 {
     if (xpos == -1)
     {
+        if (ypos != -1)
+            do {xpos = gen_xpos(width);}
+        while ( !checkMapTileEmpty(xpos, ypos, sprite_index) || !player->checkSafeSpawnPosition(xpos, ypos, distanceToGoal) );
+        else
+            do {xpos = gen_xpos(width); ypos = gen_ypos(height);}
+        while ( !checkMapTileEmpty(xpos, ypos, sprite_index) || !player->checkSafeSpawnPosition(xpos, ypos, distanceToGoal) );
     }
 
     if (ypos == -1)
     {
+        if(xpos != -1)
+            do {ypos = gen_ypos(height);}
+        while ( !checkMapTileEmpty(xpos, ypos, sprite_index) || !player->checkSafeSpawnPosition(xpos, ypos, distanceToGoal) );
+        else
+            do {xpos = gen_xpos(width); ypos = gen_ypos(height);}
+        while ( !checkMapTileEmpty(xpos, ypos, sprite_index) || !player->checkSafeSpawnPosition(xpos, ypos, distanceToGoal) );
     }
 
+    if (!checkMapTileEmpty(xpos, ypos, sprite_index) || !player->checkSafeSpawnPosition(xpos, ypos, distanceToGoal))
+        return false;
 
+    Sprite* temp = nullptr;
 
+    switch (sprite_index) {
+        case SPRITE_ENEMY:
+            temp = new Enemy(drawArea, sprite_index, (float)xpos, float(ypos));
+            break;
 
+        case SPRITE_BOMB:
+            temp = new Bomb(drawArea, sprite_index, (float)xpos, (float)ypos);
+            break;
 
+        case SPRITE_FIREBALL:
+            temp = new Fireball(drawArea, sprite_index, float(xpos - xface), float(ypos - yface), xface, yface);
+            break;
+
+        default:
+            return false;
     }
+
+    return temp->__hookToLevel(this);
 }

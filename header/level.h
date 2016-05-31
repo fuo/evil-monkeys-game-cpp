@@ -53,7 +53,7 @@ namespace EvilMonkeys
         std::list<Sprite *>::const_iterator firstNPC(){ return NPC_sprites.begin(); }
         std::list<Sprite *>::const_iterator lastNPC(){ return NPC_sprites.end(); }
 
-        bool spawnNPC(int sprite_index, int distanceToGoal = 9, int xpos = -1, int ypos = -1, float xface = 0, float yface = 0);
+        bool spawnNPC(int sprite_index, int distanceToGoal = DISTANCE_TO_PLAYER, int xpos = -1, int ypos = -1, float xface = 0, float yface = 0);
 
         int getNumFireballs(){ return numFireballs; }
         int getNumBombs(){ return numBombs; }
