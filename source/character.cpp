@@ -99,7 +99,10 @@ bool Character::__move(float xDir, float yDir)
 }
 
 void Character::__hookToLevel(Level* lvl, bool draw_at_once)
+
+bool Character::checkSafeSpawnPosition(int xpos, int ypos, int distance_to_player)
 {
     Sprite::__hookToLevel(lvl, draw_at_once);
     level->addPlayer(this);
+    return (distance_to_player < 0) ? true : (xpos > pos.x + distance_to_player && ypos > pos.y + distance_to_player);
 }

@@ -25,6 +25,7 @@ namespace EvilMonkeys
         
         void __addLives(int num = 1);
         
+        bool checkSafeSpawnPosition(int xpos, int ypos, int distance_to_player);
     protected:
         int i_upKey, i_downKey, i_rightKey, i_leftKey;
         
