@@ -8,14 +8,12 @@
 
 #include "level.h"
 
+#include "mage.h"
 #include "fireball.h"
 #include "enemy.h"
 using namespace EvilMonkeys;
 
-#include <iostream>
-#include <math.h>
-
-Level::Level(DrawEngine *de, int tile_wall, int w, int h)
+Level::Level(DrawEngine *de, int wallTile, int w, int h)
 {
     drawArea = de;
     
@@ -32,8 +30,8 @@ Level::Level(DrawEngine *de, int tile_wall, int w, int h)
 
     player = nullptr;
 
-    setMapTile_(tile_wall);
-    draw_( generatedMap_() );
+    setMapTile_(wallTile);
+    draw_( generatedDigitalMap_(100 - CHANCE_OF_EMPTY_TILE) );
 }
 
 Level::~Level()
@@ -50,7 +48,7 @@ Level::~Level()
         delete (*sprite_Iter);
 }
 
-int** const Level::generatedMap_()
+int** const Level::generatedDigitalMap_(int wall_density)
 {
     if (digitalMap != NULL)
         return digitalMap;
@@ -73,7 +71,7 @@ int** const Level::generatedMap_()
             }
             else
             {
-                if (random < 88 || (x < 3 && y < 3))
+                if (random < 100 - wall_density || (x < 3 && y < 3))
                     digitalMap[x][y] = TILE_EMPTY;
                 else
                     digitalMap[x][y] = TILE_WALL;
@@ -88,7 +86,7 @@ int** const Level::generatedMap_()
 void Level::setMapTile_(int wall)
 {
     drawArea->createBackgroundTile_(TILE_WALL, wall);
-    drawArea->createBackgroundTile_(TILE_EMPTY, ' ');
+    drawArea->createBackgroundTile_(TILE_EMPTY, EMPTY_CHAR);
 }
 
 void Level::draw_(int** const generatedMap)
@@ -101,8 +99,8 @@ bool Level::isKeyPressExecuteAction(int key)
 {
     if (getenv ("ESCDELAY") == NULL)
         ESCDELAY = 25;
-    
-    if (key == 27) {
+
+    if (key == ESC_KEY) {
         running = !running;
         return false;
     }        

@@ -14,17 +14,36 @@
 #include "drawEngine.h"
 #include "character.h"
 
+#include <math.h>
+#include <iostream>
+
+#define PLAYER_CHAR '>'
+#define ENEMY_CHAR '$'
+#define BOMB_CHAR '*'
+
+#define WALL_CHAR ACS_CKBOARD | A_REVERSE
+#define EMPTY_CHAR ' '
+
+#define LEVEL_WIDTH 80
+#define LEVEL_HEIGHT 21
+
+#define DISTANCE_TO_PLAYER 9
+#define ESC_KEY 21
+
+#define CHANCE_OF_EMPTY_TILE 88
+
 namespace EvilMonkeys
 {
-    enum
+    enum sprite_ID
     {
         SPRITE_PLAYER,
         SPRITE_ENEMY,
         SPRITE_FIREBALL,
         SPRITE_BOMB,
+        SPRITE_ENEMY_1,
     };
 
-    enum
+    enum backgroundTile_ID
     {
         TILE_EMPTY,
         TILE_WALL

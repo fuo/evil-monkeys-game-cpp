@@ -9,6 +9,13 @@
 #ifndef game_h
 #define game_h
 
+
+#define GAME_SPEED 50
+#define KEY_QUIT_GAME 'q'
+
+#define NUM_ENEMY 1
+#define NUM_BOMB 10
+
 namespace EvilMonkeys
 {
     class DrawEngine;

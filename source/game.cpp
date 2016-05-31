@@ -14,8 +14,6 @@
 
 #include <sys/time.h>
 
-#define GAME_SPEED 50
-
 bool kbhit(void);
 bool getKeyInput(int& key);
 
@@ -24,24 +22,27 @@ void EvilMonkeys::Game::run(DrawEngine* drawArea)
     //setup a new world
     world = new Level(drawArea);
 
-    int playerSprite = drawArea->registerSprite(SPRITE_PLAYER, '>', GREEN_BLACK);
+    int playerSprite = drawArea->registerSprite(SPRITE_PLAYER, PLAYER_CHAR, GREEN_BLACK);
+
     Sprite* hero = new Mage(drawArea, playerSprite);
     hero->__hookToLevel(world);
 
-    int enemySprite = drawArea->registerSprite(SPRITE_ENEMY, '$', RED_BLACK);
-    world->spawnNPC(enemySprite);
+    int enemySprite = drawArea->registerSprite(SPRITE_ENEMY, ENEMY_CHAR, YELLOW_BLACK);
+    for (int i = 0; i < NUM_ENEMY; ++i) {
+        world->spawnNPC(enemySprite);
+    }
 
-    int bombSprite = drawArea->registerSprite(SPRITE_BOMB, '*');
-    world->spawnNPC(bombSprite);
-    world->spawnNPC(bombSprite);
-    world->spawnNPC(bombSprite);
+    int bombSprite = drawArea->registerSprite(SPRITE_BOMB, BOMB_CHAR);
+    for (int i = 0; i < NUM_BOMB; ++i) {
+        world->spawnNPC(bombSprite);
+    }
 
     double lastTime = 0;
     int key = ' ';
-    
+
     nodelay(stdscr, TRUE);
-    
-    while (key != 'q')
+
+    while (key != KEY_QUIT_GAME)
     {
         while (!getKeyInput(key))
         {
@@ -58,7 +59,8 @@ void EvilMonkeys::Game::run(DrawEngine* drawArea)
         world->isKeyPressExecuteAction(key);
 
     }
-    
+
+    delete world;
 }
 
 void EvilMonkeys::Game::timerUpdate_(double & lastTime)

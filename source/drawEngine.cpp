@@ -39,6 +39,7 @@ void DrawEngine::initColor_()
     init_pair(WHITE_WHITE, COLOR_WHITE, COLOR_WHITE);
     init_pair(RED_BLACK, COLOR_RED, COLOR_BLACK);
     init_pair(GREEN_BLACK, COLOR_GREEN, COLOR_BLACK);
+    init_pair(YELLOW_BLACK, COLOR_YELLOW, COLOR_BLACK);
 }
 
 void DrawEngine::initNcurse_()
