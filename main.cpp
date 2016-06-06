@@ -8,10 +8,7 @@
 
 #include "game.h"
 
-#include "drawEngine.h"
-
-#include <ncurses.h>
-#include <iostream>
+#include <random>
 
 bool isTermAvail = true; // check this global variable before ncurses calls
 
@@ -30,8 +27,12 @@ int main(int argc, const char * argv[])
     isTermAvail = (getenv("TERM") != NULL);
     
 //----------------------------------
-    
-    srand( (int) time( NULL ) );
+
+    std::random_device r;
+    std::seed_seq seed_seq{r(), r(), r(), r(), r(), r()};
+    std::mt19937 engine{seed_seq};
+
+    srand( (int) time( NULL ) + engine() );
 
     EvilMonkeys::DrawEngine drawArea;
 

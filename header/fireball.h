@@ -11,18 +11,26 @@
 
 #include "bomb.h"
 
-namespace EvilMonkeys
+namespace Target
 {
     class Fireball : public Bomb
     {
     public:
-        Fireball(DrawEngine *de, int sprite_index, float xpos, float ypos,
-                 float xDir, float yDir, int i_lives = 1);
-     
-    private:
-        
+        Fireball(DrawEngine *de, int sprite_index, float xpos, float ypos
+                 , float xDir, float yDir, int i_lives = 1)
+        : Bomb(de, sprite_index, xpos, ypos, i_lives)
+        {
+            facingDirection_.x = xDir;
+            facingDirection_.y = yDir;
+
+            setClassID(FIREBALL_CLASSID);
+        }
+
+    private:        
         void __idleUpdate(void);
-        void __addLives(int num = 1);
+
     };
 }
+
 #endif /* fireball_h */
+

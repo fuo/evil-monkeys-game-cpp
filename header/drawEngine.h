@@ -13,6 +13,26 @@
 
 namespace EvilMonkeys
 {
+    enum sprite_ID
+    {
+        SPRITE_PLAYER,
+        SPRITE_ENEMY,
+        SPRITE_FIREBALL,
+        SPRITE_BOMB,
+        SPRITE_ENEMY_1,
+    };
+
+    enum classID
+    {
+        SPRITE_CLASSID,
+        CHARACTER_CLASSID,
+        ENEMY_CLASSID,
+        FIREBALL_CLASSID,
+        MAGE_CLASSID,
+        BOMB_CLASSID,
+        EVILMONKEY_CLASSID,
+    };
+
     enum COLOR_CODE
     {
         WHITE_BLACK,
@@ -28,7 +48,23 @@ namespace EvilMonkeys
 
     class DrawEngine
     {
+        WINDOW *field_;
+        WINDOW *score_;
+
+        // digitalize map of characters
+        int** map_;
+
+        int screenWidth_, screenHeight_, score_size_;
+
+        char spriteImages_[16];
+        int spriteColor_[16];
+        char tileImages_[16];
+
     public:
+        // make friend with Sprite so he can use those protected methods
+        friend class Sprite;
+        friend class Level;
+
         DrawEngine();
         ~DrawEngine();
         
@@ -37,18 +73,14 @@ namespace EvilMonkeys
 
         // helpers
         void refresh(void){
-            wrefresh(field);
-            wrefresh(score);
+            wrefresh(field_);
+            wrefresh(score_);
         }
         void printScore(const char* text, int xpos, int ypos = 1){
-            mvwprintw(score, ypos, xpos, text);
+            mvwprintw(score_, ypos, xpos, text);
         }
         
-        int getSpriteColor(int sprite_index){ return spriteColor[sprite_index]; }
-
-        // make friend with Sprite so he can use those protected methods
-        friend class Sprite;
-        friend class Level;
+        int getSpriteColor(int sprite_index){ return spriteColor_[sprite_index]; }
 
     protected:
         // API for Sprite class only
@@ -61,19 +93,6 @@ namespace EvilMonkeys
         void setMap_(int** grid, int xSize, int ySize);
 
     private:
-        WINDOW *field;
-        WINDOW *score;
-        
-        // digitalize map of characters
-        int** map = NULL;
-        
-        int screenWidth, screenHeight, score_size;
-        
-        char spriteImages[16];
-        int spriteColor[16];
-        
-        char tileImages[16];
-        
         // inner methods
         bool gotoxy_(int xpos, int ypos);
         int cursorVisibility_(int visibility){ return curs_set(visibility); }

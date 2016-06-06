@@ -11,15 +11,22 @@
 
 #include "sprite.h"
 
-namespace EvilMonkeys {
+namespace Target {
+
+    using namespace EvilMonkeys;
+
     class Bomb : public Sprite
     {
-    public:
-        Bomb(DrawEngine *de, int sprite_index, float xpos, float ypos, int i_lives = 1);
-        
     protected:
-        
         void __idleUpdate(void);
+
+    public:
+        Bomb(DrawEngine *de, int sprite_index, float xpos, float ypos
+             , int i_lives = 1)
+        : Sprite(de, sprite_index, xpos, ypos, i_lives)
+        {
+            setClassID(BOMB_CLASSID);
+        }
     };
 }
 

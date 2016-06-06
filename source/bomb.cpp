@@ -6,37 +6,24 @@
 //  Copyright © 2016 badila. All rights reserved.
 //
 
-#include "bomb.h"
-
 #include "level.h"
 
-using namespace EvilMonkeys;
-
-Bomb::Bomb(DrawEngine *de, int sprite_index, float xpos, float ypos, int i_lives) : Sprite(de, sprite_index, xpos, ypos, i_lives)
+void Target::Bomb::__idleUpdate()
 {
-    
-    setClassID(BOMB_CLASSID);
-}
+    if ( hits( level_->player() ) && is(BOMB_CLASSID) )
+        // player collects the bomb
+        this->__addLives(-1);
 
-void Bomb::__idleUpdate()
-{
-    typename std::list<Sprite *>::const_iterator Iter = level->firstNPC();
-    typename std::list<Sprite *>::const_iterator itEnd = level->lastNPC();
-    
-    for( ; Iter != itEnd; ++Iter )
-    {
-        if (
-            (*Iter)->getClassID() != this->getClassID() &&
-            (int)(*Iter)->getX() == this->getX() &&
-            (int)(*Iter)->getY() == this->getY()
-            )
+    // not yet support early break or skip out element with range-for
+    for( auto& Iter : level_->NPC() )
+        if ( Iter->hits(this) )
         {
             // kill the enemy OR Fireball got hit
-            (*Iter)->__addLives(-1);
-            
-            // and kill itself
-            __addLives(-1);
+            Iter->__addLives(-1);
 
+            // and kill itself
+            this->__addLives(-1);
         }
-    }
+
 }
+

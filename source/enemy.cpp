@@ -6,13 +6,9 @@
 //  Copyright © 2016 phuong. All rights reserved.
 //
 
-#include "enemy.h"
-
 #include "level.h"
-using namespace EvilMonkeys;
 
-#include <stdlib.h>
-#include <math.h>
+using namespace EvilMonkeys;
 
 bool Enemy::__move(float xDir, float yDir)
 {
@@ -21,20 +17,15 @@ bool Enemy::__move(float xDir, float yDir)
 
     if (isValidLevelMove(xpos, ypos)) {
 
-        facingDirection.x = xDir;
-        facingDirection.y = yDir;
+        facingDirection_.x = xDir;
+        facingDirection_.y = yDir;
 
         // make sure we don't run into any other enemies;
-        typename std::list<Sprite *>::const_iterator Iter = level->firstNPC();
-        typename std::list<Sprite *>::const_iterator itEnd = level->lastNPC();
-
-        for ( ; Iter != itEnd; Iter++) {
-            if ((*Iter) != this && (*Iter)->matchCurrentLocation(xpos, ypos) && (*Iter)->getClassID() != BOMB_CLASSID) {
-
-                return false;
-            }
-        }
-
+        // not yet support early break or skip out element with range-for
+        for( auto& NPC : level_->NPC() )
+            if ( NPC->is(ENEMY_CLASSID) && NPC != this )
+                if ( NPC->matchCurrentLocation(xpos, ypos) )
+                    return false;
 
         erase_();
 
@@ -43,8 +34,8 @@ bool Enemy::__move(float xDir, float yDir)
         draw_();
 
         // hit and kill the player
-        if ((int)goal->getX() == xpos && (int)goal->getY() == ypos)
-            goal->__addLives(-1);
+        if ( this->hits(goal_) )
+            goal_->__addLives(-1);
 
         return true;
     }
@@ -57,14 +48,14 @@ void Enemy::__addLives(int num)
     Sprite::__addLives(num);
 
     //transform
-    setSpriteIndex(drawArea->registerSprite(SPRITE_ENEMY_1, '$', RED_BLACK));
+    setSpriteIndex(drawArea_->registerSprite(SPRITE_ENEMY_1, '$', RED_BLACK));
 }
 
 bool Enemy::__hookToLevel(Level* lvl, bool draw_at_once)
 {
     if (Sprite::__hookToLevel(lvl, draw_at_once))
     {
-        addGoal(level->getPlayer());
+        addGoal(level_->player());
 
         return true;
     }
@@ -74,18 +65,16 @@ bool Enemy::__hookToLevel(Level* lvl, bool draw_at_once)
 
 void Enemy::__idleUpdate()
 {
-    if (goal->getLives() > 0)
+    if (goal_->getLives() > 0)
         simulateAI_();
 }
 
 void Enemy::simulateAI_(void)
 {
-    vector goal_pos = goal->getPosition();
+    vector goal_pos = goal_->getPosition();
 
-    if (goal_pos.x == getX() && goal_pos.y == getY()) {
+    if ( this->hits(goal_) )
         __move(0, 0);
-        return;
-    }
 
     vector direction;
 
@@ -97,7 +86,7 @@ void Enemy::simulateAI_(void)
     direction.x = direction.x / (mag * 6);
     direction.y = direction.y / (mag * 6);
 
-    if ( level->checkMapTileEmpty( 0, (int)lround(direction.y) ) || level->checkMapTileEmpty( (int)lround(direction.x), 0 ) )
+    if ( level_->checkMapTileEmpty( 0, (int)lround(direction.y) ) || level_->checkMapTileEmpty( (int)lround(direction.x), 0 ) )
     {
         if (!__move(direction.x, direction.y))
             if (!__move(0, float(rand() % 3 - 1)))

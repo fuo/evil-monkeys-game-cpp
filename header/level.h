@@ -9,39 +9,31 @@
 #ifndef level_h
 #define level_h
 
+#include <memory>
 #include <list>
-
-#include "drawEngine.h"
-#include "character.h"
-
 #include <math.h>
 #include <iostream>
 
-#define PLAYER_CHAR '>'
-#define ENEMY_CHAR '$'
-#define BOMB_CHAR '*'
-
-#define WALL_CHAR ACS_CKBOARD | A_REVERSE
-#define EMPTY_CHAR ' '
-
-#define LEVEL_WIDTH 80
-#define LEVEL_HEIGHT 21
-
-#define DISTANCE_TO_PLAYER 9
-#define ESC_KEY 21
-
-#define CHANCE_OF_EMPTY_TILE 88
+#include "mage.h"
+#include "fireball.h"
+#include "enemy.h"
 
 namespace EvilMonkeys
 {
-    enum sprite_ID
-    {
-        SPRITE_PLAYER,
-        SPRITE_ENEMY,
-        SPRITE_FIREBALL,
-        SPRITE_BOMB,
-        SPRITE_ENEMY_1,
-    };
+    #define PLAYER_CHAR '>'
+    #define ENEMY_CHAR '$'
+    #define BOMB_CHAR '*'
+
+    #define WALL_CHAR ACS_CKBOARD | A_REVERSE
+    #define EMPTY_CHAR ' '
+
+    #define LEVEL_WIDTH 80
+    #define LEVEL_HEIGHT 21
+
+    #define DISTANCE_TO_PLAYER 9
+    #define ESC_KEY 21
+
+    #define CHANCE_OF_EMPTY_TILE 88
 
     enum backgroundTile_ID
     {
@@ -51,47 +43,66 @@ namespace EvilMonkeys
 
     class Level
     {
+        int width_;
+        int height_;
+
+        bool running_;
+
+        int maxBombsAllow_, numBombs_;
+        int numFireballs_;
+
+        unsigned long startTime_;
+        unsigned long elapsedTime_;
+
+        unsigned long lastTimeReload_;
+        std::list<Sprite *> NPC_sprites_;
+        int** digitalMap_;
+
+        // the first sprite that has isKeyPressExecuteAction method (the human control sprite index)
+        Character *player_;
+        
+        DrawEngine *drawArea_;
+
     public:
         Level(DrawEngine *de, int tile_wall = WALL_CHAR, int width = LEVEL_WIDTH, int height = LEVEL_HEIGHT);
         ~Level();
         
-        inline int getWidth(){ return width; }
-        inline int getHeight(){ return height; }
+        inline int getWidth(){ return width_; }
+        inline int getHeight(){ return height_; }
 
         bool checkMapTileEmpty(int xpos, int ypos, int excludeSpriteCLASSID = -1);
 
-        inline void addPlayer(Character *p){ player = p; }
+        inline bool addPlayer(Character *p){ player_ = p; return player_ != nullptr; }
         
-        inline Character* getPlayer(){ return player; }
+        inline Character* const player(){ return player_; }
 
         void update(unsigned long time);
         
-        void setLastTimeReload(unsigned long time){ lastTimeReload = time; }
-        unsigned long getLastTimeReload(){ return lastTimeReload; }
+        void setLastTimeReload(unsigned long time){ lastTimeReload_ = time; }
+        unsigned long getLastTimeReload(){ return lastTimeReload_; }
 
-        unsigned long getElapsedTime(){ return elapsedTime; }
+        unsigned long getElapsedTime(){ return elapsedTime_; }
 
         bool isKeyPressExecuteAction(int key);
 
         inline int gen_xpos(int width){ return (int)lround((float(rand() % 100) / 100) * (width - 4) + 1); }
         inline int gen_ypos(int height){ return (int)lround((float(rand() % 100) / 100) * (height - 4) + 1); }
 
-        inline bool isPaused(){ return !running; }
-        inline void pause(){ refreshStatuses_(); running = false; }
+        inline bool isPaused(){ return !running_; }
+        inline void pause(){ refreshStatuses_(); running_ = false; }
 
-        std::list<Sprite *>::const_iterator firstNPC(){ return NPC_sprites.begin(); }
-        std::list<Sprite *>::const_iterator lastNPC(){ return NPC_sprites.end(); }
+        auto const NPC(){ return NPC_sprites_; }
 
         bool spawnNPC(int sprite_index, int distanceToGoal = DISTANCE_TO_PLAYER, int xpos = -1, int ypos = -1, float xface = 0, float yface = 0);
 
-        int getNumFireballs(){ return numFireballs; }
-        int getNumBombs(){ return numBombs; }
-        int getMaxBombsAllow(){ return maxBombsAllow; }
-        void updateNumBombs(int num){ numBombs += num; }
-        void updateNumFireballs(int num){ numFireballs += num; }
+        int getNumFireballs(){ return numFireballs_; }
+        int getNumBombs(){ return numBombs_; }
+        int getMaxBombsAllow(){ return maxBombsAllow_; }
+        void updateNumBombs(int num){ numBombs_ += num; }
+        void updateNumFireballs(int num){ numFireballs_ += num; }
 
-        inline void addNPC(Sprite *spr){ NPC_sprites.push_back(spr); }
-        inline void removeNPC(Sprite* spr){ delete spr; NPC_sprites.remove(spr); }
+        inline void addNPC(Sprite *spr){ NPC_sprites_.push_back(spr); }
+        inline void removeNPC(Sprite* spr){ delete spr; NPC_sprites_.remove(spr); }
 
     protected:
         void setMapTile_(int wall);
@@ -100,28 +111,6 @@ namespace EvilMonkeys
         int** const generatedDigitalMap_(int wall_density);
 
     private:
-        int width;
-        int height;
-
-        bool running;
-
-        int maxBombsAllow, numBombs;
-        int numFireballs;
-
-        unsigned long startTime;
-        unsigned long elapsedTime;
-
-        unsigned long lastTimeReload;
-        std::list <Sprite *> NPC_sprites;
-        std::list <Sprite *>::const_iterator sprite_Iter;
-        
-        int** digitalMap = NULL;
-        
-        // the first sprite that has isKeyPressExecuteAction method (the human control sprite index)
-        Character *player;
-        
-        DrawEngine *drawArea;
-
         void refreshStatuses_(void);
     };
 

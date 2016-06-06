@@ -13,17 +13,6 @@
 
 namespace EvilMonkeys
 {
-    enum
-    {
-        SPRITE_CLASSID,
-        CHARACTER_CLASSID,
-        ENEMY_CLASSID,
-        FIREBALL_CLASSID,
-        MAGE_CLASSID,
-        BOMB_CLASSID,
-        EVILMONKEY_CLASSID,
-    };
-
     struct vector
     {
         float x;
@@ -34,27 +23,55 @@ namespace EvilMonkeys
 
     class Sprite
     {
+        int spriteIndex_;
+        
+    protected:
+        vector pos_;
+        vector facingDirection_;
+
+        int numLives_, classID_;
+        bool isNPC_;
+        DrawEngine* drawArea_;
+        Level* level_;
+
     public:
-        Sprite(DrawEngine* de, int sprite_index, float xpos = 1, float ypos= 1, int i_lives = 1);
+        Sprite(DrawEngine* de, int sprite_index, float xpos = 1, float ypos= 1, int i_lives = 1)
+        : classID_{SPRITE_CLASSID}
+        , drawArea_{de}
+        , spriteIndex_{sprite_index}
+        , numLives_{i_lives}
+        , isNPC_{true}
+        , pos_{xpos, ypos}
+        , facingDirection_{1, 0}
+        {
+
+        }
         
         ~Sprite(){
             // erase the dying sprites
             erase_();
+
+            // and re-draw the still alive sprite that happen to be on the same spot of the dying sprite (in case of pick up something)
         }
         
-        inline vector getPosition(void){ return pos; }
-        inline float getX(void){ return pos.x; }
-        inline float getY(void){ return pos.y; }
-        inline void setPosition(float x, float y) { pos.x = x; pos.y = y; }
-        inline void setFacingDirection(float x, float y) { facingDirection.x = x; facingDirection.y = y; }
+        inline vector getPosition(void){ return pos_; }
+        inline float getX(void){ return pos_.x; }
+        inline float getY(void){ return pos_.y; }
+        inline void setPosition(float x, float y) { pos_.x = x; pos_.y = y; }
+        inline void resetPosition(){ setPosition(1, 1); draw_(); }
+        inline void setFacingDirection(float x, float y) { facingDirection_.x = x; facingDirection_.y = y; }
+        inline float getFaceX(void){ return facingDirection_.x; }
+        inline float getFaceY(void){ return facingDirection_.y; }
 
-        inline void setSpriteIndex(int new_index){ spriteIndex = new_index; }
+        inline void setSpriteIndex(int new_index){ spriteIndex_ = new_index; }
         bool matchCurrentLocation(int xpos, int ypos);
-        bool matchCurrentFacingDir(float xDir, float yDir);
+        bool matchCurrentFacingDir(vector dir = {0,0});
 
-        inline int getLives(void){ return numLives; }
+        inline int getLives(void){ return numLives_; }
 
-        virtual void __addLives(int num = 1){ numLives += num; }
+        inline virtual void __addLives(int num = 1){ numLives_ += num; }
+
+        inline auto const getLevel(){ return level_; }
 
         inline virtual void __idleUpdate(void)
         {
@@ -65,33 +82,24 @@ namespace EvilMonkeys
         }
         virtual bool __move(float xDir, float yDir);
         
-        inline int getClassID(void){ return classID; }
-        inline void setClassID(int id){ classID = id; }
+        inline int getClassID(void){ return classID_; }
+        inline void setClassID(int id){ classID_ = id; }
 
-        inline void nonNPC(){ isNPC = false; }
+        inline bool is(int id){ return classID_ == id; }
+
+        inline void nonNPC(){ isNPC_ = false; }
 
         bool isValidLevelMove(int xpos, int ypos);
 
-        
+        bool hits(Sprite* other);
+
         virtual bool __hookToLevel(Level* lvl, bool draw_at_once = true);
-    protected:
-        vector pos;
-        vector facingDirection;
-        
-        int numLives, classID;
-        bool isNPC;
-        DrawEngine* drawArea;
-        Level* level;
-        
+
         void draw_(float x = -1, float y = -1);
 
-        inline void erase_(void){
-            drawArea->eraseSprite_((int)pos.x, (int)pos.y);
-        }
+    protected:
+        virtual void erase_(void);
 
-
-    private:
-        int spriteIndex;
     };
 }
 #endif /* sprite_h */

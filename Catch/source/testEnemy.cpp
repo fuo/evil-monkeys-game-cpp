@@ -99,7 +99,7 @@ SCENARIO("--Enemy will hunt down a character--", "[enemy]")
                 {
                     delete player;
                     
-                    player = new Mage(&de, SPRITE_PLAYER);
+                    player = new Target::Mage(&de, SPRITE_PLAYER);
 
                     player->EvilMonkeys::Sprite::__hookToLevel(lvl);
 
@@ -111,7 +111,7 @@ SCENARIO("--Enemy will hunt down a character--", "[enemy]")
                     {
 //                        lvl->addNPC_(sprite_enemy);
 
-                        Fireball* ball = new Fireball(&de, SPRITE_FIREBALL, evilMonkey->getX(), evilMonkey->getY(), 0, 0);
+                        Target::Fireball* ball = new Target::Fireball(&de, SPRITE_FIREBALL, evilMonkey->getX(), evilMonkey->getY(), 0, 0);
                         
                         sprite_enemy = ball;
                         
@@ -132,15 +132,13 @@ SCENARIO("--Enemy will hunt down a character--", "[enemy]")
                     }
                     AND_WHEN("ii) the fireball hits the wall")
                     {
-                        typename std::list<Sprite *>::const_iterator Iter = lvl->firstNPC();
-                        typename std::list<Sprite *>::const_iterator itEnd = lvl->lastNPC();
+
+                        Target::Fireball* theBall = nullptr;
                         
-                        Fireball* theBall = nullptr;
-                        
-                        for( ; Iter != itEnd; ++Iter )
+                        for( auto& Iter : lvl->NPC() )
                         {
-                            if ((*Iter)->getClassID() == FIREBALL_CLASSID && lvl->getNumFireballs() == 1) {
-                                theBall = (Fireball*)(*Iter);
+                            if (Iter->getClassID() == FIREBALL_CLASSID && lvl->getNumFireballs() == 1) {
+                                theBall = (Target::Fireball*)Iter;
                                 break;
                             }
                         }

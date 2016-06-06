@@ -6,111 +6,65 @@
 //  Copyright © 2016 phuong. All rights reserved.
 //
 
-#include "mage.h"
-
 #include "level.h"
-#include "fireball.h"
-#include "bomb.h"
 
-using namespace EvilMonkeys;
+namespace Target {
 
-Mage::Mage(DrawEngine *de, int sprite_index, float xpos, float ypos,
-           int lives, char spellK, char reloadK, char bombK, int up_key, int down_key, int left_key, int right_key) : Character(de, sprite_index, xpos, ypos, lives, up_key, down_key, left_key, right_key)
-{
-    spellKey = spellK;
-    bombKey = bombK;
-    reloadKey = reloadK;
-    setClassID(MAGE_CLASSID);
-}
+    using namespace EvilMonkeys;
 
-bool Mage::__isKeyPressExecuteAction(int key)
-{
-    if (!Character::__isKeyPressExecuteAction(key))
+    bool Mage::__isKeyPressExecuteAction(int key)
     {
-        if (key == spellKey)
+        if (!Character::__isKeyPressExecuteAction(key))
         {
-            if (level->getLastTimeReload() != 0 && level->getElapsedTime() - level->getLastTimeReload() < COOL_DOWN_RELOAD_IN_MILISECOND)
-                return false;
-
-            if(level->getNumFireballs() > 0)
+            if (key == spellKey_)
             {
-                typename std::list<Sprite *>::const_iterator Iter = level->firstNPC();
-                typename std::list<Sprite *>::const_iterator itEnd = level->lastNPC();
+                if (level_->getLastTimeReload() != 0 && level_->getElapsedTime() - level_->getLastTimeReload() < COOL_DOWN_RELOAD_IN_MILISECOND)
+                    return false;
 
-                for( ; Iter != itEnd; ++Iter )
-                    if ( (*Iter)->getClassID() == FIREBALL_CLASSID )
-                    {
-                        if ( (*Iter)->matchCurrentFacingDir(facingDirection.x, facingDirection.y) )
-                        {
-                            if (level->getNumFireballs() < ammoCartridge)
-                                return castSpell_();
-                            else
-                                return false;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
+                if( level_->getNumFireballs() > 0 )
+                {
+                    for( auto& Iter : level_->NPC() )
+                        if ( Iter->is(FIREBALL_CLASSID) && Iter->matchCurrentFacingDir() )
+                            return castSpell_();
+
+                    return false;
+                }
+
+                return castSpell_();
             }
 
+            if (key == reloadKey_) {
+                level_->setLastTimeReload(level_->getElapsedTime());
+                return ammoCartridge_ = FULL_AMMO;
+            }
 
-            if (level->getNumFireballs() < ammoCartridge)
-                return castSpell_();
-            else
-                return false;
+            if (key == bombKey_) {
+                if( level_->getMaxBombsAllow() - level_->getNumBombs() < 1 )
+                    return false;
 
+                return level_->spawnNPC( drawArea_->registerSprite(SPRITE_BOMB), -1, int(getX() - facingDirection_.x), int(getY() - facingDirection_.y) );
+            }
         }
-
-        if (key == reloadKey) {
-            level->setLastTimeReload(level->getElapsedTime());
-            return reload_();
-        }
-
-        if (key == bombKey) {
-            if( level->getMaxBombsAllow() - level->getNumBombs() < 1 )
-                return false;
-
-            return castBomb_();
-        }
-    }
-    return true;
-}
-
-bool Mage::castBomb_()
-{
-    if( level->spawnNPC( drawArea->registerSprite(SPRITE_BOMB), -1, int(getX() - facingDirection.x), int(getY() - facingDirection.y) ) )
-    {
-        level->updateNumBombs(1);
         return true;
     }
 
-    return false;
-}
-
-bool Mage::reload_()
-{
-
-    ammoCartridge = FULL_AMMO;
-
-    return true;
-}
-
-bool Mage::castSpell_()
-{
-    if ( matchCurrentFacingDir(0, -1) || matchCurrentFacingDir(0, 1) ) {
-        drawArea->registerSprite(SPRITE_FIREBALL, '|');
-    }
-    if ( matchCurrentFacingDir(-1, 0) || matchCurrentFacingDir(1, 0) ) {
-        drawArea->registerSprite(SPRITE_FIREBALL, '-');
-    }
-
-    if ( level->spawnNPC( drawArea->registerSprite(SPRITE_FIREBALL), -1, int(getX() + facingDirection.x), int(getY() + facingDirection.y), facingDirection.x, facingDirection.y ) )
+    bool Mage::castSpell_()
     {
-        level->updateNumFireballs(1);
-        updateAmmoCartridge(-1);
-        return true;
+        vector left {-1, 0};
+        vector right {1, 0};
+        vector up {0, -1};
+        vector down {0, 1};
+
+        if ( matchCurrentFacingDir(up) || matchCurrentFacingDir(down) )
+            drawArea_->registerSprite(SPRITE_FIREBALL, '|');
+
+        if ( matchCurrentFacingDir(left) || matchCurrentFacingDir(right) )
+            drawArea_->registerSprite(SPRITE_FIREBALL, '-');
+
+        if (level_->getNumFireballs() < ammoCartridge_)
+            return level_->spawnNPC(drawArea_->registerSprite(SPRITE_FIREBALL), -1, int(getX() + facingDirection_.x), int(getY() + facingDirection_.y), facingDirection_.x, facingDirection_.y);
+
+        return false;
     }
-    
-    return false;
+
 }

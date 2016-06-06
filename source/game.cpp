@@ -8,10 +8,6 @@
 
 #include "game.h"
 
-#include "level.h"
-#include "drawEngine.h"
-#include "mage.h"
-
 #include <sys/time.h>
 
 bool kbhit(void);
@@ -20,25 +16,23 @@ bool getKeyInput(int& key);
 void EvilMonkeys::Game::run(DrawEngine* drawArea)
 {
     //setup a new world
-    world = new Level(drawArea);
+    world = std::make_shared<Level>(drawArea);
 
-    int playerSprite = drawArea->registerSprite(SPRITE_PLAYER, PLAYER_CHAR, GREEN_BLACK);
+    auto playerSprite { drawArea->registerSprite(SPRITE_PLAYER, PLAYER_CHAR, GREEN_BLACK) };
 
-    Sprite* hero = new Mage(drawArea, playerSprite);
-    hero->__hookToLevel(world);
+    std::unique_ptr<Sprite> hero{ std::make_unique<Mage>(drawArea, playerSprite) };
+    hero->__hookToLevel( world.get() );
 
-    int enemySprite = drawArea->registerSprite(SPRITE_ENEMY, ENEMY_CHAR, YELLOW_BLACK);
-    for (int i = 0; i < NUM_ENEMY; ++i) {
-        world->spawnNPC(enemySprite);
-    }
+    auto enemySprite { drawArea->registerSprite(SPRITE_ENEMY, ENEMY_CHAR, YELLOW_BLACK) };
+    for (int i{0}; i < NUM_ENEMY; ++i)
+        world->spawnNPC( enemySprite );
 
-    int bombSprite = drawArea->registerSprite(SPRITE_BOMB, BOMB_CHAR);
-    for (int i = 0; i < NUM_BOMB; ++i) {
-        world->spawnNPC(bombSprite);
-    }
+    auto bombSprite { drawArea->registerSprite(SPRITE_BOMB, BOMB_CHAR) };
+    for (int i{0}; i < NUM_BOMB; ++i)
+        world->spawnNPC( bombSprite );
 
-    double lastTime = 0;
-    int key = ' ';
+    auto lastTime = double{0};
+    auto key = int{' '};
 
     nodelay(stdscr, TRUE);
 
@@ -57,18 +51,15 @@ void EvilMonkeys::Game::run(DrawEngine* drawArea)
         
         // pass the pressed key to the level
         world->isKeyPressExecuteAction(key);
-
     }
-
-    delete world;
 }
 
 void EvilMonkeys::Game::timerUpdate_(double & lastTime)
 {
-    timeval* tv = new timeval();
-    gettimeofday(tv, 0);
-    
-    double currentTime = (tv->tv_sec + double(tv->tv_usec)/1000000.0)*1000 - lastTime;
+    auto tv { std::make_unique<timeval>() };
+    gettimeofday( tv.get(), nullptr );
+
+    auto currentTime { (tv->tv_sec + double(tv->tv_usec)/1000000.0)*1000 - lastTime };
     
     if (currentTime < GAME_SPEED)
         return;
@@ -80,7 +71,7 @@ void EvilMonkeys::Game::timerUpdate_(double & lastTime)
     
     //----------------------------------
     
-    gettimeofday(tv, 0);
+    gettimeofday( tv.get(), nullptr );
     lastTime = (tv->tv_sec + double(tv->tv_usec)/1000000.0)*1000;
 }
 
@@ -98,7 +89,7 @@ bool getKeyInput(int & key)
 
 bool kbhit()
 {
-    int ch = getch();
+    auto ch {getch()};
     
     if (ch != ERR)
     {

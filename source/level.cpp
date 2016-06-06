@@ -7,92 +7,84 @@
 //
 
 #include "game.h"
+
 #include "level.h"
 
-#include "mage.h"
-#include "fireball.h"
-#include "enemy.h"
 using namespace EvilMonkeys;
 
 Level::Level(DrawEngine *de, int wallTile, int w, int h)
+: drawArea_{de}
+, running_{false}
+, width_{w}
+, height_{h}
+, startTime_{0}
+, elapsedTime_{0}
+, lastTimeReload_{0}
+, maxBombsAllow_{0}
+, numBombs_{0}
+, player_{nullptr}
 {
-    drawArea = de;
-    
-    running = false;
-    
-    width = w;
-    height = h;
-    
-    startTime = 0;
-    elapsedTime = 0;
-    lastTimeReload = 0;
-
-    maxBombsAllow = 0;
-    numBombs = 0;
-
-    player = nullptr;
-
     setMapTile_(wallTile);
     draw_( generatedDigitalMap_(100 - CHANCE_OF_EMPTY_TILE) );
 }
 
 Level::~Level()
 {
-    delete player;
-    
     // del memeory for the created digital map
-    for (int x; x < width; x++)
-        delete [] digitalMap[x];
+    for (int x; x < width_; x++)
+        delete [] digitalMap_[x];
     
-    delete [] digitalMap;
-    
-    for (sprite_Iter = NPC_sprites.begin(); sprite_Iter != NPC_sprites.end(); sprite_Iter++)
-        delete (*sprite_Iter);
+    delete [] digitalMap_;
+
+    for (auto& sprite_Iter : NPC_sprites_)
+        delete sprite_Iter;
 }
+
+
 
 int** const Level::generatedDigitalMap_(int wall_density)
 {
-    if (digitalMap != NULL)
-        return digitalMap;
+    if (digitalMap_ != NULL)
+        return digitalMap_;
     
     // create memory for our digital map
-    digitalMap = new int *[width];
+    digitalMap_ = new int *[width_];
     
-    for (int x = 0; x < width; x++)
-        digitalMap[x] = new int[height];
+    for (int x = 0; x < width_; x++)
+        digitalMap_[x] = new int[height_];
     
-    for (int x = 0; x < width - 2; x++)
-        for (int y = 0; y < height; y++)
+    for (int x = 0; x < width_ - 2; x++)
+        for (int y = 0; y < height_; y++)
         {
             int random = rand() % 100;
             
-            if (y == 0 || y == height - 2 || x == 0 || x == width - 3)
+            if (y == 0 || y == height_ - 2 || x == 0 || x == width_ - 3)
             {
-                digitalMap[x][y] = TILE_WALL;
+                digitalMap_[x][y] = TILE_WALL;
             }
             else
             {
                 if (random < 100 - wall_density || (x < 3 && y < 3))
-                    digitalMap[x][y] = TILE_EMPTY;
+                    digitalMap_[x][y] = TILE_EMPTY;
                 else
-                    digitalMap[x][y] = TILE_WALL;
+                    digitalMap_[x][y] = TILE_WALL;
             }
             
         }
     
-    return digitalMap;
+    return digitalMap_;
 }
 
 void Level::setMapTile_(int wall)
 {
-    drawArea->createBackgroundTile_(TILE_WALL, wall);
-    drawArea->createBackgroundTile_(TILE_EMPTY, EMPTY_CHAR);
+    drawArea_->createBackgroundTile_(TILE_WALL, wall);
+    drawArea_->createBackgroundTile_(TILE_EMPTY, EMPTY_CHAR);
 }
 
 void Level::draw_(int** const generatedMap)
 {
-    drawArea->setMap_(generatedMap, width, height);
-    drawArea->drawBackground_();
+    drawArea_->setMap_(generatedMap,width_, height_);
+    drawArea_->drawBackground_();
 }
 
 bool Level::isKeyPressExecuteAction(int key)
@@ -101,13 +93,13 @@ bool Level::isKeyPressExecuteAction(int key)
         ESCDELAY = 25;
 
     if (key == ESC_KEY) {
-        running = !running;
+        running_ = !running_;
         return false;
     }        
     
-    if (player->getLives() > 0)
-        if (player->__isKeyPressExecuteAction(key)){
-            running = true;
+    if (player_->getLives() > 0)
+        if (player_->__isKeyPressExecuteAction(key)){
+            running_ = true;
             return true;
         }
     
@@ -119,13 +111,9 @@ void Level::refreshStatuses_()
     int no_of_enemies = 0;
     int no_of_bombs = 0;
 
-
-    typename std::list<Sprite *>::const_iterator Iter = NPC_sprites.begin();
-    typename std::list<Sprite *>::const_iterator itEnd = NPC_sprites.end();
-
-    for( ; Iter != itEnd; ++Iter )
+    for( auto& Iter : NPC_sprites_ )
     {
-        switch ( (*Iter)->getClassID() ) {
+        switch ( Iter->getClassID() ) {
             case ENEMY_CLASSID:
                 no_of_enemies++;
                 break;
@@ -142,80 +130,77 @@ void Level::refreshStatuses_()
     std::string tmp = std::to_string(no_of_enemies);
 
     if (no_of_enemies > 9) {
-        drawArea->printScore(tmp.c_str(), 11);
-        drawArea->printScore("enemy", 15);
+        drawArea_->printScore(tmp.c_str(), 11);
+        drawArea_->printScore("enemy", 15);
     } else {
-        drawArea->printScore(" ", 11);
-        drawArea->printScore(tmp.c_str(), 12);
-        drawArea->printScore("enemy", 14);
+        drawArea_->printScore(" ", 11);
+        drawArea_->printScore(tmp.c_str(), 12);
+        drawArea_->printScore("enemy", 14);
     }
 
-    tmp = std::to_string(player->getLives());
+    tmp = std::to_string(player_->getLives());
 
-    drawArea->printScore(tmp.c_str(), 22);
-    drawArea->printScore(" lives", 23);
+    drawArea_->printScore(tmp.c_str(), 22);
+    drawArea_->printScore(" lives", 23);
 
-    tmp = std::to_string(maxBombsAllow - numBombs);
+    tmp = std::to_string(maxBombsAllow_ - numBombs_);
 
-    if (maxBombsAllow - numBombs > 9) {
-        drawArea->printScore(tmp.c_str(), 31);
-        drawArea->printScore("bombs", 34);
+    if (maxBombsAllow_ - numBombs_ > 9) {
+        drawArea_->printScore(tmp.c_str(), 31);
+        drawArea_->printScore("bombs", 34);
     } else {
-        drawArea->printScore(" ", 31);
-        drawArea->printScore(tmp.c_str(), 32);
-        drawArea->printScore("bombs", 34);
+        drawArea_->printScore(" ", 31);
+        drawArea_->printScore(tmp.c_str(), 32);
+        drawArea_->printScore("bombs", 34);
     }
 
     tmp = std::to_string(no_of_bombs);
     if (no_of_bombs > 9) {
-        drawArea->printScore(tmp.c_str(), 42);
-        drawArea->printScore("bombs avail", 44);
+        drawArea_->printScore(tmp.c_str(), 42);
+        drawArea_->printScore("bombs avail", 44);
     } else{
-        drawArea->printScore(" ", 42);
-        drawArea->printScore(tmp.c_str(), 43);
-        drawArea->printScore("bombs avail", 44);
+        drawArea_->printScore(" ", 42);
+        drawArea_->printScore(tmp.c_str(), 43);
+        drawArea_->printScore("bombs avail", 44);
     }
 
-    tmp = std::to_string(((Mage*)player)->getAmmoCartridge());
-    drawArea->printScore(tmp.c_str(), 60);
-    drawArea->printScore("ammo", 62);
+    tmp = std::to_string(((Mage*)player_)->getAmmoCartridge());
+    drawArea_->printScore(tmp.c_str(), 60);
+    drawArea_->printScore("ammo", 62);
 }
 
 void Level::update(unsigned long timing)
 {
-    if (startTime == 0)
-        startTime = timing;
+    if (startTime_ == 0)
+        startTime_ = timing;
     
-    elapsedTime = timing - startTime;
+    elapsedTime_ = timing - startTime_;
     
-    std::string seconds = std::to_string(elapsedTime/1000);
+    std::string seconds = std::to_string(elapsedTime_/1000);
     
-    drawArea->printScore(seconds.c_str(), 1);
-    drawArea->printScore("secs", 4);
+    drawArea_->printScore(seconds.c_str(), 1);
+    drawArea_->printScore("secs", 4);
 
     refreshStatuses_();
 
-    drawArea->printScore("running", 72);
+    drawArea_->printScore("running", 72);
     
     // simulate all NPC while idle time
-    for (sprite_Iter = NPC_sprites.begin(); sprite_Iter != NPC_sprites.end(); sprite_Iter++) {
-        
+    for (auto sprite_Iter = begin(NPC_sprites_); sprite_Iter != end(NPC_sprites_); sprite_Iter++)
+    {
         (*sprite_Iter)->__idleUpdate();
         
-        if ((*sprite_Iter)->getLives() < 1) {
-            
+        if ((*sprite_Iter)->getLives() < 1)
             removeNPC(*sprite_Iter--);
-
-        }
     }
 }
 
 bool Level::checkMapTileEmpty(int xpos, int ypos, int excludeSpriteIndex)
 {
     if (excludeSpriteIndex == SPRITE_PLAYER)
-        return !(player->getX() == xpos && player->getY() == ypos);
+        return !player_->matchCurrentLocation(xpos, ypos);
 
-    if ( xpos > width || xpos < 0 || ypos > height || ypos < 0)
+    if ( xpos > width_ || xpos < 0 || ypos > height_ || ypos < 0)
         return false;
 
     int excludeSpriteCLASSID = excludeSpriteIndex;
@@ -234,16 +219,12 @@ bool Level::checkMapTileEmpty(int xpos, int ypos, int excludeSpriteIndex)
             break;
     }
 
-    if (excludeSpriteCLASSID >= 0)
-        for( typename std::list<Sprite *>::const_iterator Iter = NPC_sprites.begin(), itEnd = NPC_sprites.end(); Iter != itEnd; ++Iter )
-            if (
-                (int)(*Iter)->getX() == xpos &&
-                (int)(*Iter)->getY() == ypos &&
-                (*Iter)->getClassID() == excludeSpriteCLASSID
-                )
+    if ( excludeSpriteCLASSID >= 0 )
+        for( auto& Iter : NPC_sprites_ )
+            if ( Iter->matchCurrentLocation(xpos, ypos) && Iter->is(excludeSpriteCLASSID) )
                 return false;
 
-    return digitalMap[xpos][ypos] == TILE_EMPTY;
+    return digitalMap_[xpos][ypos] == TILE_EMPTY;
 }
 
 bool Level::spawnNPC(int sprite_index, int distanceToGoal, int xpos, int ypos, float xface, float yface)
@@ -251,39 +232,39 @@ bool Level::spawnNPC(int sprite_index, int distanceToGoal, int xpos, int ypos, f
     if (xpos == -1)
     {
         if (ypos != -1)
-            do {xpos = gen_xpos(width);}
-        while ( !checkMapTileEmpty(xpos, ypos, sprite_index) || !player->checkSafeSpawnPosition(xpos, ypos, distanceToGoal) );
+            do { xpos = gen_xpos(width_); }
+            while ( !checkMapTileEmpty(xpos, ypos, sprite_index) || !player_->checkSafeSpawnPosition(xpos, ypos, distanceToGoal) );
         else
-            do {xpos = gen_xpos(width); ypos = gen_ypos(height);}
-        while ( !checkMapTileEmpty(xpos, ypos, sprite_index) || !player->checkSafeSpawnPosition(xpos, ypos, distanceToGoal) );
+            do { xpos = gen_xpos(width_); ypos = gen_ypos(height_); }
+            while ( !checkMapTileEmpty(xpos, ypos, sprite_index) || !player_->checkSafeSpawnPosition(xpos, ypos, distanceToGoal) );
     }
 
     if (ypos == -1)
     {
         if(xpos != -1)
-            do {ypos = gen_ypos(height);}
-        while ( !checkMapTileEmpty(xpos, ypos, sprite_index) || !player->checkSafeSpawnPosition(xpos, ypos, distanceToGoal) );
+            do { ypos = gen_ypos(height_); }
+            while ( !checkMapTileEmpty(xpos, ypos, sprite_index) || !player_->checkSafeSpawnPosition(xpos, ypos, distanceToGoal) );
         else
-            do {xpos = gen_xpos(width); ypos = gen_ypos(height);}
-        while ( !checkMapTileEmpty(xpos, ypos, sprite_index) || !player->checkSafeSpawnPosition(xpos, ypos, distanceToGoal) );
+            do { xpos = gen_xpos(width_); ypos = gen_ypos(height_); }
+            while ( !checkMapTileEmpty(xpos, ypos, sprite_index) || !player_->checkSafeSpawnPosition(xpos, ypos, distanceToGoal) );
     }
 
-    if (!checkMapTileEmpty(xpos, ypos, sprite_index) || !player->checkSafeSpawnPosition(xpos, ypos, distanceToGoal))
+    if ( !checkMapTileEmpty(xpos, ypos, sprite_index) || !player_->checkSafeSpawnPosition(xpos, ypos, distanceToGoal) )
         return false;
 
-    Sprite* temp = nullptr;
+    Sprite* temp;
 
     switch (sprite_index) {
         case SPRITE_ENEMY:
-            temp = new Enemy(drawArea, sprite_index, (float)xpos, float(ypos));
+            temp = new Enemy(drawArea_, sprite_index, (float)xpos, float(ypos));
             break;
 
         case SPRITE_BOMB:
-            temp = new Bomb(drawArea, sprite_index, (float)xpos, (float)ypos);
+            temp = new Bomb(drawArea_, sprite_index, (float)xpos, (float)ypos);
             break;
 
         case SPRITE_FIREBALL:
-            temp = new Fireball(drawArea, sprite_index, float(xpos - xface), float(ypos - yface), xface, yface);
+            temp = new Fireball(drawArea_, sprite_index, float(xpos - xface), float(ypos - yface), xface, yface);
             break;
 
         default:
