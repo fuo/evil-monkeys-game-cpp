@@ -124,5 +124,8 @@ namespace EvilMonkeys
 
         void refreshStatuses_(void);
     };
+
+#include "countingAspect.h"
+
 }
 #endif /* level_h */

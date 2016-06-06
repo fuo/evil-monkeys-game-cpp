@@ -6,6 +6,7 @@
 //  Copyright © 2016 phuong. All rights reserved.
 //
 
+#include "game.h"
 #include "level.h"
 
 #include "mage.h"
